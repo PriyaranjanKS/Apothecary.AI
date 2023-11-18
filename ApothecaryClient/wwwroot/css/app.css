@@ -20,6 +20,7 @@ body {
     max-width: 30%;
     padding: 20px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -40,6 +41,7 @@ body {
 .uploaded-image {
     max-width: 100%;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .registration-container {
@@ -58,10 +60,10 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    background: linear-gradient(to right, #f9f1e7, #008080); /* Gradient from yellowish to #008080 */
-    padding: 10px; /* Adjust padding as needed */
-    border-radius: 5px; /* Optional: rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
+    background: linear-gradient(to right, #f9f1e7, #008080);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .registration-title {
@@ -90,7 +92,7 @@ body {
 .form-row {
     display: flex;
     justify-content: space-between;
-    gap: 20px; /* Space between form columns */
+    gap: 20px;
 }
 
 .form-column {
@@ -114,25 +116,25 @@ body {
     font-size: 18px;
     margin-bottom: 10px;
     font-weight: 500;
-    color: #ffffff; /* White text color for better visibility on gradient background */
+    color: #ffffff;
     text-align: center;
-    display: block; /* Full width */
-    background: linear-gradient(to right, #f9f1e7, #008080); /* Gradient from yellowish to #008080 */
-    padding: 10px; /* Padding for some space around the text */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); /* Optional: Adds depth with a shadow */
-    width: 100%; /* Ensure full width for the background */
+    display: block;
+    background: linear-gradient(to right, #f9f1e7, #008080);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    width: 100%;
 }
 
 .form-group {
     margin-bottom: 15px;
-    text-align: left; /* Align form labels to the left */
+    text-align: left;
 }
 
 label {
     font-weight: bold;
     display: block;
-    text-align: left; /* Left-aligned labels */
+    text-align: left;
     margin-bottom: 5px;
 }
 
@@ -151,24 +153,89 @@ label {
 .submit-button {
     background-color: #008080;
     color: #ffffff;
-    padding: 10px 20px; /* Standard padding for buttons */
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    display: inline-block; /* Make the button inline */
-    width: auto; /* Auto width based on content */
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); /* Optional: Adds depth to the button */
-    text-align: center; /* Center the text inside the button */
-    /* Add margins for alignment and spacing */
-    margin: 0 auto; /* Center button horizontally */
-    display: block; /* Centering requires block display */
+    display: inline-block;
+    width: auto;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 0 auto;
+    display: block;
 }
 
     .submit-button:hover {
         background-color: #005050;
     }
+
+/* Overlay styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-content,
+.translation-overlay-content {
+    text-align: center;
+    color: #0f5132;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: auto;
+    max-width: 80%;
+}
+
+.spinner {
+    margin-bottom: 10px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
@@ -189,7 +256,7 @@ label {
     }
 
     .form-column {
-        width: 100%; /* Full width on small screens */
+        width: 100%;
     }
 
     .header {

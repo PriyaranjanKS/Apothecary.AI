@@ -1,32 +1,54 @@
 ﻿@page "/registration"
+@inject TranslationService TranslationService
 @using System.ComponentModel.DataAnnotations
 @using System.Text;
 @using ApothecaryShared
 @using Newtonsoft.Json
 @inject HttpClient HttpClient
 
+@if (isProcessing)
+{
+    <div class="overlay">
+        <div class="overlay-content">
+            <!-- This now uses the same class as translation -->
+            <div class="spinner"></div> <!-- If you have a spinner for the processing state -->
+            <p>Extracting the ID Card Content, Please wait...</p>
+        </div>
+    </div>
+}
+
+@if (isTranslating)
+{
+    <div class="overlay">
+        <div class="overlay-content">
+            <!-- Updated class name for consistency -->
+            <div class="spinner"></div> <!-- Spinner is already centrally aligned with updated CSS -->
+            <p>Processing language translation, Please wait...</p>
+        </div>
+    </div>
+}
 <div class="registration-page">
     <div class="image-upload-container">
-        <div class="neumorphic">
-            <label for="fileUpload" class="upload-label">Upload ID:</label>
-            <InputFile id="fileUpload" OnChange="HandleFileUpload" class="form-control-file" />
-            @if (!string.IsNullOrEmpty(imageUrl))
-            {
-                <img src="@imageUrl" alt="Uploaded Image" class="uploaded-image" />
-            }
-        </div>
+        <label for="fileUpload">@translations["UploadID"]</label>
+        <InputFile id="fileUpload" OnChange="HandleFileUpload" class="form-control-file" />
+        @if (!string.IsNullOrEmpty(imageUrl))
+        {
+            <img src="@imageUrl" alt="File Upload Image" class="uploaded-image" />
+        }
     </div>
 
     <div class="registration-container">
         <div class="header">
-            <h2 class="registration-title">
-                <img src="registration-icon.png" alt="Registration Icon" class="icon" /> User Registration
-            </h2>
+            <h2 class="registration-title">@translations["UserRegistrationTitle"]</h2>
             <div class="locale-container">
-                <span class="locale-subtitle">Locale:</span>
-                <select id="localeSelector" @bind="@locale" class="locale-selector">
-                    <option value="en">English</option>
-                    <option value="fr">French</option>
+                <span class="locale-subtitle">@translations["LocaleSelector"]</span>
+                <select id="localeSelector" @onchange="OnLocaleChange" class="locale-selector">
+                    <option value="English">English</option>
+                    <option value="French">French</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="German">German</option>
+                    <option value="Portuguese">Portuguese</option>
                     <!-- ... other locales ... -->
                 </select>
             </div>
@@ -35,17 +57,17 @@
         <EditForm Model="@registrationModel" OnValidSubmit="HandleValidSubmit">
             <div class="form-row">
                 <div class="form-column customer-details-container">
-                    <h3 class="sub-heading">Customer Details</h3>
+                    <h3 class="sub-heading">@translations["CustomerDetailsHeading"]</h3>
                     <div class="form-group">
-                        <label for="name">Name:</label>
+                        <label for="name">@translations["NameLabel"]</label>
                         <InputText id="name" @bind-Value="registrationModel.Name" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label for="dob">Date Of Birth:</label>
+                        <label for="dob">@translations["DateOfBirthLabel"]</label>
                         <InputDate id="dob" @bind-Value="registrationModel.DateOfBirth" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label for="gender">Gender:</label>
+                        <label for="gender">@translations["GenderLabel"]</label>
                         <InputSelect id="gender" @bind-Value="registrationModel.Gender" class="form-control">
                             <option value="">Select...</option>
                             <option value="M">Male</option>
@@ -54,58 +76,97 @@
                         </InputSelect>
                     </div>
                     <div class="form-group">
-                        <label for="address">Address:</label>
+                        <label for="address">@translations["AddressLabel"]</label>
                         <InputText id="address" @bind-Value="registrationModel.Address" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label for="state">State:</label>
+                        <label for="state">@translations["StateLabel"]</label>
                         <InputText id="state" @bind-Value="registrationModel.State" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label for="country">Country:</label>
+                        <label for="country">@translations["CountryLabel"]</label>
                         <InputText id="country" @bind-Value="registrationModel.Country" class="form-control" />
                     </div>
                 </div>
 
                 <div class="form-column">
                     <div class="contact-details-container">
-                        <h3 class="sub-heading">Contact Details</h3>
+                        <h3 class="sub-heading">@translations["ContactDetailsHeading"]</h3>
                         <div class="form-group">
-                            <label for="email">Email:</label>
+                            <label for="email">@translations["EmailLabel"]</label>
                             <InputText id="email" @bind-Value="registrationModel.Email" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <label for="phone">Phone:</label>
+                            <label for="phone">@translations["PhoneLabel"]</label>
                             <InputText id="phone" @bind-Value="registrationModel.Phone" class="form-control" />
                         </div>
                     </div>
 
                     <div class="additional-details-container">
-                        <h3 class="sub-heading">Other Details</h3>
+                        <h3 class="sub-heading">@translations["OtherDetailsHeading"]</h3>
                         <div class="form-group">
-                            <label for="additionalInfo">Additional Details:</label>
+                            <label for="additionalInfo">@translations["AdditionalDetailsLabel"]</label>
                             <InputTextArea id="additionalInfo" @bind-Value="registrationModel.AdditionalDetails" class="form-control" rows="4" />
                         </div>
                         <div class="form-group">
-                            <label for="conditions">Pre-Existing Conditions:</label>
+                            <label for="conditions">@translations["PreExistingConditionsLabel"]</label>
                             <InputTextArea id="conditions" @bind-Value="registrationModel.PreExistingConditions" class="form-control" rows="4" />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group submit-group">
-                <button type="submit" class="submit-button">Submit</button>
+                <button type="submit" class="submit-button">@translations["SubmitButton"]</button>
             </div>
         </EditForm>
-        <MessageDisplay message="@message" />
     </div>
 </div>
 
 @code {
-    private string locale = "en"; // Default locale
+    private bool isProcessing = false; // Flag to control the overlay visibility
+    private bool isTranslating = false;
+
+    private string locale = "English"; // Default locale
     private RegistrationModel registrationModel = new RegistrationModel();
     private string imageUrl;
     private string message = "";
+
+    private Dictionary<string, string> translations = new Dictionary<string, string>();
+    private Dictionary<string, string> keysToTranslate = new Dictionary<string, string>
+{
+    { "UploadID", "Upload ID:" },
+    { "NameLabel", "Name:" },
+    { "DateOfBirthLabel", "Date Of Birth:" },
+    { "GenderLabel", "Gender:" },
+    { "AddressLabel", "Address:" },
+    { "StateLabel", "State:" },
+    { "CountryLabel", "Country:" },
+    { "EmailLabel", "Email:" },
+    { "PhoneLabel", "Phone:" },
+    { "AdditionalDetailsLabel", "Additional Details:" },
+    { "PreExistingConditionsLabel", "Pre-Existing Conditions:" },
+    { "SubmitButton", "Submit" },
+    { "LocaleSelector", "Locale:" },
+    { "CustomerDetailsHeading", "Customer Details" },
+    { "ContactDetailsHeading", "Contact Details" },
+    { "OtherDetailsHeading", "Other Details" },
+    { "UserRegistrationTitle", "User Registration" },
+    // ... any other keys and default texts you need to translate
+};
+
+    private async Task OnLocaleChange(ChangeEventArgs e)
+    {
+        isTranslating = true; // Start showing the translation waiting overlay
+        locale = e.Value.ToString();
+        translations = await TranslationService.GetTranslationsAsync(locale, keysToTranslate);
+        isTranslating = false; // Translation finished, hide the waiting overlay
+        StateHasChanged(); // Notify Blazor to re-render the page
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        translations = await TranslationService.GetTranslationsAsync(locale, keysToTranslate);
+    }
     private async Task HandleValidSubmit()
     {
         try
@@ -130,119 +191,144 @@
             message = $"Error occurred: {ex.Message}";
         }
     }
-
     private async Task HandleFileUpload(InputFileChangeEventArgs e)
     {
+        isProcessing = true; // Show the overlay
         var imageFile = e.File;
         if (imageFile != null)
         {
-            // Read the file into a buffer
-            var buffer = new byte[imageFile.Size];
-            await imageFile.OpenReadStream().ReadAsync(buffer);
-
-            // Convert the buffer to a base64 string and assign it to imageUrl
-            // for displaying the image on the page
-            imageUrl = $"data:{imageFile.ContentType};base64,{Convert.ToBase64String(buffer)}";
-
-            // Prepare the file data for sending to the server
-            var fileData = new
+            try
             {
-                FileName = imageFile.Name,
-                ContentType = imageFile.ContentType,
-                Content = Convert.ToBase64String(buffer)
-            };
+                // Read the file into a buffer
+                var buffer = new byte[imageFile.Size];
+                await imageFile.OpenReadStream().ReadAsync(buffer);
 
-            // Serialize the file data to JSON
-            var jsonContent = JsonConvert.SerializeObject(fileData);
+                // Convert the buffer to a base64 string and assign it to imageUrl
+                // for displaying the image on the page
+                imageUrl = $"data:{imageFile.ContentType};base64,{Convert.ToBase64String(buffer)}";
 
-            // Send the JSON content to the API
-            var response = await HttpClient.PostAsync(
-                "api/registration/uploadImage",
-                new StringContent(jsonContent, Encoding.UTF8, "application/json"));
-
-            // Handle the response
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var extractedData = JsonConvert.DeserializeObject<RegistrationModel>(responseContent);
-
-                // Update registrationModel with the extracted data
-                registrationModel.Name = extractedData.Name;
-                try
+                // Prepare the file data for sending to the server
+                var fileData = new
                 {
-                    // Directly converting string to DateTime
-                    registrationModel.DateOfBirth = Convert.ToDateTime(extractedData.DateOfBirth);
-                }
-                catch
-                {
-                    // If conversion fails, set DateOfBirth to null
-                    registrationModel.DateOfBirth = null;
-                }
-                registrationModel.Gender = extractedData.Gender;
-                registrationModel.Address = extractedData.Address;
-                registrationModel.State = extractedData.State;
-                registrationModel.Country = extractedData.Country;
+                    FileName = imageFile.Name,
+                    ContentType = imageFile.ContentType,
+                    Content = Convert.ToBase64String(buffer)
+                };
 
-                message = "ID Card Image uploaded and content extracted";
+                // Serialize the file data to JSON
+                var jsonContent = JsonConvert.SerializeObject(fileData);
+
+                // Send the JSON content to the API
+                var response = await HttpClient.PostAsync(
+                    "api/registration/uploadImage",
+                    new StringContent(jsonContent, Encoding.UTF8, "application/json"));
+
+                // Handle the response
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var extractedData = JsonConvert.DeserializeObject<RegistrationModel>(responseContent);
+
+                    // Update registrationModel with the extracted data
+                    registrationModel.Name = extractedData.Name;
+                    try
+                    {
+                        // Directly converting string to DateTime
+                        registrationModel.DateOfBirth = Convert.ToDateTime(extractedData.DateOfBirth);
+                    }
+                    catch
+                    {
+                        // If conversion fails, set DateOfBirth to null
+                        registrationModel.DateOfBirth = null;
+                    }
+                    registrationModel.Gender = extractedData.Gender;
+                    registrationModel.Address = extractedData.Address;
+                    registrationModel.State = extractedData.State;
+                    registrationModel.Country = extractedData.Country;
+
+                    message = "ID Card Image uploaded and content extracted";
+                }
+                else
+                {
+                    message = "ID Card Image upload and content extraction failed";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                message = "ID Card Image upload and content extraction failed";
+                message = $"Error during file upload: {ex.Message}";
+            }
+            finally
+            {
+                isProcessing = false; // Ensure this is called even if an error occurs
+                StateHasChanged(); // Re-render the component to hide the overlay
             }
         }
     }
-     /*
-    private async Task HandleFileUpload(InputFileChangeEventArgs e)
+
+ 
+        /*
+     private async Task HandleFileUpload(InputFileChangeEventArgs e)
     {
-        var imageFile = e.File;
-        if (imageFile != null)
+    isProcessing = true; // Show the overlay
+    var imageFile = e.File;
+    if (imageFile != null)
         {
-            var buffer = new byte[imageFile.Size];
-            await imageFile.OpenReadStream().ReadAsync(buffer);
+        // Read the file into a buffer
+        var buffer = new byte[imageFile.Size];
+        await imageFile.OpenReadStream().ReadAsync(buffer);
 
-            string base64FileContent = Convert.ToBase64String(buffer);
-            var fileData = new
+        // Convert the buffer to a base64 string and assign it to imageUrl
+        // for displaying the image on the page
+        imageUrl = $"data:{imageFile.ContentType};base64,{Convert.ToBase64String(buffer)}";
+
+        // Prepare the file data for sending to the server
+        var fileData = new
             {
-                FileName = imageFile.Name,
-                ContentType = imageFile.ContentType,
-                Content = base64FileContent
-            };
+            FileName = imageFile.Name,
+            ContentType = imageFile.ContentType,
+            Content = Convert.ToBase64String(buffer)
+        };
 
-            var jsonContent = JsonConvert.SerializeObject(fileData);
-            var response = await HttpClient.PostAsync(
-                "api/registration/uploadImage",
-                new StringContent(jsonContent, Encoding.UTF8, "application/json"));
+        // Serialize the file data to JSON
+        var jsonContent = JsonConvert.SerializeObject(fileData);
 
-            if (response.IsSuccessStatusCode)
+        // Send the JSON content to the API
+        var response = await HttpClient.PostAsync(
+            "api/registration/uploadImage",
+            new StringContent(jsonContent, Encoding.UTF8, "application/json"));
+
+        // Handle the response
+        if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var extractedData = JsonConvert.DeserializeObject<RegistrationModel>(responseContent);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var extractedData = JsonConvert.DeserializeObject<RegistrationModel>(responseContent);
 
-                // Update registrationModel with the extracted data
-                registrationModel.Name = extractedData.Name; // and so on for other fields
-                try
+            // Update registrationModel with the extracted data
+            registrationModel.Name = extractedData.Name;
+            try
                 {
-                    // Directly converting string to DateTime
-                    registrationModel.DateOfBirth = Convert.ToDateTime(extractedData.DateOfBirth);
-                }
-                catch
-                {
-                    // If conversion fails, set DateOfBirth to null
-                    registrationModel.DateOfBirth = null;
-                }
-                registrationModel.Gender = extractedData.Gender;
-                registrationModel.Address = extractedData.Address;
-                registrationModel.State = extractedData.State;
-                registrationModel.Country = extractedData.Country;
-                message = "ID Card Image uploaded and content extracted";
+                // Directly converting string to DateTime
+                registrationModel.DateOfBirth = Convert.ToDateTime(extractedData.DateOfBirth);
             }
-            else
+            catch
+                {
+                // If conversion fails, set DateOfBirth to null
+                registrationModel.DateOfBirth = null;
+            }
+            registrationModel.Gender = extractedData.Gender;
+            registrationModel.Address = extractedData.Address;
+            registrationModel.State = extractedData.State;
+            registrationModel.Country = extractedData.Country;
+            isProcessing = false; // Hide the overlay
+            message = "ID Card Image uploaded and content extracted";
+        }
+        else
             {
-                message = "ID Card Image upload and content extraction failed";
+            message = "ID Card Image upload and content extraction failed";
             }
         }
     }
 
     */
-}
+
 }
