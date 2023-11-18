@@ -276,15 +276,12 @@ body {
     overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
-/* Neumorphic style for the elements */
 .neumorphic {
-    background: #e0e5ec;
-    border-radius: 10px;
+    background: #e0e5ec;    
     box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
     padding: 20px;
 }
 
-/* Order placement container */
 .order-placement-container {
     display: flex;
     align-items: flex-start;
@@ -292,7 +289,6 @@ body {
     padding-top: 20px;
 }
 
-/* Control panel styling */
 .control-panel {
     width: 250px;
     background: #e0e5ec;
@@ -303,14 +299,12 @@ body {
     box-shadow: 5px 5px 10px #a7a7a7, -5px -5px 10px #ffffff;
 }
 
-/* Button group styling */
 .btn-group {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-/* Button styling */
 .btn {
     margin: 10px 0;
     padding: 10px;
@@ -322,21 +316,21 @@ body {
     transition: 0.3s;
 }
 
-/* Main content styling */
 .main-content {
     flex-grow: 1;
     margin: 0 20px;
     padding: 20px;
 }
+.user-info {
+margin-bottom:10px;
 
-/* Cart styling */
+}
 .cart {
-    width: 300px;
+    width: 45%; /* Adjusted width */
     margin-left: 20px;
     margin-right: 0;
 }
 
-/* Input styling */
 .input-control {
     width: 100%;
     margin-bottom: 15px;
@@ -347,7 +341,6 @@ body {
     box-shadow: inset 4px 4px 6px #cbcbcb, inset -4px -4px 6px #ffffff;
 }
 
-/* Table styling */
 .cart-table {
     width: 100%;
     border-collapse: collapse;
@@ -361,7 +354,12 @@ body {
         background: #e0e5ec;
     }
 
-/* Responsive adjustments */
+.cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 @media (max-width: 768px) {
     .order-placement-container {
         flex-direction: column;
