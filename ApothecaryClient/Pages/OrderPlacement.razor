@@ -1,56 +1,74 @@
 ﻿@page "/order-placement"
 
 <div class="order-placement-container">
-    <aside class="control-panel">
-        <button class="btn voice-order-btn">Start Voice Assisted Ordering</button>
-        <button class="btn upload-btn">Upload Image</button>
-        <button class="btn upload-btn">Upload Prescription</button>
-        <button class="btn alternate-suggestions-btn">Alternate Suggestions</button>
-        <button class="btn medicine-warnings-btn">Medicine Warnings</button>
-        <button class="btn gdpr-checker-btn">GDPR Checker</button>
+    <aside class="control-panel neumorphic">
+        <div class="btn-group">
+            <button class="btn voice-order-btn neumorphic">Start Voice Assisted Ordering</button>
+            <button class="btn upload-btn neumorphic">Upload Image</button>
+            <button class="btn upload-btn neumorphic">Upload Prescription</button>
+        </div>
+        <div class="btn-group">
+            <button class="btn alternate-suggestions-btn neumorphic">Alternate Suggestions</button>
+            <button class="btn medicine-warnings-btn neumorphic">Medicine Warnings</button>
+            <button class="btn gdpr-checker-btn neumorphic">GDPR Checker</button>
+        </div>
     </aside>
 
-    <main class="main-content">
-        <div class="user-info">
+    <main class="main-content neumorphic">
+        <div class="user-info neumorphic">
             <label for="userName">User Name:</label>
             <input type="text" id="userName" class="input-control" placeholder="Enter your name" />
-            <span class="total-bill">Total Bill Value: $300</span>
         </div>
 
-        <section class="order-details">
-            <div class="product-selection">
+        <section class="product-selection neumorphic">
+            <div class="form-group">
                 <label for="product">Product:</label>
                 <select id="product" class="input-control">
-                    <option value="">Select</option>
-                    <!-- Populate with products from the database -->
+                    <option value="">Select Product</option>
+                    <!-- Options here -->
                 </select>
-
+            </div>
+            <div class="form-group">
                 <label for="unitPrice">Unit Price:</label>
-                <input type="number" id="unitPrice" class="input-control" placeholder="0" />
-
+                <input type="number" id="unitPrice" class="input-control" placeholder="Unit Price" />
+            </div>
+            <div class="form-group">
                 <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" class="input-control" placeholder="0" />
-
-                <label for="totalPrice">Total Price:</label>
-                <input type="number" id="totalPrice" class="input-control" placeholder="0" />
-
-                <button class="btn add-to-cart-btn">Add To Cart</button>
+                <input type="number" id="quantity" class="input-control" placeholder="Quantity" />
             </div>
-
-            <div class="cart">
-                <h2>Orders in Cart</h2>
-                <!-- Dynamically list orders here -->
-                <div class="order-item">
-                    <span class="product-name">Aspirin</span>
-                    <span class="product-quantity">Quantity: 30</span>
-                    <span class="product-price">Total Price: $300</span>
-                    <button class="btn remove-btn">Remove</button>
-                </div>
-                <!-- Repeat for other items -->
-                <button class="btn place-order-btn">Place Order</button>
-            </div>
+            <button class="btn add-to-cart-btn neumorphic">Add To Cart</button>
         </section>
     </main>
+
+    <aside class="cart neumorphic">
+        <h2>Orders in Cart</h2>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Medicine Name</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic Rows Here -->
+                <tr>
+                    <td>Aspirin</td>
+                    <td>30</td>
+                    <td>$10</td>
+                    <td>$300</td>
+                    <td><button class="btn remove-btn neumorphic">Remove</button></td>
+                </tr>
+                <!-- Repeat for other items -->
+            </tbody>
+        </table>
+        <div class="cart-footer">
+            <span class="total-bill">Total Bill Value: $300</span>
+            <button class="btn place-order-btn neumorphic">Place Order</button>
+        </div>
+    </aside>
 </div>
 
 @code {
