@@ -1,0 +1,12 @@
+﻿<!-- MessageDisplay.razor -->
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="alert alert-success">
+        @message
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string message { get; set; }
+}

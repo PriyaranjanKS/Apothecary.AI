@@ -1,0 +1,199 @@
+/* Add your global styles here */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.registration-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensures full vertical height */
+}
+
+.image-upload-container {
+    flex: 1;
+    max-width: 30%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.neumorphic {
+    background: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.upload-label {
+    display: block;
+    font-weight: bold;
+}
+
+.uploaded-image {
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+.registration-container {
+    flex: 1;
+    max-width: 70%;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #f9f1e7, #008080); /* Gradient from yellowish to #008080 */
+    padding: 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
+}
+
+.registration-title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.icon {
+    max-width: 40px;
+    margin-right: 10px;
+}
+
+.locale-container {
+    display: flex;
+    align-items: center;
+}
+
+.locale-subtitle {
+    margin-right: 10px;
+}
+
+.locale-selector {
+    padding: 5px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Space between form columns */
+}
+
+.form-column {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-details-container,
+.contact-details-container,
+.additional-details-container {
+    background-color: #008080;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.sub-heading {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #ffffff; /* White text color for better visibility on gradient background */
+    text-align: center;
+    display: block; /* Full width */
+    background: linear-gradient(to right, #f9f1e7, #008080); /* Gradient from yellowish to #008080 */
+    padding: 10px; /* Padding for some space around the text */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); /* Optional: Adds depth with a shadow */
+    width: 100%; /* Ensure full width for the background */
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left; /* Align form labels to the left */
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    text-align: left; /* Left-aligned labels */
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-control-file {
+    display: none;
+}
+
+.submit-button {
+    background-color: #008080;
+    color: #ffffff;
+    padding: 10px 20px; /* Standard padding for buttons */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block; /* Make the button inline */
+    width: auto; /* Auto width based on content */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); /* Optional: Adds depth to the button */
+    text-align: center; /* Center the text inside the button */
+    /* Add margins for alignment and spacing */
+    margin: 0 auto; /* Center button horizontally */
+    display: block; /* Centering requires block display */
+}
+
+    .submit-button:hover {
+        background-color: #005050;
+    }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .registration-page {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .image-upload-container,
+    .registration-container {
+        max-width: 100%;
+        flex-basis: auto;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-column {
+        width: 100%; /* Full width on small screens */
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

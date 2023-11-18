@@ -1,0 +1,6 @@
+@ApothecaryServer_HostAddress = http://localhost:5002
+
+GET {{ApothecaryServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

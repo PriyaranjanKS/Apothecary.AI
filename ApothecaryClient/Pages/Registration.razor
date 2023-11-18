@@ -1,0 +1,248 @@
+﻿@page "/registration"
+@using System.ComponentModel.DataAnnotations
+@using System.Text;
+@using ApothecaryShared
+@using Newtonsoft.Json
+@inject HttpClient HttpClient
+
+<div class="registration-page">
+    <div class="image-upload-container">
+        <div class="neumorphic">
+            <label for="fileUpload" class="upload-label">Upload ID:</label>
+            <InputFile id="fileUpload" OnChange="HandleFileUpload" class="form-control-file" />
+            @if (!string.IsNullOrEmpty(imageUrl))
+            {
+                <img src="@imageUrl" alt="Uploaded Image" class="uploaded-image" />
+            }
+        </div>
+    </div>
+
+    <div class="registration-container">
+        <div class="header">
+            <h2 class="registration-title">
+                <img src="registration-icon.png" alt="Registration Icon" class="icon" /> User Registration
+            </h2>
+            <div class="locale-container">
+                <span class="locale-subtitle">Locale:</span>
+                <select id="localeSelector" @bind="@locale" class="locale-selector">
+                    <option value="en">English</option>
+                    <option value="fr">French</option>
+                    <!-- ... other locales ... -->
+                </select>
+            </div>
+        </div>
+
+        <EditForm Model="@registrationModel" OnValidSubmit="HandleValidSubmit">
+            <div class="form-row">
+                <div class="form-column customer-details-container">
+                    <h3 class="sub-heading">Customer Details</h3>
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <InputText id="name" @bind-Value="registrationModel.Name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date Of Birth:</label>
+                        <InputDate id="dob" @bind-Value="registrationModel.DateOfBirth" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <InputSelect id="gender" @bind-Value="registrationModel.Gender" class="form-control">
+                            <option value="">Select...</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                            <option value="O">Other</option>
+                        </InputSelect>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <InputText id="address" @bind-Value="registrationModel.Address" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State:</label>
+                        <InputText id="state" @bind-Value="registrationModel.State" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country:</label>
+                        <InputText id="country" @bind-Value="registrationModel.Country" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-column">
+                    <div class="contact-details-container">
+                        <h3 class="sub-heading">Contact Details</h3>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <InputText id="email" @bind-Value="registrationModel.Email" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone:</label>
+                            <InputText id="phone" @bind-Value="registrationModel.Phone" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="additional-details-container">
+                        <h3 class="sub-heading">Other Details</h3>
+                        <div class="form-group">
+                            <label for="additionalInfo">Additional Details:</label>
+                            <InputTextArea id="additionalInfo" @bind-Value="registrationModel.AdditionalDetails" class="form-control" rows="4" />
+                        </div>
+                        <div class="form-group">
+                            <label for="conditions">Pre-Existing Conditions:</label>
+                            <InputTextArea id="conditions" @bind-Value="registrationModel.PreExistingConditions" class="form-control" rows="4" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group submit-group">
+                <button type="submit" class="submit-button">Submit</button>
+            </div>
+        </EditForm>
+        <MessageDisplay message="@message" />
+    </div>
+</div>
+
+@code {
+    private string locale = "en"; // Default locale
+    private RegistrationModel registrationModel = new RegistrationModel();
+    private string imageUrl;
+    private string message = "";
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            Console.WriteLine($"Making request to: {HttpClient.BaseAddress}api/registration");
+            var response = await HttpClient.PostAsJsonAsync("api/registration", registrationModel);
+
+            if (response.IsSuccessStatusCode)
+            {
+                message = "Registration successful";
+            }
+            else
+            {
+                // Optionally, read the response content for more details
+                var responseContent = await response.Content.ReadAsStringAsync();
+                message = $"Registration failed: {responseContent}";
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log the exception details if needed
+            message = $"Error occurred: {ex.Message}";
+        }
+    }
+
+    private async Task HandleFileUpload(InputFileChangeEventArgs e)
+    {
+        var imageFile = e.File;
+        if (imageFile != null)
+        {
+            // Read the file into a buffer
+            var buffer = new byte[imageFile.Size];
+            await imageFile.OpenReadStream().ReadAsync(buffer);
+
+            // Convert the buffer to a base64 string and assign it to imageUrl
+            // for displaying the image on the page
+            imageUrl = $"data:{imageFile.ContentType};base64,{Convert.ToBase64String(buffer)}";
+
+            // Prepare the file data for sending to the server
+            var fileData = new
+            {
+                FileName = imageFile.Name,
+                ContentType = imageFile.ContentType,
+                Content = Convert.ToBase64String(buffer)
+            };
+
+            // Serialize the file data to JSON
+            var jsonContent = JsonConvert.SerializeObject(fileData);
+
+            // Send the JSON content to the API
+            var response = await HttpClient.PostAsync(
+                "api/registration/uploadImage",
+                new StringContent(jsonContent, Encoding.UTF8, "application/json"));
+
+            // Handle the response
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var extractedData = JsonConvert.DeserializeObject<RegistrationModel>(responseContent);
+
+                // Update registrationModel with the extracted data
+                registrationModel.Name = extractedData.Name;
+                try
+                {
+                    // Directly converting string to DateTime
+                    registrationModel.DateOfBirth = Convert.ToDateTime(extractedData.DateOfBirth);
+                }
+                catch
+                {
+                    // If conversion fails, set DateOfBirth to null
+                    registrationModel.DateOfBirth = null;
+                }
+                registrationModel.Gender = extractedData.Gender;
+                registrationModel.Address = extractedData.Address;
+                registrationModel.State = extractedData.State;
+                registrationModel.Country = extractedData.Country;
+
+                message = "ID Card Image uploaded and content extracted";
+            }
+            else
+            {
+                message = "ID Card Image upload and content extraction failed";
+            }
+        }
+    }
+     /*
+    private async Task HandleFileUpload(InputFileChangeEventArgs e)
+    {
+        var imageFile = e.File;
+        if (imageFile != null)
+        {
+            var buffer = new byte[imageFile.Size];
+            await imageFile.OpenReadStream().ReadAsync(buffer);
+
+            string base64FileContent = Convert.ToBase64String(buffer);
+            var fileData = new
+            {
+                FileName = imageFile.Name,
+                ContentType = imageFile.ContentType,
+                Content = base64FileContent
+            };
+
+            var jsonContent = JsonConvert.SerializeObject(fileData);
+            var response = await HttpClient.PostAsync(
+                "api/registration/uploadImage",
+                new StringContent(jsonContent, Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var extractedData = JsonConvert.DeserializeObject<RegistrationModel>(responseContent);
+
+                // Update registrationModel with the extracted data
+                registrationModel.Name = extractedData.Name; // and so on for other fields
+                try
+                {
+                    // Directly converting string to DateTime
+                    registrationModel.DateOfBirth = Convert.ToDateTime(extractedData.DateOfBirth);
+                }
+                catch
+                {
+                    // If conversion fails, set DateOfBirth to null
+                    registrationModel.DateOfBirth = null;
+                }
+                registrationModel.Gender = extractedData.Gender;
+                registrationModel.Address = extractedData.Address;
+                registrationModel.State = extractedData.State;
+                registrationModel.Country = extractedData.Country;
+                message = "ID Card Image uploaded and content extracted";
+            }
+            else
+            {
+                message = "ID Card Image upload and content extraction failed";
+            }
+        }
+    }
+
+    */
+}
+}
