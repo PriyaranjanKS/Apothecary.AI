@@ -264,3 +264,411 @@ label {
         align-items: flex-start;
     }
 }
+
+/*Order Placement CSS*/
+/* Add your global styles here */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.registration-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensures full vertical height */
+}
+
+.image-upload-container {
+    flex: 1;
+    max-width: 30%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.neumorphic {
+    background: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.upload-label {
+    display: block;
+    font-weight: bold;
+}
+
+.uploaded-image {
+    max-width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.registration-container {
+    flex: 1;
+    max-width: 70%;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #f9f1e7, #008080);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.registration-title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.icon {
+    max-width: 40px;
+    margin-right: 10px;
+}
+
+.locale-container {
+    display: flex;
+    align-items: center;
+}
+
+.locale-subtitle {
+    margin-right: 10px;
+}
+
+.locale-selector {
+    padding: 5px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.form-column {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-details-container,
+.contact-details-container,
+.additional-details-container {
+    background-color: #008080;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.sub-heading {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #ffffff;
+    text-align: center;
+    display: block;
+    background: linear-gradient(to right, #f9f1e7, #008080);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-control-file {
+    display: none;
+}
+
+.submit-button {
+    background-color: #008080;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+    width: auto;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+}
+
+    .submit-button:hover {
+        background-color: #005050;
+    }
+
+/* Overlay styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-content,
+.translation-overlay-content {
+    text-align: center;
+    color: #0f5132;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: auto;
+    max-width: 80%;
+}
+
+.spinner {
+    margin-bottom: 10px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .registration-page {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .image-upload-container,
+    .registration-container {
+        max-width: 100%;
+        flex-basis: auto;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-column {
+        width: 100%;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/*Order Placement CSS*/
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+/* Flexbox Container for Page Content */
+.order-placement-container {
+    display: flex;
+    min-height: 100vh; /* Full height of viewport */
+    align-items: stretch; /* Stretch children full height */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px; /* Fixed width for sidebar */
+    background: #394264; /* Dark sidebar background */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+/* Control Panel Styles - for the buttons */
+.control-panel {
+    padding: 10px 15px;
+    margin-left: 250px; /* Offset by the width of the sidebar */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly; /* Evenly space out buttons */
+    height: calc(100vh - 20px); /* Full height minus padding */
+    z-index: 1;
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 15px;
+    margin-bottom: 10px; /* Space between buttons */
+    border: none;
+    border-radius: 20px;
+    background: #e0e5ec;
+    box-shadow: 7px 7px 14px #a7a7a7, -7px -7px 14px #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex-grow: 1;
+    margin-left: 250px; /* Space for the sidebar */
+    padding: 20px;
+    overflow: auto;
+}
+
+/* Input Control Styles */
+.input-control, select {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 15px;
+    background: #e0e5ec;
+    box-shadow: inset 4px 4px 6px #cbcbcb, inset -4px -4px 6px #ffffff;
+    font-size: 1rem;
+}
+
+/* Styles for Product Selection and Cart Areas */
+.product-selection, .cart {
+    background: #e0e5ec;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #cbcbcb, -4px -4px 8px #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Order Item Styles in Cart */
+.order-item {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Button Styles Within the Cart */
+.remove-btn, .place-order-btn {
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* Styles for Remove and Place Order Buttons */
+.remove-btn {
+    background: #ff6961;
+    color: white;
+}
+
+.place-order-btn {
+    background: #77dd77;
+    color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sidebar, .control-panel {
+        width: 100%;
+        position: static;
+        order: -1; /* Sidebar and control panel on top */
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .btn, .input-control, select {
+        width: auto; /* Full width on smaller screens */
+    }
+
+    .product-selection, .cart {
+        margin: 10px auto; /* Center on smaller screens */
+    }
+}
+
+/* Additional styles and tweaks as needed... */

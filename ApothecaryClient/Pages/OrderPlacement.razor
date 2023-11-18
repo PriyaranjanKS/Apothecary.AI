@@ -1,0 +1,58 @@
+﻿@page "/order-placement"
+
+<div class="order-placement-container">
+    <aside class="control-panel">
+        <button class="btn voice-order-btn">Start Voice Assisted Ordering</button>
+        <button class="btn upload-btn">Upload Image</button>
+        <button class="btn upload-btn">Upload Prescription</button>
+        <button class="btn alternate-suggestions-btn">Alternate Suggestions</button>
+        <button class="btn medicine-warnings-btn">Medicine Warnings</button>
+        <button class="btn gdpr-checker-btn">GDPR Checker</button>
+    </aside>
+
+    <main class="main-content">
+        <div class="user-info">
+            <label for="userName">User Name:</label>
+            <input type="text" id="userName" class="input-control" placeholder="Enter your name" />
+            <span class="total-bill">Total Bill Value: $300</span>
+        </div>
+
+        <section class="order-details">
+            <div class="product-selection">
+                <label for="product">Product:</label>
+                <select id="product" class="input-control">
+                    <option value="">Select</option>
+                    <!-- Populate with products from the database -->
+                </select>
+
+                <label for="unitPrice">Unit Price:</label>
+                <input type="number" id="unitPrice" class="input-control" placeholder="0" />
+
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" class="input-control" placeholder="0" />
+
+                <label for="totalPrice">Total Price:</label>
+                <input type="number" id="totalPrice" class="input-control" placeholder="0" />
+
+                <button class="btn add-to-cart-btn">Add To Cart</button>
+            </div>
+
+            <div class="cart">
+                <h2>Orders in Cart</h2>
+                <!-- Dynamically list orders here -->
+                <div class="order-item">
+                    <span class="product-name">Aspirin</span>
+                    <span class="product-quantity">Quantity: 30</span>
+                    <span class="product-price">Total Price: $300</span>
+                    <button class="btn remove-btn">Remove</button>
+                </div>
+                <!-- Repeat for other items -->
+                <button class="btn place-order-btn">Place Order</button>
+            </div>
+        </section>
+    </main>
+</div>
+
+@code {
+    // Define any methods and variables required for the component
+}

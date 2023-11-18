@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApothecaryClient", "ApothecaryClient\ApothecaryClient.csproj", "{E76B272E-1A9E-480B-BA3C-5CC8DBDAC872}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApothecaryClient", "ApothecaryClient\ApothecaryClient.csproj", "{E76B272E-1A9E-480B-BA3C-5CC8DBDAC872}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApothecaryServer", "ApothecaryServer\ApothecaryServer.csproj", "{2E00714F-E7D2-40EC-AFF1-CB9DF2501A6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApothecaryServer", "ApothecaryServer\ApothecaryServer.csproj", "{2E00714F-E7D2-40EC-AFF1-CB9DF2501A6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApothecaryShared", "ApothecaryShared\ApothecaryShared.csproj", "{FA2867CB-6654-4867-BB8A-777B7B15F436}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApothecaryShared", "ApothecaryShared\ApothecaryShared.csproj", "{FA2867CB-6654-4867-BB8A-777B7B15F436}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
