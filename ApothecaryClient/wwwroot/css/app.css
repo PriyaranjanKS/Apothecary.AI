@@ -535,3 +535,74 @@ width:30%!important;
 button {
     /* Style your button here */
 }
+
+/* Medicine Image Upload CSS*/
+
+/* Modal styles */
+/* Modal file input label - designed to look like a neumorphic button */
+.modal-file-label {
+    display: block;
+    padding: 10px 20px;
+    margin-bottom: 10px; /* Space between label and button */
+    background: #e0e5ec;
+    border-radius: 10px;
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+    position: relative; /* Positioning context for the file input */
+}
+
+/* Modal file input - styled to be invisible but functional */
+.modal-file-input {
+    /*opacity: 0;
+    position: absolute;*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* Modal upload button - maintains neumorphic style */
+.modal-upload-btn {
+    background: #e0e5ec;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 10px;
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px; /* Space between the input and the button */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+    /* Active state for the upload button to mimic a pressed effect */
+    .modal-upload-btn:active {
+        box-shadow: inset 4px 4px 6px #cbcbcb, inset -4px -4px 6px #ffffff;
+    }
+
+/* Modal content with increased padding and gap for a less congested look */
+.modal-content {
+    background: #e0e5ec;
+    border-radius: 15px;
+    padding: 30px; /* Increased padding */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: auto;
+    max-width: 80%; /* Increased width */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Increased gap */
+}
+
+/* Spinner style */
+.medicineImageSpinner {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+}

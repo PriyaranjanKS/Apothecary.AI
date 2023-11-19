@@ -7,12 +7,24 @@
 {
     <div class="modal-backdrop" @onclick="HideUploadImageModal">
         <div class="modal-content" @onclick:stopPropagation="true">
-            <input type="file" @ref="inputFileElement" />
-            <button @onclick="OnFileSelected">Upload Image</button>
+            <label for="file-upload" class="modal-file-label">Image Selection</label>
+            <input type="file" id="file-upload" class="modal-file-input" @ref="inputFileElement" @onchange="HandleImageFiles" @onchange:stopPropagation="true" />
+
+            @if (imageDataUrl != null)
+            {
+                <img src="@imageDataUrl" alt="Image preview" style="max-width: 100%; height: auto; margin-top: 10px;" />
+            }
+            <button class="modal-upload-btn" @onclick="OnFileSelected">Upload Image</button>
+            @if (isMedicineImageProcessing)
+            {
+                <div style="display: flex; align-items: center; margin-top: 15px;">
+                    <div class="medicineImageSpinner"></div>
+                    <span style="margin-left: 10px;">Medicine image being analyzed...</span>
+                </div>
+            }
         </div>
     </div>
 }
-
 
 <div class="order-placement-container">
     <aside class="control-panel neumorphic">
@@ -40,16 +52,15 @@
 
         <section class="product-selection neumorphic">
             <div class="form-group">
-                <label class="form-label" for="product">Product:</label>                
-                    <select id="product" class="input-control form-label">
-                        <option value="">Select Product</option>
-                        @foreach (var name in medicineNames)
-                        {
-                            <option value="@name">@name</option>
-                        }
-                    </select>
+                <label class="form-label" for="product">Product:</label>
+                <select id="product" class="input-control form-label" @bind="selectedMedicine">
                     <option value="">Select Product</option>
-                    <!-- Options here -->
+                    @foreach (var name in medicineNames)
+                    {
+                        <option value="@name">@name</option>
+                    }
+                </select>
+                     
              
             </div>
             <div class="form-group">
@@ -100,6 +111,9 @@
     private bool isUploadModalVisible = false;
     private ElementReference inputFileElement;
     private List<string> medicineNames = new List<string>();
+    private string selectedMedicine;
+    private bool isMedicineImageProcessing = false;
+    private string imageDataUrl;
 
     protected override async Task OnInitializedAsync()
     {
@@ -113,6 +127,22 @@
             // You might want to log this exception or display an error message
             Console.WriteLine("An error occurred: " + ex.Message);
         }
+    }
+
+    private async Task HandleImageFiles(ChangeEventArgs e)
+    {
+        if (e.Value is not IReadOnlyList<IBrowserFile> imageFiles || imageFiles.Count == 0)
+            return;
+
+        var imageFile = imageFiles.First();
+        var format = "image/png";
+        var resizedImage = await imageFile.RequestImageFileAsync(format, 640, 480);
+
+        using var stream = resizedImage.OpenReadStream();
+        using var ms = new MemoryStream();
+        await stream.CopyToAsync(ms);
+        imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(ms.ToArray())}";
+        StateHasChanged(); // Refresh the UI to show the preview
     }
 
     private async Task FetchMedicineList()
@@ -131,6 +161,7 @@
 
     private async Task OnFileSelected()
     {
+        isMedicineImageProcessing = true;
         try
         {
             var base64File = await JSRuntime.InvokeAsync<string>("interop.readFileAsBase64", inputFileElement);
@@ -143,8 +174,9 @@
                 if (response.IsSuccessStatusCode)
                 {
                     var extractedText = await response.Content.ReadAsStringAsync();
-                    // Logic to update the dropdown based on extractedText
-                    // TODO: Implement the dropdown update logic here
+                    selectedMedicine = extractedText; // Set the extracted medicine name
+                    isMedicineImageProcessing = false;
+                    StateHasChanged(); // Notify the component to re-render
                 }
                 else
                 {
@@ -155,17 +187,21 @@
         }
         catch (Exception ex)
         {
+            isMedicineImageProcessing = false;
             // Exception handling, perhaps log the exception or notify the user
             // TODO: Implement exception handling logic here
         }
         finally
         {
+            isMedicineImageProcessing = false;
             isUploadModalVisible = false;
+           
         }
     }
 
     private void HideUploadImageModal()
     {
         isUploadModalVisible = false;
+        StateHasChanged();
     }
 }
