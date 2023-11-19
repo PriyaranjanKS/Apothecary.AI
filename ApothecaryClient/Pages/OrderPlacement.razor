@@ -1,5 +1,19 @@
 ﻿@page "/order-placement"
 
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@if (isUploadModalVisible)
+{
+    <div class="modal-backdrop" @onclick="HideUploadImageModal">
+        <div class="modal-content" @onclick:stopPropagation="true">
+            <input type="file" @ref="inputFileElement" />
+            <button @onclick="OnFileSelected">Upload Image</button>
+        </div>
+    </div>
+}
+
+
 <div class="order-placement-container">
     <aside class="control-panel neumorphic">
         <h3 class="group-heading">Order Placement</h3>
@@ -7,7 +21,7 @@
           
             <button class="action-btn voice-order-btn neumorphic single-btn">Voice Assisted Ordering</button>
             <button class="action-btn upload-btn neumorphic single-btn">Upload Prescription</button>
-            <button class="action-btn upload-btn neumorphic single-btn">Upload Image</button>
+            <button class="action-btn upload-btn neumorphic single-btn" @onclick="ShowUploadImageModal">Upload Image</button>
         </div>
         <h3 class="group-heading">Personalization</h3>
         <div class="button-group-neumorphic">
@@ -26,11 +40,17 @@
 
         <section class="product-selection neumorphic">
             <div class="form-group">
-                <label class="form-label" for="product">Product:</label>
-                <select id="product" class="input-control form-label">
+                <label class="form-label" for="product">Product:</label>                
+                    <select id="product" class="input-control form-label">
+                        <option value="">Select Product</option>
+                        @foreach (var name in medicineNames)
+                        {
+                            <option value="@name">@name</option>
+                        }
+                    </select>
                     <option value="">Select Product</option>
                     <!-- Options here -->
-                </select>
+             
             </div>
             <div class="form-group">
                 <label class="form-label"  for="unitPrice">Unit Price:</label>
@@ -77,5 +97,75 @@
 </div>
 
 @code {
-    // Define any methods and variables required for the component
+    private bool isUploadModalVisible = false;
+    private ElementReference inputFileElement;
+    private List<string> medicineNames = new List<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await FetchMedicineList();
+        }
+        catch (Exception ex)
+        {
+            // Handle the exception
+            // You might want to log this exception or display an error message
+            Console.WriteLine("An error occurred: " + ex.Message);
+        }
+    }
+
+    private async Task FetchMedicineList()
+    {
+        var response = await Http.GetFromJsonAsync<List<string>>("api/medicines/getall");
+        if (response != null)
+        {
+            medicineNames = response;
+        }
+    }
+
+    private void ShowUploadImageModal()
+    {
+        isUploadModalVisible = true;
+    }
+
+    private async Task OnFileSelected()
+    {
+        try
+        {
+            var base64File = await JSRuntime.InvokeAsync<string>("interop.readFileAsBase64", inputFileElement);
+            if (!string.IsNullOrEmpty(base64File))
+            {
+                // Show a loading indicator here if you like
+                var requestData = new { base64Image = base64File };
+               // var response = await Http.PostAsJsonAsync("api/imageprocessing/extracttext", new { ImageData = base64File });
+                var response = await Http.PostAsJsonAsync("api/imageprocessing/extracttext", requestData);
+                if (response.IsSuccessStatusCode)
+                {
+                    var extractedText = await response.Content.ReadAsStringAsync();
+                    // Logic to update the dropdown based on extractedText
+                    // TODO: Implement the dropdown update logic here
+                }
+                else
+                {
+                    // Handle errors, perhaps log them or show to the user
+                    // TODO: Implement error handling logic here
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // Exception handling, perhaps log the exception or notify the user
+            // TODO: Implement exception handling logic here
+        }
+        finally
+        {
+            isUploadModalVisible = false;
+        }
+    }
+
+    private void HideUploadImageModal()
+    {
+        isUploadModalVisible = false;
+    }
 }

@@ -487,3 +487,51 @@ width:30%!important;
         width: 100%;
     }
 }
+
+
+/* Image Upload Modal Popup Styles*/
+/* Overlay styles */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* High z-index to ensure it's on top of other content */
+}
+
+/* Modal styles */
+.modal-content {
+    background: rgba(255, 255, 255, 0.75); /* Glassmorphic effect */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    width: auto; /* Adjust width as needed */
+    max-width: 500px; /* Maximum width of the modal */
+    text-align: center;
+    z-index: 1001; /* Ensures modal content is above the overlay */
+    position: relative; /* For positioning the before pseudo-element */
+}
+
+    /* Glassmorphic effect */
+    .modal-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: inherit;
+        border-radius: inherit;
+        backdrop-filter: blur(10px); /* This creates the glass effect */
+        z-index: -1;
+    }
+
+/* Button styles */
+button {
+    /* Style your button here */
+}
