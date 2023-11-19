@@ -304,8 +304,13 @@ body {
     box-shadow: 5px 5px 10px #a7a7a7, -5px -5px 10px #ffffff;
 }
 .single-btn {
-    padding-top: 10px !important;
+    /*padding-top: 10px !important;*/
     margin-top: 20px !important;
+    width: 100% !important;
+    font-weight: bold;
+    font-size: .8rem !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
 }
 /* Button Groups with Neumorphic Style */
 .btn-group-neumorphic {
@@ -315,7 +320,14 @@ body {
     padding: 15px;
     margin-bottom: 30px;
 }
-
+.user-info, .form-label {
+    font-size: .8rem !important;
+    font-weight: bold;
+}
+.cartHeader {
+    font-size: 1.3rem !important;
+    font-weight: bold;
+}
 /* Standard Button Styles */
 .action-btn,
 .add-to-cart-btn,
@@ -337,20 +349,72 @@ body {
 width:30%!important;
 }
 /* Ensuring all buttons have the same width */
-.btn-group-neumorphic .action-btn {
+.button-group-neumorphic .action-btn {
     width: calc(100% - 30px); /* 15px padding on each side */
 }
+/* Neumorphic Style for Button Groups */
+.button-group-neumorphic {
+    background: #e0e5ec;
+    border-radius: 20px;
+    /* Inset shadow to create a pressed effect */
+    box-shadow: inset 8px 8px 16px #cbcbcb, inset -8px -8px 16px #ffffff;
+    padding: 20px; /* Increased padding for better visual */
+    padding-top: 0px!important;
+    margin-bottom: 20px; /* Space between button groups */
+}
+.group-heading {
+    margin: auto !important;
+    padding-top: 5px !important;
+    height: 30px;
+    font-size: 1.2rem; /* Slightly larger than button text for prominence */
+    color: #333; /* Dark color for contrast */
+    font-weight: bold; /* Bold for emphasis */
+    text-align: left; /* Align to the left */
+    /*margin-bottom: 15px;  Space above the first button */
+    padding: 0 25px; /* Padding to align with button text */
+    background: #e0e5ec; /* Same as button group background */
+    border-radius: 10px; /* Rounded corners like buttons */
+    box-shadow: 4px 4px 8px #cbcbcb, -4px -4px 8px #ffffff; /* Subtle outer shadow */
+}
 
+/* No margin for the last button to stick to container bottom */
+.button-group-neumorphic .action-btn:last-child {
+    margin-bottom: 0;
+}
+
+/* Pressed effect for buttons on active state */
+.button-group-neumorphic .action-btn:active {
+    box-shadow: inset 4px 4px 8px #a3b1c6, inset -4px -4px 8px #ffffff;
+}
+
+/* Button Styles Within Groups */
+.button-group-neumorphic .action-btn {
+    margin-bottom: 10px; /* Space between buttons */
+    padding: 10px 15px; /* Consistent padding for buttons */
+    border-radius: 20px; /* Rounded corners for buttons */
+    background: #e0e5ec; /* Background color for buttons */
+    /* Shadow for buttons to lift them off the surface */
+    box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
+    border: none; /* No border for buttons */
+    cursor: pointer; /* Cursor pointer for button hover */
+    font-size: 1rem; /* Font size for button text */
+    text-align: center; /* Center alignment for text */
+    display: block; /* Block display for full width */
+    width: calc(100% - 30px); /* Full width minus padding */
+    outline: none; /* Remove outline to maintain style on focus */
+}
 /* Main Content Styles */
 .main-content {
     flex-grow: 1;
     margin: 0 20px;
     padding: 20px;
+    height:580px!important;
 }
 
 /* User Info Styles */
 .user-info {
     margin-bottom: 20px;
+    margin-top:16px !important;
 }
 
 /* Cart Styles */

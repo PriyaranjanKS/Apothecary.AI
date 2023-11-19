@@ -2,12 +2,16 @@
 
 <div class="order-placement-container">
     <aside class="control-panel neumorphic">
+        <h3 class="group-heading">Order Placement</h3>
         <div class="button-group-neumorphic">
+          
             <button class="action-btn voice-order-btn neumorphic single-btn">Voice Assisted Ordering</button>
-            <button class="action-btn upload-btn neumorphic single-btn">Upload Image</button>
             <button class="action-btn upload-btn neumorphic single-btn">Upload Prescription</button>
+            <button class="action-btn upload-btn neumorphic single-btn">Upload Image</button>
         </div>
+        <h3 class="group-heading">Personalization</h3>
         <div class="button-group-neumorphic">
+            
             <button class="action-btn alternate-suggestions-btn neumorphic single-btn">Alternate Suggestions</button>
             <button class="action-btn medicine-warnings-btn neumorphic single-btn">Medicine Warnings</button>
             <button class="action-btn gdpr-checker-btn neumorphic single-btn">GDPR Checker</button>
@@ -17,32 +21,33 @@
     <main class="main-content neumorphic">
         <div class="user-info neumorphic">
             <label for="userName">User Name:</label>
-            <input type="text" id="userName" class="input-control" placeholder="Enter your name" />
+            <input type="text" id="userName" class="input-control form-label" placeholder="Enter your name" />
         </div>
 
         <section class="product-selection neumorphic">
             <div class="form-group">
-                <label for="product">Product:</label>
-                <select id="product" class="input-control">
+                <label class="form-label" for="product">Product:</label>
+                <select id="product" class="input-control form-label">
                     <option value="">Select Product</option>
                     <!-- Options here -->
                 </select>
             </div>
             <div class="form-group">
-                <label for="unitPrice">Unit Price:</label>
-                <input type="number" id="unitPrice" class="input-control" placeholder="Unit Price" />
+                <label class="form-label"  for="unitPrice">Unit Price:</label>
+                <input type="number" id="unitPrice" class="input-control form-label" placeholder="Unit Price" />
             </div>
             <div class="form-group">
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" class="input-control" placeholder="Quantity" />
+                <label class="form-label"  for="quantity">Quantity:</label>
+                <input type="number" id="quantity" class="input-control form-label" placeholder="Quantity" />
             </div>
-            <button class="action-btn add-to-cart-btn neumorphic">Add To Cart</button>
+            <button class="action-btn add-to-cart-btn neumorphic form-label">Add To Cart</button>
         </section>
     </main>
 
     <aside class="cart neumorphic">
-        <h2>Orders in Cart</h2>
-        <table class="cart-table">
+        <h3 class="group-heading">Orders in Cart</h3>
+       @*  <h2 class="cartHeader">Orders in Cart</h2> *@
+        <table class="cart-table form-label">
             <thead>
                 <tr>
                     <th>Medicine Name</th>
@@ -52,21 +57,21 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="form-label">
                 <!-- Dynamic Rows Here -->
                 <tr>
                     <td>Aspirin</td>
                     <td>30</td>
                     <td>$10</td>
                     <td>$300</td>
-                    <td><button class="btn remove-btn neumorphic">Remove</button></td>
+                    <td><button class="btn remove-btn neumorphic form-label">Remove</button></td>
                 </tr>
                 <!-- Repeat for other items -->
             </tbody>
         </table>
         <div class="cart-footer">
-            <span class="total-bill">Total Bill Value: $300</span>
-            <button class="btn place-order-btn neumorphic">Place Order</button>
+            <span class="total-bill form-label">Total Bill Value: $300</span>
+            <button class="btn place-order-btn neumorphic form-label">Place Order</button>
         </div>
     </aside>
 </div>
