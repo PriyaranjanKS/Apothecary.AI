@@ -267,21 +267,24 @@ label {
 
 /*Order Placement CSS*/
 
-/* Add your global styles here */
+/* Global Styles */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f2f2f2;
-    overflow-x: hidden; /* Prevent horizontal overflow */
+    overflow-x: hidden;
 }
 
+/* Neumorphic Styles */
 .neumorphic {
-    background: #e0e5ec;    
+    background: #e0e5ec;
+    border-radius: 20px;
     box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
     padding: 20px;
 }
 
+/* Order Placement Container */
 .order-placement-container {
     display: flex;
     align-items: flex-start;
@@ -289,7 +292,9 @@ body {
     padding-top: 20px;
 }
 
+/* Control Panel Styles */
 .control-panel {
+    height: 580px!important;
     width: 250px;
     background: #e0e5ec;
     padding: 20px;
@@ -298,39 +303,70 @@ body {
     justify-content: space-between;
     box-shadow: 5px 5px 10px #a7a7a7, -5px -5px 10px #ffffff;
 }
-
-.btn-group {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.single-btn {
+    padding-top: 10px !important;
+    margin-top: 20px !important;
+}
+/* Button Groups with Neumorphic Style */
+.btn-group-neumorphic {
+    background: #e0e5ec;
+    border-radius: 20px;
+    box-shadow: 8px 8px 15px #a3a3a3, -8px -8px 15px #ffffff;
+    padding: 15px;
+    margin-bottom: 30px;
 }
 
+/* Standard Button Styles */
+.action-btn,
+.add-to-cart-btn,
 .btn {
-    margin: 10px 0;
-    padding: 10px;
+    margin: 5px 0;
+    padding: 10px 15px;
     border-radius: 20px;
     background: #e0e5ec;
-    box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
     border: none;
     cursor: pointer;
     transition: 0.3s;
+    font-size: 1rem;
+    text-align: center;
+    display: block;
+    width: 100%;
+    outline: none;
+}
+.place-order-btn {
+width:30%!important;
+}
+/* Ensuring all buttons have the same width */
+.btn-group-neumorphic .action-btn {
+    width: calc(100% - 30px); /* 15px padding on each side */
 }
 
+/* Main Content Styles */
 .main-content {
     flex-grow: 1;
     margin: 0 20px;
     padding: 20px;
 }
+
+/* User Info Styles */
 .user-info {
-margin-bottom:10px;
-
+    margin-bottom: 20px;
 }
+
+/* Cart Styles */
 .cart {
-    width: 45%; /* Adjusted width */
+    width: 45%;
     margin-left: 20px;
-    margin-right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 580px;
+    background: #e0e5ec;
+    padding: 20px;
+    border-radius: 20px;
 }
 
+/* Input Control Styles */
 .input-control {
     width: 100%;
     margin-bottom: 15px;
@@ -341,25 +377,37 @@ margin-bottom:10px;
     box-shadow: inset 4px 4px 6px #cbcbcb, inset -4px -4px 6px #ffffff;
 }
 
+/* Cart Table Styles */
 .cart-table {
+    flex-grow: 1;
     width: 100%;
+    margin-bottom: 20px;
     border-collapse: collapse;
-    background: #e0e5ec;
-    border-radius: 10px;
-    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
 }
 
     .cart-table th, .cart-table td {
         padding: 15px;
-        background: #e0e5ec;
     }
 
+/* Cart Footer Styles */
 .cart-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Button Active/Focus Styles */
+.action-btn:active,
+.add-to-cart-btn:active,
+.btn:active,
+.action-btn:focus,
+.add-to-cart-btn:focus,
+.btn:focus {
+    box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+    outline: none;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
     .order-placement-container {
         flex-direction: column;
