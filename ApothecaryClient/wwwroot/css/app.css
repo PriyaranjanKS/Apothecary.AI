@@ -1,20 +1,24 @@
-/* Add your global styles here */
-
+/* Global styles */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f2f2f2;
-    overflow-x: hidden; /* Prevent horizontal overflow */
+    overflow-x: hidden;
 }
 
+/* Registration Page */
 .registration-page {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Ensures full vertical height */
+    min-height: 100vh;
+    background-color: #e0e5ec;
 }
-
+.uploaded-image {
+    max-width: 70%;
+}
+/* Image Upload Container */
 .image-upload-container {
     flex: 1;
     max-width: 30%;
@@ -23,47 +27,35 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: #e0e5ec;
+    border-radius: 20px;
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
-.neumorphic {
-    background: #ffffff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-}
-
-.upload-label {
-    display: block;
-    font-weight: bold;
-}
-
-.uploaded-image {
-    max-width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
+/* Registration Container */
 .registration-container {
     flex: 1;
     max-width: 70%;
-    background-color: #ffffff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    background: #e0e5ec;
+    border-radius: 20px;
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
     padding: 20px;
     position: relative;
     z-index: 1;
 }
 
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    background: linear-gradient(to right, #f9f1e7, #008080);
+    background: linear-gradient(to right, #cfd9df, #e2ebf0);
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px 10px #a3a3a3, -5px -5px 10px #ffffff;
 }
 
 .registration-title {
@@ -71,11 +63,7 @@ body {
     font-weight: 500;
 }
 
-.icon {
-    max-width: 40px;
-    margin-right: 10px;
-}
-
+/* Locale Container */
 .locale-container {
     display: flex;
     align-items: center;
@@ -87,8 +75,13 @@ body {
 
 .locale-selector {
     padding: 5px;
+    background: #e0e5ec;
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 4px 4px 6px #cbcbcb, inset -4px -4px 6px #ffffff;
 }
 
+/* Form Styles */
 .form-row {
     display: flex;
     justify-content: space-between;
@@ -100,30 +93,6 @@ body {
     padding: 10px;
     display: flex;
     flex-direction: column;
-}
-
-.customer-details-container,
-.contact-details-container,
-.additional-details-container {
-    background-color: #008080;
-    color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.sub-heading {
-    font-size: 18px;
-    margin-bottom: 10px;
-    font-weight: 500;
-    color: #ffffff;
-    text-align: center;
-    display: block;
-    background: linear-gradient(to right, #f9f1e7, #008080);
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-    width: 100%;
 }
 
 .form-group {
@@ -141,37 +110,40 @@ label {
 .form-control {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    background: #e0e5ec;
+    box-shadow: inset 4px 4px 6px #cbcbcb, inset -4px -4px 6px #ffffff;
 }
 
 .form-control-file {
     display: none;
 }
 
+/* Submit Button */
 .submit-button {
-    background-color: #008080;
-    color: #ffffff;
+    background: #e0e5ec;
+    color: black;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
     display: inline-block;
     width: auto;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
     text-align: center;
     margin: 0 auto;
     display: block;
 }
 
     .submit-button:hover {
-        background-color: #005050;
+        background-color: #b8c0c9;
+        box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
     }
 
-/* Overlay styles */
+/* Overlay Styles */
 .overlay {
     position: fixed;
     top: 0;
@@ -185,14 +157,13 @@ label {
     align-items: center;
 }
 
-.overlay-content,
-.translation-overlay-content {
+.overlay-content {
     text-align: center;
     color: #0f5132;
     font-size: 20px;
     padding: 20px;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background: #e0e5ec;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -207,6 +178,7 @@ label {
     max-width: 80%;
 }
 
+/* Spinner Style */
 .spinner {
     margin-bottom: 10px;
     border: 4px solid rgba(0, 0, 0, 0.1);
@@ -265,6 +237,12 @@ label {
     }
 }
 
+/* Additional customizations as needed */
+
+
+
+
+/* ----------------------------------------------------------------------------------------------------------------------------*/
 /*Order Placement CSS*/
 
 /* Global Styles */
