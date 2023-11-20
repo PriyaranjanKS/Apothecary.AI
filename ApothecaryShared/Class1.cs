@@ -39,7 +39,7 @@ namespace ApothecaryShared
     }
     public class MedicineOrder
     {
-        [JsonProperty("ProductName")]
+        [JsonProperty("MedicineName")]
         public required string MedicineName { get; set; }
 
         [JsonProperty("Quantity")]
