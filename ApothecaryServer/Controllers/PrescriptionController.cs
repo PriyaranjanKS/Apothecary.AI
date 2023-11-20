@@ -21,7 +21,7 @@ public class PrescriptionController : ControllerBase
     {
         var httpClient = new HttpClient();
         var content = new StringContent(JsonConvert.SerializeObject(imageData), Encoding.UTF8, "application/json");
-        var powerAutomateUrl = "https://prod-156.westus.logic.azure.com:443/workflows/9e34efa983064b2e9ee97869e3745c48/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=2QWHAg9bPmizlpMq_ksn-7CHosSeofXCpEiynEt6cnU"; // Replace with your Power Automate URL
+        var powerAutomateUrl = "https://prod-166.westus.logic.azure.com:443/workflows/63594d31def647dc8f6bf6b3a8600977/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vL5NP0sNkE0hr_Nq38vJWPTkOba7fbOIPsRgRzvMVbw"; // Replace with your Power Automate URL
 
         try
         {

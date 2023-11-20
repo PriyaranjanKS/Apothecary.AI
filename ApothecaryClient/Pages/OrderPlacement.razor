@@ -1,5 +1,6 @@
 ﻿@page "/order-placement"
 @using ApothecaryShared
+@using Newtonsoft.Json
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
 
@@ -260,26 +261,28 @@
 
             if (response.IsSuccessStatusCode)
             {
-                var medicineOrders = await response.Content.ReadFromJsonAsync<List<MedicineOrder>>();
-                cartOrders = medicineOrders; // Update the cart orders list
-                StateHasChanged(); // Update the UI
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var responseData = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                var extractedContent = responseData?.ToString();
+
+                if (!string.IsNullOrEmpty(extractedContent))
+                {
+                    var medicineOrders = JsonConvert.DeserializeObject<List<MedicineOrder>>(extractedContent);
+                    cartOrders = medicineOrders; // Update the cart orders list
+                    StateHasChanged(); // Update the UI
+                }
             }
             else
             {
                 // Handle non-successful response
                 var errorResponse = await response.Content.ReadAsStringAsync();
-                // You may log this error or show a message to the user
                 Console.WriteLine($"API Error: {errorResponse}");
             }
         }
         catch (Exception ex)
         {
-            // Handle any exceptions that occur during the API call
-            // This could include logging the error and showing a user-friendly message
             Console.WriteLine($"Exception occurred: {ex.Message}");
-            // Optionally, implement additional error handling logic here
         }
-
     }
 
     private void RemoveFromCart(MedicineOrder orderToRemove)

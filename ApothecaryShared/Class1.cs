@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApothecaryShared
 {
@@ -38,10 +39,19 @@ namespace ApothecaryShared
     }
     public class MedicineOrder
     {
-        public string MedicineName { get; set; }
-        public int Quantity { get; set; }
-        public decimal UnitPrice { get; set; } // Add UnitPrice property
-        public decimal TotalPrice { get; set; } // Add TotalPrice property
+        [JsonProperty("ProductName")]
+        public required string MedicineName { get; set; }
+
+        [JsonProperty("Quantity")]
+        public decimal Quantity { get; set; }
+
+        [JsonProperty("unitPrice")]
+        public decimal UnitPrice => TotalPrice / Quantity;
+
+        [JsonProperty("TotalPrice")]
+        public decimal TotalPrice { get; set; }
+
+        // Additional properties if needed
     }
 
 }
