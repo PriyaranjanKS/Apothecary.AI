@@ -31,4 +31,17 @@ namespace ApothecaryShared
         public string PreExistingConditions { get; set; }
         public string AdditionalDetails { get; set; }
     }
+
+    public class PrescriptionImageDataModel
+    {
+        public string Base64Image { get; set; }
+    }
+    public class MedicineOrder
+    {
+        public string MedicineName { get; set; }
+        public int Quantity { get; set; }
+        public decimal UnitPrice { get; set; } // Add UnitPrice property
+        public decimal TotalPrice { get; set; } // Add TotalPrice property
+    }
+
 }

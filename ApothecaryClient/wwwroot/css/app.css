@@ -418,16 +418,14 @@ width:30%!important;
 }
 
 /* Cart Styles */
+/* Dynamic Expansion of Cart */
 .cart {
-    width: 45%;
-    margin-left: 20px;
+    min-height: 200px; /* Minimum height for aesthetics */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 580px;
-    background: #e0e5ec;
-    padding: 20px;
-    border-radius: 20px;
+    padding: 10px;
+    overflow: auto; /* Allows scrolling if content overflows */
 }
 
 /* Input Control Styles */
@@ -441,23 +439,66 @@ width:30%!important;
     box-shadow: inset 4px 4px 6px #cbcbcb, inset -4px -4px 6px #ffffff;
 }
 
-/* Cart Table Styles */
+/* Neumorphic Cart Table Styles */
 .cart-table {
-    flex-grow: 1;
     width: 100%;
-    margin-bottom: 20px;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Space between rows */
 }
 
     .cart-table th, .cart-table td {
-        padding: 15px;
+        background: #e0e5ec;
+        padding: 10px 15px;
+        text-align: left;
+        border-radius: 10px;
+        box-shadow: inset 4px 4px 8px #cbcbcb, inset -4px -4px 8px #ffffff;
+    }
+    .cart-table th {
+        position: sticky;
+        top: 0;
+        background: #c8ccd1;
+        z-index: 10;
+    }
+/* Cart Footer Styles */
+/* Cart Footer Adjustment for Dynamic Content */
+.cart-footer {
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+/* Additional Styling for Remove Button */
+.btn.remove-btn {
+    background-color: #ff4d4f;
+    color: white;
+    box-shadow: none; /* Remove neumorphic shadow for emphasis */
+}
+
+    .btn.remove-btn:hover {
+        background-color: #cc0000;
     }
 
-/* Cart Footer Styles */
-.cart-footer {
+/* Responsive Adjustments and other styles remain the same */
+
+/* Styles for Growing Cart */
+.cart {
+    overflow-y: auto; /* Allow vertical scrolling */
+    max-height: 580px; /* Maximum height before scrolling */
+}
+
+/* Additional Cart Content Styles */
+.cart-content {
+    padding: 10px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 10px; /* Space between items */
+}
+
+/* Style for Total Bill and Place Order button */
+.total-bill {
+    font-weight: bold;
+    margin-top: 10px; /* Space above total bill */
+}
+
+.place-order-btn {
+    margin-top: 15px; /* Space above the button */
 }
 
 /* Button Active/Focus Styles */

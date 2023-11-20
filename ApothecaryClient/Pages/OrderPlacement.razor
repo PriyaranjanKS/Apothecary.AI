@@ -1,5 +1,5 @@
 ﻿@page "/order-placement"
-
+@using ApothecaryShared
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
 
@@ -32,8 +32,14 @@
         <div class="button-group-neumorphic">
           
             <button class="action-btn voice-order-btn neumorphic single-btn">Voice Assisted Ordering</button>
-            <button class="action-btn upload-btn neumorphic single-btn">Upload Prescription</button>
-            <button class="action-btn upload-btn neumorphic single-btn" @onclick="ShowUploadImageModal">Upload Image</button>
+            <button class="action-btn upload-prescription-btn neumorphic single-btn"
+                    @onclick="() => ShowUploadImageModal(true)">
+                Upload Prescription
+            </button>
+            <button class="action-btn upload-btn neumorphic single-btn"
+                    @onclick="() => ShowUploadImageModal(false)">
+                Upload Image
+            </button>
         </div>
         <h3 class="group-heading">Personalization</h3>
         <div class="button-group-neumorphic">
@@ -77,7 +83,6 @@
 
     <aside class="cart neumorphic">
         <h3 class="group-heading">Orders in Cart</h3>
-       @*  <h2 class="cartHeader">Orders in Cart</h2> *@
         <table class="cart-table form-label">
             <thead>
                 <tr>
@@ -89,19 +94,25 @@
                 </tr>
             </thead>
             <tbody class="form-label">
-                <!-- Dynamic Rows Here -->
-                <tr>
-                    <td>Aspirin</td>
-                    <td>30</td>
-                    <td>$10</td>
-                    <td>$300</td>
-                    <td><button class="btn remove-btn neumorphic form-label">Remove</button></td>
-                </tr>
-                <!-- Repeat for other items -->
+                @foreach (var order in cartOrders)
+                {
+                    <tr>
+                        <td>@order.MedicineName</td>
+                        <td>@order.Quantity</td>
+                        <td>$@order.UnitPrice</td>
+                        <td>$@order.TotalPrice</td>
+                        <td>
+                            <button class="btn remove-btn neumorphic form-label"
+                                    @onclick="() => RemoveFromCart(order)">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
         <div class="cart-footer">
-            <span class="total-bill form-label">Total Bill Value: $300</span>
+            <span class="total-bill form-label">Total Bill Value: $@cartOrders.Sum(o => o.TotalPrice)</span>
             <button class="btn place-order-btn neumorphic form-label">Place Order</button>
         </div>
     </aside>
@@ -115,6 +126,14 @@
     private bool isMedicineImageProcessing = false;
     private string imageDataUrl;
     private DotNetObjectReference<OrderPlacement> componentReference;
+    private bool isPrescriptionUpload = false; // New variable to track if it's a prescription upload
+    private List<MedicineOrder> cartOrders = new List<MedicineOrder>();
+
+    private void ShowUploadImageModal(bool isPrescription)
+    {
+        isPrescriptionUpload = isPrescription;
+        isUploadModalVisible = true;
+    }
 
     protected override void OnInitialized()
     {
@@ -192,29 +211,38 @@
             var base64File = await JSRuntime.InvokeAsync<string>("interop.readFileAsBase64", inputFileElement);
             if (!string.IsNullOrEmpty(base64File))
             {
-                // Show a loading indicator here if you like
-                var requestData = new { base64Image = base64File };
-               // var response = await Http.PostAsJsonAsync("api/imageprocessing/extracttext", new { ImageData = base64File });
-                var response = await Http.PostAsJsonAsync("api/imageprocessing/extracttext", requestData);
-                if (response.IsSuccessStatusCode)
+                if (isPrescriptionUpload)
                 {
-                    var extractedText = await response.Content.ReadAsStringAsync();
-                    selectedMedicine = extractedText; // Set the extracted medicine name
-                    isMedicineImageProcessing = false;
-                    StateHasChanged(); // Notify the component to re-render
+                    // Handle prescription processing
+                    await ProcessPrescription(base64File);
+                    isPrescriptionUpload = false; // Reset the flag
                 }
                 else
                 {
-                    // Handle errors, perhaps log them or show to the user
-                    // TODO: Implement error handling logic here
+                    // Show a loading indicator here if you like
+                    var requestData = new { base64Image = base64File };
+                    // var response = await Http.PostAsJsonAsync("api/imageprocessing/extracttext", new { ImageData = base64File });
+                    var response = await Http.PostAsJsonAsync("api/imageprocessing/extracttext", requestData);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var extractedText = await response.Content.ReadAsStringAsync();
+                        selectedMedicine = extractedText; // Set the extracted medicine name
+                        isMedicineImageProcessing = false;
+                        StateHasChanged(); // Notify the component to re-render
+                    }
+                    else
+                    {
+                        // Handle errors, perhaps log them or show to the user
+                        // TODO: Implement error handling logic here
+                    }
                 }
+               
             }
         }
         catch (Exception ex)
         {
             isMedicineImageProcessing = false;
-            // Exception handling, perhaps log the exception or notify the user
-            // TODO: Implement exception handling logic here
+            isUploadModalVisible = false;
         }
         finally
         {
@@ -223,6 +251,48 @@
            
         }
     }
+    private async Task ProcessPrescription(string base64Image)
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/prescription/extract-prescription",
+                new PrescriptionImageDataModel { Base64Image = base64Image });
+
+            if (response.IsSuccessStatusCode)
+            {
+                var medicineOrders = await response.Content.ReadFromJsonAsync<List<MedicineOrder>>();
+                cartOrders = medicineOrders; // Update the cart orders list
+                StateHasChanged(); // Update the UI
+            }
+            else
+            {
+                // Handle non-successful response
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                // You may log this error or show a message to the user
+                Console.WriteLine($"API Error: {errorResponse}");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle any exceptions that occur during the API call
+            // This could include logging the error and showing a user-friendly message
+            Console.WriteLine($"Exception occurred: {ex.Message}");
+            // Optionally, implement additional error handling logic here
+        }
+
+    }
+
+    private void RemoveFromCart(MedicineOrder orderToRemove)
+    {
+        cartOrders.Remove(orderToRemove);
+        StateHasChanged(); // Refresh the UI
+    }
+
+    // private void AddToCart(MedicineOrder order)
+    // {
+    //     // Implement logic to add the medicine order to the cart
+    //     // ...
+    // }
 
     private void HideUploadImageModal()
     {

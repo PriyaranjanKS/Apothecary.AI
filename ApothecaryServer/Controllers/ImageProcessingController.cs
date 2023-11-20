@@ -62,7 +62,7 @@ public class ImageProcessingController : ControllerBase
     public class MedicineInfo
     {
         public string MedicineName { get; set; }
-      
+
     }
     public class ImageDataModel
     {
