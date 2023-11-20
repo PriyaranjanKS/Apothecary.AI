@@ -557,6 +557,7 @@ button {
 .modal-file-input {
     /*opacity: 0;
     position: absolute;*/
+    padding-left: 80px !important;
     top: 0;
     left: 0;
     width: 100%;

@@ -7,5 +7,14 @@ window.interop = {
             reader.onerror = () => reject('Error reading file');
             reader.readAsDataURL(file);
         });
+    },
+    showImagePreview: function (element, dotNetReference) {
+        if (element.files && element.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                dotNetReference.invokeMethodAsync('SetImagePreview', e.target.result);
+            };
+            reader.readAsDataURL(element.files[0]);
+        }
     }
 };

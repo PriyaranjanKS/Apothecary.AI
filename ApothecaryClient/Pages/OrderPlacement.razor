@@ -8,11 +8,11 @@
     <div class="modal-backdrop" @onclick="HideUploadImageModal">
         <div class="modal-content" @onclick:stopPropagation="true">
             <label for="file-upload" class="modal-file-label">Image Selection</label>
-            <input type="file" id="file-upload" class="modal-file-input" @ref="inputFileElement" @onchange="HandleImageFiles" @onchange:stopPropagation="true" />
-
+            <input type="file" id="file-upload" class="modal-file-input" @ref="inputFileElement"
+                   @onchange="ShowImagePreview" />
             @if (imageDataUrl != null)
             {
-                <img src="@imageDataUrl" alt="Image preview" style="max-width: 100%; height: auto; margin-top: 10px;" />
+                <img src="@imageDataUrl" alt="Image preview" style="max-width: 150px; height: auto; margin-top: 10px;" />
             }
             <button class="modal-upload-btn" @onclick="OnFileSelected">Upload Image</button>
             @if (isMedicineImageProcessing)
@@ -114,6 +114,31 @@
     private string selectedMedicine;
     private bool isMedicineImageProcessing = false;
     private string imageDataUrl;
+    private DotNetObjectReference<OrderPlacement> componentReference;
+
+    protected override void OnInitialized()
+    {
+        componentReference = DotNetObjectReference.Create(this);
+    }
+
+    [JSInvokable]
+    public async Task SetImagePreview(string imageDataUrl)
+    {
+        this.imageDataUrl = imageDataUrl;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task ShowImagePreview()
+    {
+        await JSRuntime.InvokeVoidAsync("interop.showImagePreview", inputFileElement, componentReference);
+    }
+
+
+    // Dispose the DotNetObjectReference to avoid memory leaks
+    public void Dispose()
+    {
+        componentReference?.Dispose();
+    }
 
     protected override async Task OnInitializedAsync()
     {
