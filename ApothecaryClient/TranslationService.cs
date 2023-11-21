@@ -21,17 +21,29 @@
 
         public async Task<Dictionary<string, string>> GetTranslationsAsync(string locale, Dictionary<string, string> keysToTranslate)
         {
-            var requestBody = new { locale, texts = keysToTranslate };
-            var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
-
-            var response = await _httpClient.PostAsync(_powerAutomateUrl, content);
-            if (!response.IsSuccessStatusCode)
+            try
             {
-                throw new Exception("Error calling Power Automate for translations.");
-            }
+                var requestBody = new { locale, texts = keysToTranslate };
+                var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
 
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonResponse);
+                var response = await _httpClient.PostAsync(_powerAutomateUrl, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Optionally, you can log the response content for debugging purposes
+                    var errorResponse = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error calling Power Automate for translations: {errorResponse}");
+                }
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonResponse);
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception as necessary
+                Console.WriteLine($"Translation service encountered an exception: {ex.Message}");
+                return new Dictionary<string, string>(); // Return an empty dictionary to avoid crashing the application
+            }
         }
     }
 

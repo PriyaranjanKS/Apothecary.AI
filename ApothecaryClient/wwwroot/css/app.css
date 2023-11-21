@@ -8,8 +8,13 @@ body {
     overflow-x: hidden;
 }
 .sub-heading {
-    font-size: 1.2em !important;
-    margin: auto !important;
+    text-align: center; /* Align text to the center */
+    width: 100%; /* Ensure the div takes full width */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center content horizontally in flexbox */
+    align-items: center; /* Center content vertically in flexbox */
+    font-weight: bold;
+    font-size: 20px;
 }
 
 body, .action-btn, .add-to-cart-btn, .btn, .group-heading,
@@ -18,6 +23,55 @@ body, .action-btn, .add-to-cart-btn, .btn, .group-heading,
 .product-loading-content p {
     font-family: 'Lato', sans-serif !important;
     /* ... other styles ... */
+}
+/* Neumorphic Overlay */
+.neumorphic-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.neumorphic-overlay-content {
+    background: #e0e5ec;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 80%;
+}
+
+/* Spinner Style (unchanged) */
+.spinner {
+    margin-bottom: 10px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+/* Keyframes for spinner animation (unchanged) */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 /* Registration Page */
 .registration-page {

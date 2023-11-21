@@ -6,12 +6,22 @@
 @using Newtonsoft.Json
 @inject HttpClient HttpClient
 
+@if (isPageLoading || translations == null || translations.Count == 0)
+{
+    <div class="neumorphic-overlay">
+        <div class="neumorphic-overlay-content">
+            <div class="spinner"></div>
+            <p>Loading, Please Wait...</p>
+        </div>
+    </div>
+}
+
 @if (isProcessing)
 {
-    <div class="overlay">
-        <div class="overlay-content">
-            <!-- This now uses the same class as translation -->
-            <div class="spinner"></div> <!-- If you have a spinner for the processing state -->
+    <!-- Neumorphic overlay for processing -->
+    <div class="neumorphic-overlay">
+        <div class="neumorphic-overlay-content">
+            <div class="spinner"></div>
             <p>Extracting the ID Card Content, Please wait...</p>
         </div>
     </div>
@@ -19,17 +29,17 @@
 
 @if (isTranslating)
 {
-    <div class="overlay">
-        <div class="overlay-content">
-            <!-- Updated class name for consistency -->
-            <div class="spinner"></div> <!-- Spinner is already centrally aligned with updated CSS -->
+    <!-- Neumorphic overlay for translating -->
+    <div class="neumorphic-overlay">
+        <div class="neumorphic-overlay-content">
+            <div class="spinner"></div>
             <p>Processing language translation, Please wait...</p>
         </div>
     </div>
 }
 <div class="registration-page">
     <div class="image-upload-container">
-        <label for="fileUpload">@translations["UploadID"]</label>
+        <label for="fileUpload">@GetTranslation("UploadID")</label>
         <InputFile id="fileUpload" OnChange="HandleFileUpload" class="form-control-file" />
         @if (!string.IsNullOrEmpty(imageUrl))
         {
@@ -39,9 +49,10 @@
 
     <div class="registration-container">
         <div class="header">
-            <h2 class="registration-title">@translations["UserRegistrationTitle"]</h2>
+            <h2 class="registration-title">@GetTranslation("UserRegistrationTitle")</h2>
+           @*  @translations["UserRegistrationTitle"] *@
             <div class="locale-container">
-                <span class="locale-subtitle">@translations["LocaleSelector"]</span>
+                <span class="locale-subtitle">@GetTranslation("LocaleSelector")</span>
                 <select id="localeSelector" @onchange="OnLocaleChange" class="locale-selector">
                     <option value="English">English</option>
                     <option value="French">French</option>
@@ -57,17 +68,17 @@
         <EditForm Model="@registrationModel" OnValidSubmit="HandleValidSubmit">
             <div class="form-row">
                 <div class="form-column customer-details-container">
-                    <h3 class="sub-heading">@translations["CustomerDetailsHeading"]</h3>
+                    <h3 class="sub-heading">@GetTranslation("CustomerDetailsHeading")</h3>
                     <div class="form-group">
-                        <label for="name">@translations["NameLabel"]</label>
+                        <label for="name">@GetTranslation("NameLabel")</label>
                         <InputText id="name" @bind-Value="registrationModel.Name" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label for="dob">@translations["DateOfBirthLabel"]</label>
+                        <label for="dob">@GetTranslation("DateOfBirthLabel")</label>
                         <InputDate id="dob" @bind-Value="registrationModel.DateOfBirth" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label for="gender">@translations["GenderLabel"]</label>
+                        <label for="gender">@GetTranslation("GenderLabel")</label>
                         <InputSelect id="gender" @bind-Value="registrationModel.Gender" class="form-control">
                             <option value="">Select...</option>
                             <option value="M">Male</option>
@@ -76,54 +87,55 @@
                         </InputSelect>
                     </div>
                     <div class="form-group">
-                        <label for="address">@translations["AddressLabel"]</label>
+                        <label for="address">@GetTranslation("AddressLabel")</label>
                         <InputText id="address" @bind-Value="registrationModel.Address" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label for="state">@translations["StateLabel"]</label>
+                        <label for="state">@GetTranslation("StateLabel")</label>
                         <InputText id="state" @bind-Value="registrationModel.State" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label for="country">@translations["CountryLabel"]</label>
+                        <label for="country">@GetTranslation("CountryLabel")</label>
                         <InputText id="country" @bind-Value="registrationModel.Country" class="form-control" />
                     </div>
                 </div>
 
                 <div class="form-column">
                     <div class="contact-details-container">
-                        <h3 class="sub-heading">@translations["ContactDetailsHeading"]</h3>
+                        <h3 class="sub-heading">@GetTranslation("ContactDetailsHeading")</h3>
                         <div class="form-group">
-                            <label for="email">@translations["EmailLabel"]</label>
+                            <label for="email">@GetTranslation("EmailLabel")</label>
                             <InputText id="email" @bind-Value="registrationModel.Email" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <label for="phone">@translations["PhoneLabel"]</label>
+                            <label for="phone">@GetTranslation("PhoneLabel")</label>
                             <InputText id="phone" @bind-Value="registrationModel.Phone" class="form-control" />
                         </div>
                     </div>
 
                     <div class="additional-details-container">
-                        <h3 class="sub-heading">@translations["OtherDetailsHeading"]</h3>
+                        <h3 class="sub-heading">@GetTranslation("OtherDetailsHeading")</h3>
                         <div class="form-group">
-                            <label for="additionalInfo">@translations["AdditionalDetailsLabel"]</label>
+                            <label for="additionalInfo">@GetTranslation("AdditionalDetailsLabel")</label>
                             <InputTextArea id="additionalInfo" @bind-Value="registrationModel.AdditionalDetails" class="form-control" rows="4" />
                         </div>
                         <div class="form-group">
-                            <label for="conditions">@translations["PreExistingConditionsLabel"]</label>
+                            <label for="conditions">@GetTranslation("PreExistingConditionsLabel")</label>
                             <InputTextArea id="conditions" @bind-Value="registrationModel.PreExistingConditions" class="form-control" rows="4" />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group submit-group">
-                <button type="submit" class="submit-button">@translations["SubmitButton"]</button>
+                <button type="submit" class="submit-button">@GetTranslation("SubmitButton")</button>
             </div>
         </EditForm>
     </div>
 </div>
 
 @code {
-    private bool isProcessing = false; // Flag to control the overlay visibility
+    private bool isPageLoading = true;
+    private bool isProcessing = false;
     private bool isTranslating = false;
 
     private string locale = "English"; // Default locale
@@ -165,7 +177,32 @@
 
     protected override async Task OnInitializedAsync()
     {
-        translations = await TranslationService.GetTranslationsAsync(locale, keysToTranslate);
+        Console.WriteLine("Initialization started.");
+        // Initially set to true to show the loading overlay
+        isPageLoading = true;
+        StateHasChanged();
+        try
+        {
+            translations = await TranslationService.GetTranslationsAsync(locale, keysToTranslate);
+
+            // Simulate a delay for testing purposes
+            //await Task.Delay(3000); // Delay for 3 seconds
+
+            // Debugging - Check if translations are fetched
+            Console.WriteLine("Translations fetched.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error during initialization: {ex.Message}");
+        }
+        finally
+        {
+            // Debugging - Check if we reach this point and set the flag to false
+            Console.WriteLine("Initialization completed.");
+
+            isPageLoading = false; // Set this to false after initialization is done
+            StateHasChanged(); // Ensure the UI is updated
+        }
     }
     private async Task HandleValidSubmit()
     {
@@ -265,7 +302,19 @@
         }
     }
 
- 
+    private string GetTranslation(string key)
+    {
+        if (translations != null && translations.TryGetValue(key, out var value))
+        {
+            return value;
+        }
+        if (keysToTranslate.TryGetValue(key, out var defaultValue))
+        {
+            return defaultValue; // Return the hard-coded default value
+        }
+      
+        return $"[Missing translation for '{key}']"; // Fallback text
+    }
         /*
      private async Task HandleFileUpload(InputFileChangeEventArgs e)
     {
