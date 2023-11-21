@@ -33,12 +33,21 @@
     <div class="alternate-popup-overlay" @onclick="CloseAlternatePopup">
         <div class="alternate-popup-content" @onclick:stopPropagation="true">
             <h2 class="alternate-popup-header">Alternate Medicine Suggestion</h2>
-            <p class="alternate-popup-message">@alternatePopupMessage</p>
-            <button class="alternate-popup-close-btn" @onclick="CloseAlternatePopup">OK</button>
+            @if (isFetchingAlternateSuggestion)
+            {
+                <div class="alternate-fetching-container">
+                    <div class="alternate-popup-spinner"></div>
+                    <p class="alternate-fetching-text">Fetching alternate medicine suggestion, Please wait ...</p>
+                </div>
+            }
+            else
+            {
+                <p class="alternate-popup-message">@alternatePopupMessage</p>
+                <button class="alternate-popup-close-btn" @onclick="CloseAlternatePopup">OK</button>
+            }
         </div>
     </div>
 }
-
 
 <div class="order-placement-container">
     <aside class="control-panel neumorphic">
@@ -144,6 +153,7 @@
     private List<MedicineOrder> cartOrders = new List<MedicineOrder>();
     private bool showAlternatePopup = false;
     private string alternatePopupMessage = "";
+    private bool isFetchingAlternateSuggestion = false;
 
     private async Task ShowAlternateSuggestionPopup()
     {
@@ -154,27 +164,33 @@
         }
         else
         {
+            isFetchingAlternateSuggestion = true; // We start fetching the suggestion
+            showAlternatePopup = true; // Show the popup immediately with the spinner
+
             try
             {
                 var content = new StringContent(JsonConvert.SerializeObject(new { MedicineName = selectedMedicine }), Encoding.UTF8, "application/json");
                 var response = await Http.PostAsync("api/alternatemedicine/get-suggestion", content);
+
+                // Process the response after it is received
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     var responseData = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
                     alternatePopupMessage = responseData?.alternateMedicine;
-                    showAlternatePopup = true;
                 }
                 else
                 {
                     alternatePopupMessage = "Failed to fetch suggestion";
-                    showAlternatePopup = true;
                 }
             }
             catch (Exception ex)
             {
                 alternatePopupMessage = $"Error occurred: {ex.Message}";
-                showAlternatePopup = true;
+            }
+            finally
+            {
+                isFetchingAlternateSuggestion = false; // We finished fetching the suggestion
             }
         }
     }
