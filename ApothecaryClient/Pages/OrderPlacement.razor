@@ -59,7 +59,26 @@
         </div>
     </div>
 }
-
+@if (showMedicineWarningPopup)
+{
+    <div class="medicine-warning-popup-overlay" @onclick="CloseMedicineWarningPopup">
+        <div class="medicine-warning-popup-content" @onclick:stopPropagation="true">
+            <h2 class="medicine-warning-popup-header">Medicine Warning</h2>
+            @if (isFetchingMedicineWarning)
+            {
+                <div class="medicine-warning-fetching-container">
+                    <div class="medicine-warning-popup-spinner"></div>
+                    <p class="medicine-warning-fetching-text">Fetching medicine warning, please wait...</p>
+                </div>
+            }
+            else
+            {
+                <p class="medicine-warning-popup-message">@medicineWarningPopupMessage</p>
+                <button class="medicine-warning-popup-close-btn" @onclick="CloseMedicineWarningPopup">OK</button>
+            }
+        </div>
+    </div>
+}
 <div class="order-placement-container">
     <aside class="control-panel neumorphic">
         <h3 class="group-heading">Order Placement</h3>
@@ -79,7 +98,10 @@
         <div class="button-group-neumorphic">
             
             <button class="action-btn alternate-suggestions-btn neumorphic single-btn" @onclick="ShowAlternateSuggestionPopup">Alternate Suggestions</button>
-            <button class="action-btn medicine-warnings-btn neumorphic single-btn">Medicine Warnings</button>
+            <button class="action-btn medicine-warnings-btn neumorphic single-btn"
+                    @onclick="ShowMedicineWarningPopup">
+                Medicine Warnings
+            </button>
             <button class="action-btn gdpr-checker-btn neumorphic single-btn">GDPR Checker</button>
         </div>
     </aside>
@@ -87,7 +109,7 @@
     <main class="main-content neumorphic">
         <div class="user-info neumorphic">
             <label for="userName">User Name:</label>
-            <input type="text" id="userName" class="input-control form-label" placeholder="Enter your name" />
+            <input type="text" id="userName" class="input-control form-label" @bind="userName" placeholder="Enter your name" />
         </div>
 
         <section class="product-selection neumorphic">
@@ -153,6 +175,7 @@
 </div>
 
 @code {
+    private string userName; 
     private bool isUploadModalVisible = false;
     private ElementReference inputFileElement;
     private List<string> medicineNames = new List<string>();
@@ -166,6 +189,61 @@
     private string alternatePopupMessage = "";
     private bool isFetchingAlternateSuggestion = false;
     private bool isProductListLoading = true;
+    // New property and method for medicine warnings
+    private string medicineWarningPopupMessage = "";
+    private bool isFetchingMedicineWarning = false;
+    private bool showMedicineWarningPopup = false;
+
+    private async Task ShowMedicineWarningPopup()
+    {
+        if (string.IsNullOrEmpty(selectedMedicine) || string.IsNullOrEmpty(userName))
+        {
+            medicineWarningPopupMessage = "Please select a medicine and enter your name.";
+            showMedicineWarningPopup = true;
+        }
+        else
+        {
+            isFetchingMedicineWarning = true;
+            showMedicineWarningPopup = true;
+
+            try
+            {
+                var requestData = new
+                {
+                    MedicineName = selectedMedicine,
+                    UserName = userName
+                };
+
+                var content = new StringContent(JsonConvert.SerializeObject(requestData), Encoding.UTF8, "application/json");
+                var response = await Http.PostAsync("api/medicinewarnings/get-warning", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var responseData = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                    medicineWarningPopupMessage = responseData?.medicineWarning;
+                }
+                else
+                {
+                    medicineWarningPopupMessage = "Failed to fetch medicine warnings.";
+                }
+            }
+            catch (Exception ex)
+            {
+                medicineWarningPopupMessage = $"An error occurred while fetching medicine warnings: {ex.Message}";
+            }
+            finally
+            {
+                isFetchingMedicineWarning = false;
+            }
+        }
+    }
+
+
+    private void CloseMedicineWarningPopup()
+    {
+        showMedicineWarningPopup = false;
+    }
 
     private async Task ShowAlternateSuggestionPopup()
     {

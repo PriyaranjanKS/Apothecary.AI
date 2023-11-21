@@ -7,6 +7,11 @@ body {
     background-color: #f2f2f2;
     overflow-x: hidden;
 }
+.sub-heading {
+    font-size: 1.2em !important;
+    margin: auto !important;
+}
+
 body, .action-btn, .add-to-cart-btn, .btn, .group-heading,
 .submit-button, .alternate-popup-header, .alternate-popup-message,
 .alternate-popup-close-btn, .alternate-fetching-text,
@@ -788,4 +793,94 @@ button {
     align-items: center; /* Align items vertically */
     justify-content: center; /* Align items horizontally */
     flex-direction: column; /* Stack children vertically */
+}
+
+/*Medicine Warning CSS*/
+/* Medicine Warning Popup Overlay */
+.medicine-warning-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+}
+
+/* Medicine Warning Popup Content */
+.medicine-warning-popup-content {
+    background: #e0e5ec;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
+    text-align: center;
+    position: relative;
+    max-width: 500px; /* Maximum width of the popup */
+    width: auto; /* Adjusts the width based on content */
+    margin: 0 auto; /* Center the popup horizontally */
+    overflow-wrap: break-word; /* Ensures the text wraps and does not overflow */
+}
+
+/* Medicine Warning Popup Header */
+.medicine-warning-popup-header {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    background: #e0e5ec; /* Neumorphic background */
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: inset 4px 4px 8px #cbcbcb, inset -4px -4px 8px #ffffff; /* Neumorphic inset shadow */
+    text-align: center;
+}
+
+/* Medicine Warning Popup Message */
+.medicine-warning-popup-message {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: left; /* Align text to the left */
+    padding: 0 20px; /* Add padding on both sides */
+}
+/* Medicine Warning Popup Close Button */
+.medicine-warning-popup-close-btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: #e0e5ec;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 2px 2px 4px #cbcbcb, -2px -2px 4px #ffffff;
+}
+
+    .medicine-warning-popup-close-btn:active {
+        box-shadow: inset 2px 2px 4px #cbcbcb, inset -2px -2px 4px #ffffff;
+    }
+
+/* Medicine Warning Fetching Container */
+.medicine-warning-fetching-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+/* Medicine Warning Fetching Text */
+.medicine-warning-fetching-text {
+    margin-top: 20px;
+    color: #666;
+    font-size: 16px;
+}
+
+/* Medicine Warning Popup Spinner */
+.medicine-warning-popup-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
 }
