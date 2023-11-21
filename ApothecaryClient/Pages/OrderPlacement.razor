@@ -79,6 +79,30 @@
         </div>
     </div>
 }
+@if (showGdprPopup)
+{
+    <div class="gdpr-popup-overlay" @onclick="CloseGdprPopup">
+        <div class="gdpr-popup-content" @onclick:stopPropagation="true">
+            <span class="gdpr-close-icon" @onclick="CloseGdprPopup">X</span>
+            <h2 class="gdpr-popup-header">Personal Information</h2>
+            @if (isFetchingDetails)
+            {
+                <div class="gdpr-spinner-container">
+                    <div class="gdpr-spinner"></div>
+                    <p class="gdpr-spinner-text">Checking for Personal Details in the system...</p>
+                </div>
+            }
+            else
+            {
+                <p class="gdpr-popup-message">@gdprPopupMessage</p>
+                <button class="gdpr-clear-btn" @onclick="ClearPersonalDetails">
+                    Clear Personal Details
+                </button>
+            }
+        </div>
+    </div>
+}
+
 <div class="order-placement-container">
     <aside class="control-panel neumorphic">
         <h3 class="group-heading">Order Placement</h3>
@@ -102,7 +126,10 @@
                     @onclick="ShowMedicineWarningPopup">
                 Medicine Warnings
             </button>
-            <button class="action-btn gdpr-checker-btn neumorphic single-btn">GDPR Checker</button>
+            <button class="action-btn gdpr-checker-btn neumorphic single-btn"
+                    @onclick="ShowGdprPopup">
+                GDPR Checker
+            </button>
         </div>
     </aside>
 
@@ -193,7 +220,90 @@
     private string medicineWarningPopupMessage = "";
     private bool isFetchingMedicineWarning = false;
     private bool showMedicineWarningPopup = false;
+    private bool showGdprPopup = false;
+    private string gdprPopupMessage = "";
+    private bool isFetchingDetails = false;
 
+    private void ShowGdprPopup()
+    {
+        showGdprPopup = true;
+        FetchPersonalDetails();
+    }
+
+    private async Task FetchPersonalDetails()
+    {
+        isFetchingDetails = true;
+        try
+        {
+            var requestData = new
+            {
+                UserName = userName,
+                ActionToBeDone = "Fetch Personal Details"
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(requestData), Encoding.UTF8, "application/json");
+            var response = await Http.PostAsync("api/gdpr/data-compliance", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var responseObj = JsonConvert.DeserializeObject<GDPRResponse>(jsonResponse);
+                gdprPopupMessage = responseObj.GDPROutput;
+            }
+            else
+            {
+                gdprPopupMessage = "Failed to fetch personal details.";
+            }
+        }
+        catch (Exception ex)
+        {
+            gdprPopupMessage = $"An error occurred: {ex.Message}";
+        }
+        finally
+        {
+            isFetchingDetails = false;
+            StateHasChanged(); // This ensures the UI is updated with the new message
+        }
+    }
+
+
+    private async Task ClearPersonalDetails()
+    {
+        isFetchingDetails = true;
+        try
+        {
+            var requestData = new
+            {
+                UserName = userName,
+                ActionToBeDone = "Delete Personal Details"
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(requestData), Encoding.UTF8, "application/json");
+            var response = await Http.PostAsync("api/gdpr/data-compliance", content);
+            if (response.IsSuccessStatusCode)
+            {
+                gdprPopupMessage = "Personal details have been cleared from the back end.";
+            }
+            else
+            {
+                gdprPopupMessage = "Failed to clear personal details.";
+            }
+
+        }
+        catch (Exception ex)
+        {
+            gdprPopupMessage = $"An error occurred: {ex.Message}";
+        }
+        finally
+        {
+            isFetchingDetails = false;
+            StateHasChanged();
+        }
+    }
+
+    private void CloseGdprPopup()
+    {
+        showGdprPopup = false;
+    }
     private async Task ShowMedicineWarningPopup()
     {
         if (string.IsNullOrEmpty(selectedMedicine) || string.IsNullOrEmpty(userName))
@@ -473,5 +583,10 @@
     {
         isUploadModalVisible = false;
         StateHasChanged();
+    }
+    public class GDPRResponse
+    {
+        [JsonProperty("GDPROutput")]
+        public string GDPROutput { get; set; }
     }
 }

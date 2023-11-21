@@ -884,3 +884,116 @@ button {
     height: 50px;
     animation: spin 2s linear infinite;
 }
+/*GDPR Checker CSS*/
+/* GDPR Popup Overlay */
+.gdpr-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* GDPR Popup Content */
+.gdpr-popup-content {
+    position: relative;
+    background: #e0e5ec;
+    border-radius: 20px;
+    padding: 40px; /* Increased padding to make space for the close button */
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
+    width: 80%;
+    max-width: 600px; /* Adjust as necessary for your design */
+    text-align: center;
+}
+
+/* GDPR Popup Header with Neumorphic Style */
+.gdpr-popup-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    background: #e0e5ec;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: inset 4px 4px 8px #cbcbcb, inset -4px -4px 8px #ffffff; /* Neumorphic inset shadow */
+}
+
+/* GDPR Popup Message */
+.gdpr-popup-message {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* GDPR Popup Close Icon */
+.gdpr-close-icon {
+    position: absolute;
+    top: 10px; /* Distance from the top */
+    right: 20px; /* Distance from the right */
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    z-index: 1010; /* Ensures it's above other content */
+}
+
+/* GDPR Clear Personal Details Button with Red Gradient */
+.gdpr-clear-btn {
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #ff7e7e, #ff6161); /* Red gradient */
+    color: white; /* White text color */
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 4px 4px 8px #b8b9be, -4px -4px 8px #ffffff; /* Neumorphic shadow */
+    transition: box-shadow 0.3s ease-in-out; /* Transition for interactive effect */
+}
+
+    .gdpr-clear-btn:hover {
+        background-image: linear-gradient(to right, #ff5656, #ff2e2e); /* Darker red gradient on hover */
+    }
+
+    .gdpr-clear-btn:active {
+        box-shadow: inset 2px 2px 4px #cbcbcb, inset -2px -2px 4px #ffffff; /* Inward shadow for pressed effect */
+    }
+
+/* GDPR Spinner Container */
+.gdpr-spinner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+}
+
+/* GDPR Spinner */
+.gdpr-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+}
+
+/* GDPR Spinner Text */
+.gdpr-spinner-text {
+    margin-top: 10px;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Keyframes for spinner animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
