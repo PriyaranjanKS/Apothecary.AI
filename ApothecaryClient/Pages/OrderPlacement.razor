@@ -5,6 +5,17 @@
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
 
+@if (isProductListLoading)
+{
+    <div class="product-loading-overlay">
+        <div class="product-loading-content">
+            <div class="product-spinner-container">
+                <div class="product-spinner"></div>
+            </div>
+            <p>Loading, Please wait...</p>
+        </div>
+    </div>
+}
 @if (isUploadModalVisible)
 {
     <div class="modal-backdrop" @onclick="HideUploadImageModal">
@@ -37,7 +48,7 @@
             {
                 <div class="alternate-fetching-container">
                     <div class="alternate-popup-spinner"></div>
-                    <p class="alternate-fetching-text">Fetching alternate medicine suggestion, Please wait ...</p>
+                    <p class="alternate-fetching-text">Fetching alternate medicine suggestion,Please wait!</p>
                 </div>
             }
             else
@@ -154,6 +165,7 @@
     private bool showAlternatePopup = false;
     private string alternatePopupMessage = "";
     private bool isFetchingAlternateSuggestion = false;
+    private bool isProductListLoading = true;
 
     private async Task ShowAlternateSuggestionPopup()
     {
@@ -261,10 +273,23 @@
 
     private async Task FetchMedicineList()
     {
-        var response = await Http.GetFromJsonAsync<List<string>>("api/medicines/getall");
-        if (response != null)
+        isProductListLoading = true; // Set to true to show spinner
+        try
         {
-            medicineNames = response;
+            var response = await Http.GetFromJsonAsync<List<string>>("api/medicines/getall");
+            if (response != null)
+            {
+                medicineNames = response;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("An error occurred: " + ex.Message);
+        }
+        finally
+        {
+            isProductListLoading = false; // Set to false to hide spinner
+            StateHasChanged(); // Refresh the UI
         }
     }
 
