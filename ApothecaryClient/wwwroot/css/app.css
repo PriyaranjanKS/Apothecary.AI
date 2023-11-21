@@ -626,3 +626,54 @@ button {
     height: 40px;
     animation: spin 2s linear infinite;
 }
+
+/*Alternate Suggestions CSS*/
+
+/* Neumorphic Popup Styles for Alternate Suggestions */
+.alternate-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.alternate-popup-content {
+    background: #e0e5ec;
+    border-radius: 20px;
+    box-shadow: 4px 4px 8px #b8b9be, -4px -4px 8px #ffffff; /* Reduced shadow intensity */
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+}
+
+.alternate-popup-header {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.alternate-popup-message {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #666;
+}
+
+.alternate-popup-close-btn {
+    background: #e0e5ec;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px #cbcbcb, -2px -2px 4px #ffffff; /* Reduced shadow intensity */
+    cursor: pointer;
+    font-size: 16px;
+    transition: box-shadow 0.2s ease-in-out; /* Smooth transition for shadow */
+}
+    .alternate-popup-close-btn:active {
+        box-shadow: inset 2px 2px 4px #cbcbcb, inset -2px -2px 4px #ffffff; /* Inward shadow for depressed effect */
+    }

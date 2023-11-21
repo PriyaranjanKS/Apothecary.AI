@@ -1,6 +1,7 @@
 ﻿@page "/order-placement"
 @using ApothecaryShared
 @using Newtonsoft.Json
+@using System.Text
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
 
@@ -27,6 +28,18 @@
     </div>
 }
 
+@if (showAlternatePopup)
+{
+    <div class="alternate-popup-overlay" @onclick="CloseAlternatePopup">
+        <div class="alternate-popup-content" @onclick:stopPropagation="true">
+            <h2 class="alternate-popup-header">Alternate Medicine Suggestion</h2>
+            <p class="alternate-popup-message">@alternatePopupMessage</p>
+            <button class="alternate-popup-close-btn" @onclick="CloseAlternatePopup">OK</button>
+        </div>
+    </div>
+}
+
+
 <div class="order-placement-container">
     <aside class="control-panel neumorphic">
         <h3 class="group-heading">Order Placement</h3>
@@ -45,7 +58,7 @@
         <h3 class="group-heading">Personalization</h3>
         <div class="button-group-neumorphic">
             
-            <button class="action-btn alternate-suggestions-btn neumorphic single-btn">Alternate Suggestions</button>
+            <button class="action-btn alternate-suggestions-btn neumorphic single-btn" @onclick="ShowAlternateSuggestionPopup">Alternate Suggestions</button>
             <button class="action-btn medicine-warnings-btn neumorphic single-btn">Medicine Warnings</button>
             <button class="action-btn gdpr-checker-btn neumorphic single-btn">GDPR Checker</button>
         </div>
@@ -129,7 +142,47 @@
     private DotNetObjectReference<OrderPlacement> componentReference;
     private bool isPrescriptionUpload = false; // New variable to track if it's a prescription upload
     private List<MedicineOrder> cartOrders = new List<MedicineOrder>();
+    private bool showAlternatePopup = false;
+    private string alternatePopupMessage = "";
 
+    private async Task ShowAlternateSuggestionPopup()
+    {
+        if (string.IsNullOrEmpty(selectedMedicine) || selectedMedicine == "Select Product")
+        {
+            alternatePopupMessage = "Select a product first to get the alternate medicine suggestion";
+            showAlternatePopup = true;
+        }
+        else
+        {
+            try
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(new { MedicineName = selectedMedicine }), Encoding.UTF8, "application/json");
+                var response = await Http.PostAsync("api/alternatemedicine/get-suggestion", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var responseData = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                    alternatePopupMessage = responseData?.alternateMedicine;
+                    showAlternatePopup = true;
+                }
+                else
+                {
+                    alternatePopupMessage = "Failed to fetch suggestion";
+                    showAlternatePopup = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                alternatePopupMessage = $"Error occurred: {ex.Message}";
+                showAlternatePopup = true;
+            }
+        }
+    }
+
+    private void CloseAlternatePopup()
+    {
+        showAlternatePopup = false;
+    }
     private void ShowUploadImageModal(bool isPrescription)
     {
         isPrescriptionUpload = isPrescription;
