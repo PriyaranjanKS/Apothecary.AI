@@ -16,5 +16,16 @@ window.interop = {
             };
             reader.readAsDataURL(element.files[0]);
         }
+    },
+
+    monitorPaymentStatus: function (dotNetReference) {
+        var checkPaymentStatus = setInterval(function () {
+            var paymentButton = document.querySelector('.eway-button.processed');
+            if (paymentButton) {
+                clearInterval(checkPaymentStatus);
+                var receiptNumber = document.querySelector('.right-tip').getAttribute('data-tips').match(/Receipt Number:(\d+)/)[1];
+                dotNetReference.invokeMethodAsync('PaymentCompleted', receiptNumber);
+            }
+        }, 500); // Check every 500 milliseconds
     }
 };

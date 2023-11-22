@@ -1,0 +1,123 @@
+﻿@page "/payment-process/{orderDetailsJson}"
+@using Newtonsoft.Json
+@using ApothecaryShared
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+<div class="payment-container">
+    <div class="payment-neumorphic payment-order-details">
+        <h2 class="payment-order-summary-header">Order Summary</h2>
+        @if (orderDetails != null)
+        {
+            <table class="payment-table">
+                <thead>
+                    <tr>
+                        <th>Medicine Name</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in orderDetails)
+                    {
+                        <tr>
+                            <td>@order.MedicineName</td>
+                            <td>@order.Quantity</td>
+                            <td>$@order.UnitPrice</td>
+                            <td>$@order.TotalPrice</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="payment-total-bill">
+                Total Bill Value: $@orderDetails.Sum(o => o.TotalPrice)
+            </div>
+        }
+    </div>
+    <!-- Payment Button Container -->
+    <div class="payment-button-container">
+        <script src="https://secure.ewaypayments.com/scripts/eCrypt.js"
+                class="eway-paynow-button"
+                data-publicapikey="epk-7C393BD6-8DB7-480F-B659-D8D8992ED56A"
+                data-amount="1000"
+                data-currency="AUD">
+        </script>
+       @*  <button class="payment-button neumorphic" @onclick="MakePayment">
+            Make Payment
+        </button> *@
+    </div>
+</div>
+@if (showPaymentSuccessPopup)
+{
+    <div class="payment-success-overlay">
+        <div class="payment-success-content">
+            <p>Payment successful!</p>
+            <p>Receipt Number: @receiptNumber</p>
+            <button class="payment-success-button" @onclick="GoToOrderPlacement">OK</button>
+        </div>
+    </div>
+}
+@code {
+    private bool showPaymentSuccessPopup = false;
+    private string receiptNumber;
+
+        [Parameter]
+        public string OrderDetailsJson { get; set; }
+    private List<MedicineOrder> orderDetails;
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(OrderDetailsJson))
+            {
+                orderDetails = JsonConvert.DeserializeObject<List<MedicineOrder>>(OrderDetailsJson);
+            }
+        }
+        catch (JsonException jsonEx)
+        {
+            // Handle JSON parsing exceptions (e.g., log the error, notify the user)
+            Console.WriteLine($"JSON Error: {jsonEx.Message}");
+        }
+        catch (Exception ex)
+        {
+            // Handle other exceptions
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+
+    private async Task MakePayment()
+    {
+        try
+        {
+            decimal totalAmount = orderDetails.Sum(o => o.TotalPrice);
+            int totalAmountInCents = (int)(totalAmount * 100);
+            await JSRuntime.InvokeVoidAsync("interop.loadEwayScript", totalAmountInCents, "AUD");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+      
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("interop.monitorPaymentStatus", DotNetObjectReference.Create(this));
+        }
+    }
+    [JSInvokable]
+    public void PaymentCompleted(string receiptNo)
+    {
+        receiptNumber = receiptNo;
+        showPaymentSuccessPopup = true;
+        StateHasChanged();
+    }
+
+    private void GoToOrderPlacement()
+    {
+        NavigationManager.NavigateTo("/order-placement");
+    }
+}

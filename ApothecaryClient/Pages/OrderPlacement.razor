@@ -4,6 +4,7 @@
 @using System.Text
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
 @if (isProductListLoading)
 {
@@ -196,7 +197,8 @@
         </table>
         <div class="cart-footer">
             <span class="total-bill form-label">Total Bill Value: $@cartOrders.Sum(o => o.TotalPrice)</span>
-            <button class="btn place-order-btn neumorphic form-label">Place Order</button>
+           <button class="btn place-order-btn neumorphic form-label" @onclick="OnPlaceOrder">Place Order</button>
+
         </div>
     </aside>
 </div>
@@ -572,7 +574,12 @@
         cartOrders.Remove(orderToRemove);
         StateHasChanged(); // Refresh the UI
     }
-
+     private void OnPlaceOrder()
+    {
+        // Here we navigate to the PaymentProcess page with the order details
+        var serializedCartOrders = JsonConvert.SerializeObject(cartOrders);
+    NavigationManager.NavigateTo($"/payment-process/{serializedCartOrders}");
+    }
     // private void AddToCart(MedicineOrder order)
     // {
     //     // Implement logic to add the medicine order to the cart

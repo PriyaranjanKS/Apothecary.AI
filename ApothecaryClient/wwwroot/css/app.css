@@ -1051,3 +1051,140 @@ button {
         transform: rotate(360deg);
     }
 }
+/*Payment Process CSS*/
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.payment-neumorphic {
+    background: #e0e5ec;
+    border-radius: 20px;
+    box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+    padding: 2em;
+    margin-bottom: 2em;
+}
+
+.payment-order-details {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.payment-order-summary-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.payment-table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+    .payment-table th, .payment-table td {
+        background: #e0e5ec;
+        border-radius: 10px;
+        padding: 10px 15px;
+        box-shadow: 4px 4px 6px #cbcbcb, -4px -4px 6px #ffffff;
+        text-align: left;
+    }
+
+    .payment-table th {
+        background: #c8ccd1;
+        box-shadow: none;
+    }
+
+    .payment-table td {
+        background: #f0f0f3;
+        box-shadow: inset 1px 1px 2px rgba(174, 174, 192, 0.25), inset -1px -1px 2px rgba(255, 255, 255, 0.3);
+    }
+
+.payment-total-bill {
+    padding: 10px 15px;
+    border-radius: 10px;
+    background: #c8ccd1;
+    box-shadow: inset 1px 1px 2px rgba(174, 174, 192, 0.25), inset -1px -1px 2px rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.payment-button-container {
+    display: flex;
+    justify-content: center; /* Center button horizontally */
+    width: 100%; /* Full width of its container */
+    padding: 20px 0; /* Padding above and below the button */
+}
+
+.payment-button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: #e0e5ec;
+    box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    color: #333;
+    outline: none;
+    /* Add more styles if needed */
+}
+
+    /* Neumorphic style for button hover and active states */
+    .payment-button:hover {
+        background: #d1d9e6;
+        box-shadow: 5px 5px 10px #a3a3a3, -5px -5px 10px #ffffff;
+    }
+
+    .payment-button:active {
+        box-shadow: inset 5px 5px 10px #a3a3a3, inset -5px -5px 10px #ffffff;
+    }
+
+.payment-success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.payment-success-content {
+    background: #e0e5ec;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
+    text-align: center;
+    width: auto; /* Adjust width as needed */
+    min-width: 300px;
+}
+.payment-success-button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: #e0e5ec;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    color: #333;
+    outline: none;
+    margin-top: 15px; /* Space above the button */
+    box-shadow: 4px 4px 8px #cbcbcb, -4px -4px 8px #ffffff;
+    width: 50%; /* Set the width of the button */
+    display: block; /* Make the button a block element */
+    margin-left: auto; /* Margin auto for centering */
+    margin-right: auto; /* Margin auto for centering */
+}
+
+    .payment-success-button:hover {
+        background: #d1d9e6;
+        box-shadow: 5px 5px 10px #a3a3a3, -5px -5px 10px #ffffff;
+    }
+
+    .payment-success-button:active {
+        box-shadow: inset 5px 5px 10px #a3a3a3, inset -5px -5px 10px #ffffff;
+    }
