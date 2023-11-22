@@ -1188,3 +1188,106 @@ button {
     .payment-success-button:active {
         box-shadow: inset 5px 5px 10px #a3a3a3, inset -5px -5px 10px #ffffff;
     }
+
+    /*Dispatch Planner CSS*/
+/* Dispatch Planner CSS */
+.dispatch-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.dispatch-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.dispatch-orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+}
+
+.dispatch-order-card {
+    background: #e0e5ec;
+    border-radius: 20px;
+    box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dispatch-order-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.dispatch-order-column {
+    background: #f0f0f3;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px; /* Added margin for spacing between columns */
+    box-shadow: inset 4px 4px 6px #cbcbcb, inset -4px -4px 6px #ffffff; /* Adjusted for depressed look */
+    text-align: center;
+    flex: 1; /* Makes sure the columns take up equal space */
+}
+
+/* Last column in each row should not have right margin */
+.dispatch-order-row > .dispatch-order-column:last-child {
+    margin-right: 0;
+}
+
+.dispatch-order-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.dispatch-readiness-check,
+.dispatch-schedule {
+    min-width: 150px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #e0e5ec;
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff; /* Elevated look */
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+    /* Depressed look on click */
+    .dispatch-readiness-check:active,
+    .dispatch-schedule:active {
+        box-shadow: inset 6px 6px 12px #b8b9be, inset -6px -6px 12px #ffffff;
+    }
+
+/* Styles for responsiveness */
+@media (max-width: 768px) {
+    .dispatch-orders-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dispatch-order-row {
+        flex-direction: column;
+    }
+
+    .dispatch-order-column {
+        margin-right: 0;
+        margin-bottom: 10px; /* Added margin for spacing between rows */
+    }
+
+    /* Last column in mobile view should not have bottom margin */
+    .dispatch-order-row > .dispatch-order-column:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* Add additional styles as needed */
