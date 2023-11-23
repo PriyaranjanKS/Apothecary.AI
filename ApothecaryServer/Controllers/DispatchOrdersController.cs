@@ -12,6 +12,54 @@ using static ImageProcessingController;
 [ApiController]
 public class DispatchOrdersController : ControllerBase
 {
+
+    [HttpPost("schedule")]
+    public async Task<ActionResult> ScheduleDispatch([FromBody] DispatchRequest request)
+    {
+        using var httpClient = new HttpClient();
+
+        try
+        {
+            var payload = new
+            {
+                OrderId = request.OrderId,
+                CustomerName = request.CustomerName
+            };
+            var jsonPayload = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+            // Replace with your actual Power Automate URL and adjust headers as necessary.
+            var response = await httpClient.PostAsync("https://prod-78.westus.logic.azure.com:443/workflows/a9f7d7ea29604d62a3969b8d9552c514/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YR5iYH8a0aG0mMqifX0KadCCHnIlrM41CGKdsRfmYQA", content);
+
+            // Check if the response is successful
+            if (response.IsSuccessStatusCode)
+            {
+                // Read the response content and parse it into the PowerAutomateResponse class
+                var result = await response.Content.ReadFromJsonAsync<PowerAutomateResponse>();
+                return Ok(new { OpenAIOutput = result.OpenAIOutput });
+            }
+            else
+            {
+                // If not successful, return the status code with a message
+                return StatusCode((int)response.StatusCode, "Failed to trigger Power Automate.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An exception occurred: {ex.Message}");
+        }
+    }
+
+    public class DispatchRequest
+    {
+        public string OrderId { get; set; }
+        public string CustomerName { get; set; }
+    }
+
+    private class PowerAutomateResponse
+    {
+        public string OpenAIOutput { get; set; }
+    }
     [HttpGet("ReadinessCheck/{orderNumber}")]
     public async Task<IActionResult> GetOrderReadiness(string orderNumber)
     {

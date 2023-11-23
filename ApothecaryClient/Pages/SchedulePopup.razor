@@ -1,0 +1,57 @@
+﻿@if (IsVisible)
+{
+    <div class="neumorphic-overlay">
+        <div class="neumorphic-modal">
+            <div class="neumorphic-header">
+                <h3>Dispatch Station Auto Scheduler</h3>
+            </div>
+            <div class="neumorphic-body">
+                <p>@PowerAutomateOutput</p>
+                <img src="success-icon.png" alt="Success" class="status-icon" />
+            </div>
+            <button class="neumorphic-btn" @onclick="ClosePopup">OK</button>
+        </div>
+    </div>
+}
+
+@code {
+    [Inject] private HttpClient Http { get; set; }
+    public bool IsVisible { get; private set; }
+    public string PowerAutomateOutput { get; private set; }
+
+    public async Task ShowPopup(string orderId, string customerName)
+    {
+        IsVisible = true;
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/DispatchOrders/schedule", new { OrderId = orderId, CustomerName = customerName });
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<DispatchScheduleResponse>();
+                PowerAutomateOutput = result.OpenAIOutput;
+            }
+            else
+            {
+                PowerAutomateOutput = "Failed to schedule dispatch.";
+            }
+        }
+        catch (Exception ex)
+        {
+            PowerAutomateOutput = $"An error occurred: {ex.Message}";
+        }
+
+        StateHasChanged();
+    }
+
+    private void ClosePopup()
+    {
+        IsVisible = false;
+        PowerAutomateOutput = string.Empty;
+        StateHasChanged();
+    }
+
+    public class DispatchScheduleResponse
+    {
+        public string OpenAIOutput { get; set; }
+    }
+}

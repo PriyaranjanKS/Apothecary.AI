@@ -1565,4 +1565,66 @@ button {
     cursor: pointer;
 }
 
-/* ... existing CSS ... */
+/* Scheduler CSS */
+
+/* Neumorphic Overlay */
+.neumorphic-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Neumorphic Modal */
+.neumorphic-modal {
+    background: #e0e5ec;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 9px 9px 18px #a7a7a7, -9px -9px 18px #ffffff;
+    width: 400px;
+    text-align: center;
+}
+
+.neumorphic-header {
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.neumorphic-body {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.status-icon {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.neumorphic-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #e0e5ec;
+    box-shadow: 4px 4px 8px #babecc, -4px -4px 8px #ffffff;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+    .neumorphic-btn:hover {
+        background: #cfd9df;
+        box-shadow: 2px 2px 4px #babecc, -2px -2px 4px #ffffff;
+    }
+
+    .neumorphic-btn:active {
+        box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #ffffff;
+    }
+

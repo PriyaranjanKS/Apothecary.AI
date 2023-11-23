@@ -1,7 +1,7 @@
 ﻿@page "/dispatch-planner"
 @inject HttpClient Http
 <ReadinessCheckModal @ref="readinessCheckModal" OnStateChanged="() => RefreshParentComponent()" />
-
+<SchedulePopup @ref="schedulePopup" />
 
 @if (orders == null)
 {
@@ -38,7 +38,7 @@
                     <div class="dispatch-order-row">
                         <div class="dispatch-order-actions">
                             <button class="dispatch-readiness-check" @onclick="() => CheckReadiness(order.OrderNumber)">Readiness Check</button>
-                            <button class="dispatch-schedule" @onclick="() => ScheduleDispatch(order.OrderNumber)">Schedule</button>
+                            <button class="dispatch-schedule" @onclick="() => OnScheduleClick(order)">Schedule</button>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,15 @@
 @code {
     private List<Order> orders;
     private ReadinessCheckModal readinessCheckModal;
+    private SchedulePopup schedulePopup;
 
+    private async Task OnScheduleClick(Order order)
+    {
+        if (schedulePopup != null)
+        {
+            await schedulePopup.ShowPopup(order.OrderNumber, order.CustomerName);
+        }
+    }
     private async Task CheckReadiness(string orderNumber)
     {
         await readinessCheckModal.ShowModal(orderNumber);
