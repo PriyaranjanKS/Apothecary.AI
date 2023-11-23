@@ -1517,6 +1517,7 @@ button {
     justify-content: center;
     position: relative;
     z-index: 1000;
+    max-height: 700px;
 }
 
 /* ... Other styles ... */
@@ -1543,3 +1544,25 @@ button {
     max-width: 800px; /* Increase width */
     padding: 40px; /* Increase padding */
 }
+/*Dispatch Orders Filters*/
+ 
+
+.dispatch-filter {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.neumorphic-filter {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background: #e0e5ec;
+    box-shadow: 4px 4px 8px #b8b9be, -4px -4px 8px #ffffff;
+    outline: none;
+    font-size: 1rem;
+    margin-left: auto; /* Pushes the filter to the right */
+    cursor: pointer;
+}
+
+/* ... existing CSS ... */
