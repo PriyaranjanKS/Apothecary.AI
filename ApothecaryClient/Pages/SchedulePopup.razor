@@ -6,10 +6,23 @@
                 <h3>Dispatch Station Auto Scheduler</h3>
             </div>
             <div class="neumorphic-body">
-                <p>@PowerAutomateOutput</p>
-                <img src="success-icon.png" alt="Success" class="status-icon" />
+                @if (IsLoading)
+                {
+                    <div class="schedule-loading-container">
+                        <div class="schedule-loading-spinner"></div> <!-- Loading spinner -->
+                        <p class="schedule-loading-text">Fetching current dispatch schedules...</p> <!-- Loading text -->
+                    </div>
+                }
+                else
+                {
+                    <p>@PowerAutomateOutput</p>
+                    <img src="success-icon.png" alt="Success" class="status-icon" />
+                }
             </div>
-            <button class="neumorphic-btn" @onclick="ClosePopup">OK</button>
+            @if (!IsLoading)
+            {
+                <button class="neumorphic-btn" @onclick="ClosePopup">OK</button>
+            }
         </div>
     </div>
 }
@@ -17,11 +30,16 @@
 @code {
     [Inject] private HttpClient Http { get; set; }
     public bool IsVisible { get; private set; }
+    private bool IsLoading { get; set; }
     public string PowerAutomateOutput { get; private set; }
 
     public async Task ShowPopup(string orderId, string customerName)
     {
+        IsLoading = true;
         IsVisible = true;
+        StateHasChanged();
+        PowerAutomateOutput = string.Empty;
+
         try
         {
             var response = await Http.PostAsJsonAsync("api/DispatchOrders/schedule", new { OrderId = orderId, CustomerName = customerName });
@@ -40,6 +58,7 @@
             PowerAutomateOutput = $"An error occurred: {ex.Message}";
         }
 
+        IsLoading = false;
         StateHasChanged();
     }
 
@@ -50,7 +69,7 @@
         StateHasChanged();
     }
 
-    public class DispatchScheduleResponse
+    private class DispatchScheduleResponse
     {
         public string OpenAIOutput { get; set; }
     }

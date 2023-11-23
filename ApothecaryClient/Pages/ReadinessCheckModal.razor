@@ -32,12 +32,14 @@
                                     <div class="medicine-card neumorphic">
                                         <img class="medicine-image neumorphic" src="@medicine.ImageUrl" alt="@medicine.ProductName" /> <!-- Neumorphic style added to image -->
                                         <div>
-                                            <p><strong>Product Name:</strong> @medicine.ProductName</p>
-                                            <p><strong>Stock Quantity:</strong> @medicine.QuantityInStock</p>
-                                            <p><strong>Order Quantity:</strong> @medicine.OrderQuantity</p>
-                                            <p class="stock-status @(medicine.QuantityInStock >= medicine.OrderQuantity ? "in-stock" : "out-of-stock")">
-                                                @(medicine.QuantityInStock >= medicine.OrderQuantity ? "✓ In Stock" : "✗ Out of Stock")
-                                            </p>
+                                            <div class="medicine-details">
+                                                <div><p><strong>Product Name:</strong> @medicine.ProductName</p></div>
+                                                <div><p><strong>Stock Quantity:</strong> @medicine.QuantityInStock</p></div>
+                                                <div><p><strong>Order Quantity:</strong> @medicine.OrderQuantity</p></div>
+                                                <p class="stock-status @(medicine.QuantityInStock >= medicine.OrderQuantity ? "in-stock" : "out-of-stock")">
+                                                    @(medicine.QuantityInStock >= medicine.OrderQuantity ? "✓ In Stock" : "✗ Out of Stock")
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 }

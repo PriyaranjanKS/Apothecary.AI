@@ -44,7 +44,6 @@
                 </div>
             }
         }
-         
     </div>
 </div>
 
@@ -52,18 +51,6 @@
     private List<Order> orders;
     private ReadinessCheckModal readinessCheckModal;
     private SchedulePopup schedulePopup;
-
-    private async Task OnScheduleClick(Order order)
-    {
-        if (schedulePopup != null)
-        {
-            await schedulePopup.ShowPopup(order.OrderNumber, order.CustomerName);
-        }
-    }
-    private async Task CheckReadiness(string orderNumber)
-    {
-        await readinessCheckModal.ShowModal(orderNumber);
-    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -75,8 +62,26 @@
         {
             Console.WriteLine(ex.Message);
         }
-  
     }
+
+    private async Task OnScheduleClick(Order order)
+    {
+        if (schedulePopup != null)
+        {
+            await schedulePopup.ShowPopup(order.OrderNumber, order.CustomerName);
+        }
+    }
+
+    private async Task CheckReadiness(string orderNumber)
+    {
+        await readinessCheckModal.ShowModal(orderNumber);
+    }
+
+    private string FormatOrderDate(DateTime orderDate)
+    {
+        return orderDate.ToString("dd/MM/yyyy");
+    }
+
     private string GetDispatchStatusClass(string dispatchStatus)
     {
         return dispatchStatus switch
@@ -90,30 +95,20 @@
 
     private string GetDispatchStatusText(string dispatchStatus)
     {
-        // If the text itself is to be used, simply return the status
         return dispatchStatus ?? "Unknown";
     }
-   
-    private void RefreshParentComponent()
-    {
-        StateHasChanged();
-    }
-    private void ScheduleDispatch(string orderNumber)
-    {
-        // Logic to schedule dispatch
-        Console.WriteLine($"Schedule dispatch for order {orderNumber}");
-    }
-    private string FormatOrderDate(DateTime orderDate)
-    {
-        return orderDate.ToString("dd/MM/yyyy");
-    }
+
     private class Order
     {
         public string OrderNumber { get; set; }
-        public DateTime OrderDate { get; set; } // Change this property type to DateTime
+        public DateTime OrderDate { get; set; }
         public string CustomerName { get; set; }
         public int TotalItems { get; set; }
         public string DispatchStatus { get; set; }
         public string Readiness { get; set; }
+    }
+    private void RefreshParentComponent()
+    {
+        StateHasChanged();
     }
 }

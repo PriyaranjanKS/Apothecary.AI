@@ -1360,13 +1360,13 @@ button {
 }
 /*Readiness Check*/
 .readiness-check-overlay {
-    position: fixed; /* or absolute */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5); /* semi-transparent */
-    z-index: 1000; /* higher than any other element on the page */
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1375,11 +1375,16 @@ button {
 .readiness-check-modal {
     background: #e0e5ec;
     border-radius: 20px;
-    padding: 20px;
     box-shadow: 10px 10px 20px #babecc, -10px -10px 20px #ffffff;
     max-width: 600px;
-    width: 100%;
+    width: 90%;
     margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .modal-header {
@@ -1402,9 +1407,12 @@ button {
 
 .medicines-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 25px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+    overflow-y: auto;
+    max-height: 65vh;
 }
  
 .generative-text {
@@ -1417,19 +1425,21 @@ button {
 }
 .medicine-card {
     background: #e0e5ec;
-    border-radius: 23px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff;
     padding: 10px;
-    box-shadow: 5px54 5px 10px #babecc, -5px -5px 10px #ffffff;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
-    .medicine-card img {
-        max-width: 100%;
-        height: auto;
-        margin-bottom: 10px;
-        border-radius: 10px; /* Rounded corners for the image */
-        box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff; /* Neumorphic shadow */
-    }
+.medicine-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
 
 .stock-status {
     margin-top: 10px;
@@ -1628,3 +1638,180 @@ button {
         box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #ffffff;
     }
 
+.Scheduler-Header {
+    font-size: 22px;
+    font-weight: bold;
+}
+.schedule-loading-spinner {
+    border: 4px solid #f3f3f3; /* Light gray */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+.neumorphic-header h3 {
+    font-size: 22px;
+    font-weight: bold;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.schedule-loading-text {
+    /* Style your loading text here */
+    margin-top: 10px; /* Example: Add space above the text */
+    text-align: center;
+    font-size: 16px;
+    color: #666; /* Example: Grey text color */
+}
+.schedule-loading-container {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center align items horizontally */
+    justify-content: center; /* Center align items vertically */
+    text-align: center; /* Ensure text is centered */
+    width: 100%; /* Take full width of the parent */
+    height: 100%; /* Optional: Adjust as per requirement */
+}
+
+/* Readiness Check Modal Styles */
+.readiness-check-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.readiness-check-modal {
+    background: #e0e5ec;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px #babecc, -10px -10px 20px #ffffff;
+    max-width: 700px;
+    width: auto;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 800px;
+    overflow-y: auto;
+}
+
+.modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.modal-close-btn {
+    background: #e0e5ec;
+    border: none;
+    border-radius: 50%;
+    padding: 5px 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff;
+}
+
+.medicines-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.medicine-card {
+    background: #e0e5ec;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff;
+    padding: 10px;
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    align-items: center;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.medicine-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.stock-status {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.in-stock {
+    color: #28a745;
+}
+
+.out-of-stock {
+    color: #dc3545;
+}
+
+.azure-openai-output {
+    background: #e0e5ec;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: inset 5px 5px 10px #babecc, inset -5px -5px 10px #ffffff;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.generative-paragraph {
+    font-size: 14px;
+    padding-left: 50px;
+}
+
+.azure-openai-output h3 {
+    margin-bottom: 15px;
+    font-size: 1.25em;
+    color: #333;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 20px;
+}
+
+.loading-text {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
