@@ -1202,6 +1202,8 @@ button {
     width: 100%;
     text-align: center;
     margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 .dispatch-orders-grid {
@@ -1220,6 +1222,8 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    padding-bottom: 60px;
 }
 
 .dispatch-order-row {
@@ -1243,12 +1247,27 @@ button {
 .dispatch-order-row > .dispatch-order-column:last-child {
     margin-right: 0;
 }
+.dispatch-order-column.dispatch-status-packaging-completed {
+    background-color: #c8e6c9; /* green-ish for packaging completed */
+}
+
+.dispatch-order-column.dispatch-status-order-accepted {
+    background-color: #fff9c4; /* yellow-ish for order accepted */
+}
+
+.dispatch-order-column.dispatch-status-packaging-in-progress {
+    background-color: #ffccbc; /* red-ish for packaging in progress */
+}
 
 .dispatch-order-actions {
     display: flex;
-    justify-content: center;
+    justify-content: space-around; /* This will ensure even spacing */
     align-items: center;
-    gap: 40px;
+    gap: 10px; /* Adjust the gap as needed */
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .dispatch-readiness-check,
@@ -1290,4 +1309,237 @@ button {
     }
 }
 
+.dispatch-loading-overlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white overlay */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
+.dispatch-loading-spinner {
+    border: 5px solid #f3f3f3; /* Light grey */
+    border-top: 5px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+.dispatch-loading-container {
+    background: #e0e5ec;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.dispatch-loading-text {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/*Readiness Check*/
+.readiness-check-overlay {
+    position: fixed; /* or absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* semi-transparent */
+    z-index: 1000; /* higher than any other element on the page */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.readiness-check-modal {
+    background: #e0e5ec;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 10px 10px 20px #babecc, -10px -10px 20px #ffffff;
+    max-width: 600px;
+    width: 100%;
+    margin: 20px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.modal-close-btn {
+    background: #e0e5ec;
+    border: none;
+    border-radius: 30%;
+    padding: 5px 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff;
+}
+
+.medicines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    margin-bottom: 20px;
+}
+ 
+.generative-text {
+    padding-left: 200px;
+    font-weight: bold;
+}
+.stock-loading {
+    text-align: center;
+    font-weight: bold;
+}
+.medicine-card {
+    background: #e0e5ec;
+    border-radius: 23px;
+    padding: 10px;
+    box-shadow: 5px54 5px 10px #babecc, -5px -5px 10px #ffffff;
+    text-align: center;
+}
+
+    .medicine-card img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+        border-radius: 10px; /* Rounded corners for the image */
+        box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff; /* Neumorphic shadow */
+    }
+
+.stock-status {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.in-stock {
+    color: #28a745;
+}
+
+.out-of-stock {
+    color: #dc3545;
+}
+
+.azure-openai-output {
+    background: #e0e5ec;
+    border-radius: 10px;
+    padding: 20px; /* Increased padding */
+    box-shadow: inset 5px 5px 10px #babecc, inset -5px -5px 10px #ffffff;
+    
+    margin-top: 20px; /* Add margin on top for spacing */
+    padding-left: 10px;
+    font-weight: bold;
+}
+.generative-paragraph {
+    font-size: 14px;
+    padding-left: 50px;
+}
+.azure-openai-output h3 {
+    margin-bottom: 15px; /* Space between the heading and the content */
+    font-size: 1.25em; /* Larger font size for heading */
+    color: #333; /* Dark color for text */
+}
+
+/*Readiness Spinner*/
+/* Spinner Style */
+
+
+.modal-loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.modal-headertext {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-right: 50px;
+}
+
+/* Spinner Style */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #3498db; /* Blue color for spinner */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 20px;
+}
+
+/* Loading text style */
+.loading-text {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Readiness Check Modal Styles */
+.readiness-check-modal {
+    background: #e0e5ec;
+    border-radius: 20px;
+    max-width: 600px; /* Adjust the width as needed */
+    margin: auto;
+    padding: 40px;
+    box-shadow: 10px 10px 20px #babecc, -10px -10px 20px #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1000;
+}
+
+/* ... Other styles ... */
+
+/* Keyframes for spinner animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Neumorphic style for medicine images */
+.medicine-image.neumorphic {
+    border-radius: 10px; /* Rounded corners for the image */
+    box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff; /* Neumorphic shadow */
+}
+
+/* Increase the size of the modal for better readability */
+.readiness-check-modal {
+    max-width: 800px; /* Increase width */
+    padding: 40px; /* Increase padding */
+}

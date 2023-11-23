@@ -1,0 +1,102 @@
+﻿@inject HttpClient Http
+<div>
+    @if (IsVisible)
+    {
+        <div class="readiness-check-overlay">
+            <div class="readiness-check-modal">
+                @if (medicines == null)
+                {
+                    <div class="modal-loading-content">
+                        <h2 class="modal-headertext">Azure Open AI Powered Order Readiness Check</h2>
+                        <div class="spinner"></div>
+                        <p class="loading-text">Loading medicines...</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="modal-header">
+                        <h2 class="modal-headertext">Azure Open AI Powered Order Readiness Check</h2>
+                        <button class="modal-close-btn" @onclick="CloseModal">X</button>
+                    </div>
+                    <div class="modal-body">
+                        @if (medicines == null)
+                        {
+                            <div class="spinner"></div> <!-- Spinner added here -->
+                            <p class="stock-loading">Loading medicines...</p>
+                        }
+                        else
+                        {
+                            <div class="medicines-grid">
+                                @foreach (var medicine in medicines)
+                                {
+                                    <div class="medicine-card neumorphic">
+                                        <img class="medicine-image neumorphic" src="@medicine.ImageUrl" alt="@medicine.ProductName" /> <!-- Neumorphic style added to image -->
+                                        <div>
+                                            <p><strong>Product Name:</strong> @medicine.ProductName</p>
+                                            <p><strong>Stock Quantity:</strong> @medicine.QuantityInStock</p>
+                                            <p><strong>Order Quantity:</strong> @medicine.OrderQuantity</p>
+                                            <p class="stock-status @(medicine.QuantityInStock >= medicine.OrderQuantity ? "in-stock" : "out-of-stock")">
+                                                @(medicine.QuantityInStock >= medicine.OrderQuantity ? "✓ In Stock" : "✗ Out of Stock")
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="azure-openai-output neumorphic">
+                                <h3 class="generative-text">Generative Suggestions</h3>
+                                <p class="generative-paragraph">@azureOpenAIOutput</p>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    public bool IsVisible { get; private set; }
+    private List<MedicineInfo> medicines;
+    private string azureOpenAIOutput;
+
+    [Parameter]
+    public EventCallback OnStateChanged { get; set; }
+
+    public async Task ShowModal(string orderNumber)
+    {
+        IsVisible = true;
+        try
+        {
+            var response = await Http.GetFromJsonAsync<ResponseData>($"api/DispatchOrders/ReadinessCheck/{orderNumber}");
+            medicines = response.MedicineDetails;
+            azureOpenAIOutput = response.AzureOpenAIOutput;
+
+            await OnStateChanged.InvokeAsync(null);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching readiness data: {ex.Message}");
+            // Handle exceptions (e.g., show a message to the user)
+        }
+    }
+
+    public void CloseModal()
+    {
+        IsVisible = false;
+        OnStateChanged.InvokeAsync(null);
+    }
+
+    private class ResponseData
+    {
+        public string AzureOpenAIOutput { get; set; }
+        public List<MedicineInfo> MedicineDetails { get; set; }
+    }
+
+    private class MedicineInfo
+    {
+        public string ProductName { get; set; }
+        public int QuantityInStock { get; set; }
+        public int OrderQuantity { get; set; }
+        public string ImageUrl { get; set; }
+    }
+}

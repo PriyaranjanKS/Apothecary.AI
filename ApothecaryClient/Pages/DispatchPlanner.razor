@@ -1,65 +1,108 @@
 ﻿@page "/dispatch-planner"
+@inject HttpClient Http
+<ReadinessCheckModal @ref="readinessCheckModal" OnStateChanged="() => RefreshParentComponent()" />
+
+
+@if (orders == null)
+{
+    <div class="dispatch-loading-overlay">
+        <div class="dispatch-loading-spinner"></div>
+        <p class="dispatch-loading-text">Fetching the medicine orders...</p>
+    </div>
+}
 
 <div class="dispatch-container">
     <div class="dispatch-header">
-        <h2>Total number of Open Orders: @orders.Count</h2>
+        <h2>Total number of Open Orders: @orders?.Count</h2>
     </div>
     <div class="dispatch-orders-grid">
-        @foreach (var order in orders)
+        @if (orders != null)
         {
-            <div class="dispatch-order-card neumorphic">
-                <div class="dispatch-order-row">
-                    <div class="dispatch-order-column">Order #: @order.OrderNumber</div>
-                    <div class="dispatch-order-column">Order Date: @order.OrderDate</div>
-                </div>
-                <div class="dispatch-order-row">
-                    <div class="dispatch-order-column">Customer Name: @order.CustomerName</div>
-                    <div class="dispatch-order-column">Total Items: @order.TotalItems</div>
-                </div>
-                <div class="dispatch-order-row">
-                    <div class="dispatch-order-column">Dispatch Status: @order.DispatchStatus</div>
-                    <div class="dispatch-order-column">Readiness: @order.Readiness</div>
-                </div>
-                <div class="dispatch-order-row">
-                    <div class="dispatch-order-actions">
-                        <button class="dispatch-readiness-check" @onclick="() => CheckReadiness(order.OrderNumber)">Readiness Check</button>
-                        <button class="dispatch-schedule" @onclick="() => ScheduleDispatch(order.OrderNumber)">Schedule</button>
+            @foreach (var order in orders)
+            {
+                <div class="dispatch-order-card neumorphic">
+                    <div class="dispatch-order-row">
+                        <div class="dispatch-order-column">Order #: @order.OrderNumber</div>
+                        <div class="dispatch-order-column">Order Date: @FormatOrderDate(order.OrderDate)</div>
+                    </div>
+                    <div class="dispatch-order-row">
+                        <div class="dispatch-order-column">Customer Name: @order.CustomerName</div>
+                        <div class="dispatch-order-column">Total Items: @order.TotalItems</div>
+                    </div>
+                    <div class="dispatch-order-row">
+                        <div class="dispatch-order-column @GetDispatchStatusClass(order.DispatchStatus)">
+                            Dispatch Status: @GetDispatchStatusText(order.DispatchStatus)
+                        </div>
+                        <div class="dispatch-order-column">Readiness Check: @order.Readiness</div>
+                    </div>
+                    <div class="dispatch-order-row">
+                        <div class="dispatch-order-actions">
+                            <button class="dispatch-readiness-check" @onclick="() => CheckReadiness(order.OrderNumber)">Readiness Check</button>
+                            <button class="dispatch-schedule" @onclick="() => ScheduleDispatch(order.OrderNumber)">Schedule</button>
+                        </div>
                     </div>
                 </div>
-                
-            </div>
+            }
         }
+         
     </div>
 </div>
 
 @code {
-    private List<Order> orders = new List<Order>
-    {
-        new Order { OrderNumber = "1000", OrderDate = "16/9/2023", CustomerName = "James Brown", TotalItems = 5,Readiness = "Ready" , DispatchStatus = "Packaging In Progress" },
-        new Order { OrderNumber = "1001", OrderDate = "16/9/2023", CustomerName = "Cindy Smith", TotalItems = 3,Readiness = "NotReady"  ,DispatchStatus = "Order Accepted" },
-        new Order { OrderNumber = "1000", OrderDate = "16/9/2023", CustomerName = "James Brown", TotalItems = 5,Readiness = "Ready"  ,DispatchStatus = "Packaging In Progress" },
-        new Order { OrderNumber = "1001", OrderDate = "16/9/2023", CustomerName = "Cindy Smith", TotalItems = 3,Readiness = "Not Ready"  ,DispatchStatus = "Order Accepted" },
-        new Order { OrderNumber = "1000", OrderDate = "16/9/2023", CustomerName = "James Brown", TotalItems = 5,Readiness = "Not Ready"  ,DispatchStatus = "Packaging In Progress" },
-        new Order { OrderNumber = "1001", OrderDate = "16/9/2023", CustomerName = "Cindy Smith", TotalItems = 3,Readiness = "Ready"  ,DispatchStatus = "Order Accepted" },
-        // Add other dummy orders here...
-    };
+    private List<Order> orders;
+    private ReadinessCheckModal readinessCheckModal;
 
-    private void CheckReadiness(string orderNumber)
+    private async Task CheckReadiness(string orderNumber)
     {
-        // Logic to check readiness
-        Console.WriteLine($"Readiness check for order {orderNumber}");
+        await readinessCheckModal.ShowModal(orderNumber);
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            orders = await Http.GetFromJsonAsync<List<Order>>("api/DispatchOrders");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+  
+    }
+    private string GetDispatchStatusClass(string dispatchStatus)
+    {
+        return dispatchStatus switch
+        {
+            "Packaging Completed" => "dispatch-status-packaging-completed",
+            "Order Accepted" => "dispatch-status-order-accepted",
+            "Packaging In Progress" => "dispatch-status-packaging-in-progress",
+            _ => string.Empty
+        };
+    }
+
+    private string GetDispatchStatusText(string dispatchStatus)
+    {
+        // If the text itself is to be used, simply return the status
+        return dispatchStatus ?? "Unknown";
+    }
+   
+    private void RefreshParentComponent()
+    {
+        StateHasChanged();
+    }
     private void ScheduleDispatch(string orderNumber)
     {
         // Logic to schedule dispatch
         Console.WriteLine($"Schedule dispatch for order {orderNumber}");
     }
-
+    private string FormatOrderDate(DateTime orderDate)
+    {
+        return orderDate.ToString("dd/MM/yyyy");
+    }
     private class Order
     {
         public string OrderNumber { get; set; }
-        public string OrderDate { get; set; }
+        public DateTime OrderDate { get; set; } // Change this property type to DateTime
         public string CustomerName { get; set; }
         public int TotalItems { get; set; }
         public string DispatchStatus { get; set; }
