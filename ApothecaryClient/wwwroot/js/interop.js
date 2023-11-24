@@ -27,5 +27,42 @@ window.interop = {
                 dotNetReference.invokeMethodAsync('PaymentCompleted', receiptNumber);
             }
         }, 500); // Check every 500 milliseconds
+    },
+    mediaRecorder: null,
+    audioChunks: [],
+
+    startRecording: function () {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                this.mediaRecorder = new MediaRecorder(stream);
+                this.mediaRecorder.start();
+
+                this.audioChunks = [];
+                this.mediaRecorder.addEventListener("dataavailable", event => {
+                    this.audioChunks.push(event.data);
+                });
+            });
+    },
+
+    stopRecording: function () {
+        return new Promise(resolve => {
+            this.mediaRecorder.addEventListener("stop", () => {
+                const audioBlob = new Blob(this.audioChunks);
+                const reader = new FileReader();
+                reader.readAsDataURL(audioBlob);
+                reader.onloadend = () => {
+                    const base64String = reader.result;
+                    resolve(base64String.split(',')[1]); // return only the base64 content, not the entire data URL
+                };
+            });
+
+            this.mediaRecorder.stop();
+        });
+    },
+
+    playRecording: function (base64Audio) {
+        const audioUrl = "data:audio/wav;base64," + base64Audio;
+        const audio = new Audio(audioUrl);
+        audio.play();
     }
 };
