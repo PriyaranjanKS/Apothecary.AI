@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 public class VoiceProcessingController : ControllerBase
 {
     [HttpPost("voice")]
-    public async Task<IActionResult> Post([FromBody] string base64Audio)
+    public async Task<IActionResult> Post([FromBody] AudioDataModel audioDataModel)
     {
+        string base64Audio = audioDataModel.AudioData;
         // Replace with your actual Power Automate flow URL and any necessary headers or parameters
         string powerAutomateUrl = "https://prod-32.westus.logic.azure.com:443/workflows/1e9e2521746b461da0e26f73903f2b84/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=g4CdOor_S-yUciuLL1P_uaA-ENKZIN5CNkRrf5LG0hM";
         var httpClient = new HttpClient();
@@ -52,7 +53,10 @@ public class VoiceProcessingController : ControllerBase
         }
     }
 }
-
+public class AudioDataModel
+{
+    public string AudioData { get; set; }
+}
 public class VoiceOrderResponse
 {
     [JsonProperty("Translation")]
@@ -68,10 +72,10 @@ public class MedicineOrder
     public string ProductName { get; set; }
 
     [JsonProperty("MedicationDuration")]
-    public int MedicationDuration { get; set; }
+    public decimal MedicationDuration { get; set; }
 
     [JsonProperty("Quantity")]
-    public int Quantity { get; set; }
+    public decimal Quantity { get; set; }
 
     [JsonProperty("TotalPrice")]
     public decimal TotalPrice { get; set; }

@@ -39,8 +39,8 @@ namespace ApothecaryShared
     }
     public class MedicineOrder
     {
-        [JsonProperty("MedicineName")]
-        public required string MedicineName { get; set; }
+        [JsonProperty("ProductName")]
+        public required string ProductName { get; set; }
 
         [JsonProperty("Quantity")]
         public decimal Quantity { get; set; }

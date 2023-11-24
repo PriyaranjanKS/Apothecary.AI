@@ -64,5 +64,24 @@ window.interop = {
         const audioUrl = "data:audio/wav;base64," + base64Audio;
         const audio = new Audio(audioUrl);
         audio.play();
+    },
+    updatePaymentAmount: function (amountInCents) {
+        var paymentScript = document.querySelector('.eway-paynow-button');
+        if (paymentScript) {
+            paymentScript.setAttribute('data-amount', amountInCents.toString());
+        }
+    },
+    updatePaymentButtonStyle: function () {
+        var paymentButton = document.querySelector('.eway-button');
+        if (paymentButton) {
+            // Change background color to green
+            paymentButton.style.background = '#32CD32!important'; // Example green color, adjust as needed
+
+            // Apply neumorphic styles
+            paymentButton.style.boxShadow = '8px 8px 15px #a7a7a7, -8px -8px 15px #ffffff';
+            paymentButton.style.borderRadius = '10px';
+            paymentButton.style.textShadow = 'none';
+            paymentButton.style.color = '#000000'; // Adjust text color as needed
+        }
     }
 };

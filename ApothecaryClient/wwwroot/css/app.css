@@ -1892,3 +1892,18 @@ button {
         gap: 15px;
     }
 }
+
+.add-to-cart-neumorphic {
+    background-color: #4CAF50; /* Green background */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 8px 8px 15px #aaaaaa, -8px -8px 15px #ffffff; /* Neumorphic effect */
+}

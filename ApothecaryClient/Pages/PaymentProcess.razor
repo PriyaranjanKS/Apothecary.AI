@@ -22,7 +22,7 @@
                     @foreach (var order in orderDetails)
                     {
                         <tr>
-                            <td>@order.MedicineName</td>
+                            <td>@order.ProductName</td>
                             <td>@order.Quantity</td>
                             <td>$@order.UnitPrice</td>
                             <td>$@order.TotalPrice</td>
@@ -60,6 +60,8 @@
 }
 @code {
     private bool showPaymentSuccessPopup = false;
+    private int totalBillInCents;
+
     private string receiptNumber;
 
         [Parameter]
@@ -74,6 +76,9 @@
             {
                 orderDetails = JsonConvert.DeserializeObject<List<MedicineOrder>>(OrderDetailsJson);
             }
+            // Calculate total bill in cents
+            decimal totalAmount = orderDetails?.Sum(o => o.TotalPrice) ?? 0;
+            totalBillInCents = (int)(totalAmount * 100); // Convert dollars to cents
         }
         catch (JsonException jsonEx)
         {
@@ -105,7 +110,10 @@
     {
         if (firstRender)
         {
+            await JSRuntime.InvokeVoidAsync("interop.updatePaymentButtonStyle");
+            await JSRuntime.InvokeVoidAsync("interop.updatePaymentAmount", totalBillInCents);
             await JSRuntime.InvokeVoidAsync("interop.monitorPaymentStatus", DotNetObjectReference.Create(this));
+            
         }
     }
     [JSInvokable]

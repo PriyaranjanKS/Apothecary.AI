@@ -120,7 +120,12 @@
                             <button class="whisper-button" @onclick="StartRecording">Start Recording</button>
                             <button class="whisper-button" @onclick="StopRecording" disabled="@(!isRecording)">Stop Recording</button>
                             <button class="whisper-button" @onclick="PlayRecording" disabled="@string.IsNullOrEmpty(audioData)">Play Recording</button>
-                            <button class="whisper-button" @onclick="OnAddToCart" disabled="@cartOrders.Count == 0">Place Order</button>
+                            @if (showPlaceOrderButton)
+                            {
+                                <button class="btn place-order-btn neumorphic form-label" style="background: lightgreen; color: darkgrey;" @onclick="OnAddToCart">
+                                    Add to Cart
+                                </button>
+                            }
                             <div>@message</div>
                         </div>
                     </div>
@@ -198,7 +203,7 @@
                 @foreach (var order in cartOrders)
                 {
                     <tr>
-                        <td>@order.MedicineName</td>
+                        <td>@order.ProductName</td>
                         <td>@order.Quantity</td>
                         <td>$@order.UnitPrice</td>
                         <td>$@order.TotalPrice</td>
@@ -249,6 +254,7 @@
     private string message = "";
     private string audioData = ""; // Base64 encoded audio data
     private VoiceOrderResponse voiceOrderResponse = new VoiceOrderResponse();
+    private bool showPlaceOrderButton = false;
 
     private void OpenVoiceOrderModal() => showVoiceOrderModal = true;
 
@@ -275,34 +281,43 @@
         {
             isRecording = false;
             audioData = await JSRuntime.InvokeAsync<string>("interop.stopRecording");
-            message = "Processing voice command..."; // Inform the user
-            StateHasChanged(); // Refresh the UI to show the processing message
+            message = "Processing voice command...";
+            StateHasChanged();
 
-            // Send the audio data to the VoiceProcessingController
-            var content = new StringContent(audioData, Encoding.UTF8, "application/json");
+            var requestData = new { AudioData = audioData };
+            var jsonContent = JsonConvert.SerializeObject(requestData);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
             var response = await Http.PostAsync("api/voiceprocessing/voice", content);
 
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 voiceOrderResponse = JsonConvert.DeserializeObject<VoiceOrderResponse>(jsonResponse);
-                message = voiceOrderResponse.Translation; // Display the translation
-               // PopulateCart(voiceOrderResponse.Order); // Update the cart with the parsed orders
+                message = "Translated Text : " + voiceOrderResponse.Translation;
+
+                // Directly assign the orders from the response to cartOrders
+                cartOrders = voiceOrderResponse.Orders;
+
+                showPlaceOrderButton = true;
             }
             else
             {
                 message = "Failed to process voice command. Please try again.";
+                showPlaceOrderButton = false;
             }
         }
         catch (Exception ex)
         {
-            message = $"An error occurred while processing the voice command: {ex.Message}";
+            message = $"Error: {ex.Message}";
+            showPlaceOrderButton = false;
         }
         finally
         {
-            StateHasChanged(); // Refresh the UI with the updated message and cart status
+            StateHasChanged();
         }
     }
+
+
 
 
     private async Task PlayRecording()
@@ -312,8 +327,8 @@
     private void OnAddToCart()
     {
         // This assumes you have a method to process the order in your cart
-        // For example, you might save the order to a database and then navigate to a confirmation page
         ProcessOrder(cartOrders);
+        CloseVoiceOrderModal();
        // NavigationManager.NavigateTo("/order-confirmation");
     }
     private void ProcessOrder(List<MedicineOrder> orders)
@@ -321,8 +336,9 @@
         try
         {             
             // Clear existing cart orders and add new ones
-            cartOrders.Clear();
-            cartOrders.AddRange(orders);
+            //cartOrders.Clear();
+            //cartOrders.AddRange(orders);
+            StateHasChanged();
         }
         catch (Exception ex)
         {
@@ -706,7 +722,7 @@
     {
         // Here we navigate to the PaymentProcess page with the order details
         var serializedCartOrders = JsonConvert.SerializeObject(cartOrders);
-    NavigationManager.NavigateTo($"/payment-process/{serializedCartOrders}");
+        NavigationManager.NavigateTo($"/payment-process/{serializedCartOrders}");
     }
     // private void AddToCart(MedicineOrder order)
     // {
@@ -724,9 +740,10 @@
         [JsonProperty("GDPROutput")]
         public string GDPROutput { get; set; }
     }
+    
     public class VoiceOrderResponse
     {
         public string Translation { get; set; }
-        public string Order { get; set; } // This is a JSON string
+        public List<MedicineOrder> Orders { get; set; } // Change to a list of MedicineOrder
     }
 }
