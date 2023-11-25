@@ -53,5 +53,19 @@ namespace ApothecaryShared
 
         // Additional properties if needed
     }
-
+    public class SimulationRequest
+    {
+        public string DeviceId { get; set; }
+        public double CurrentTemperature { get; set; }
+        public double MinTemperature { get; set; }
+        public double MaxTemperature { get; set; }
+        public bool IncrementTemperature { get; set; }
+        public double IncrementTemperatureValue { get; set; }
+        public double CurrentHumidity { get; set; }
+        public double MinHumidity { get; set; }
+        public double MaxHumidity { get; set; }
+        public bool IncrementHumidity { get; set; }
+        public double IncrementHumidityValue { get; set; }
+        public int MessageInterval { get; set; }
+    }
 }

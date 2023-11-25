@@ -1,0 +1,399 @@
+﻿@page "/iot-simulator"
+@using ApothecaryShared
+@using Newtonsoft.Json
+@inject HttpClient Http
+
+
+
+<div class="iot-container">
+    <div class="iot-simulator">
+        <h1 class="iot-simulator-title">IoT Hub Simulator</h1>
+        <!-- Temperature and Humidity Controls -->
+        <div class="iot-temp-humidity">
+            <!-- Temperature Section -->
+            <div class="iot-temperature">
+                <label>Temperature</label>
+                <input type="number" class="iot-input" placeholder="Current Value" @bind="currentTemperature" />
+                <input type="number" class="iot-input" placeholder="Min Value" @bind="minTemperature" />
+                <input type="number" class="iot-input" placeholder="Max Value" @bind="maxTemperature" />
+                <label class="iot-checkbox">
+                    <input type="checkbox" @bind="incrementTemperature" /> Increment Value?
+                </label>
+                <input type="number" class="iot-input" placeholder="Increment Value" @bind="incrementTemperatureValue" />
+            </div>
+
+            <!-- Humidity Section -->
+            <div class="iot-humidity">
+                <label>Humidity</label>
+                <input type="number" class="iot-input" placeholder="Current Value" @bind="currentHumidity" />
+                <input type="number" class="iot-input" placeholder="Min Value" @bind="minHumidity" />
+                <input type="number" class="iot-input" placeholder="Max Value" @bind="maxHumidity" />
+                <label class="iot-checkbox">
+                    <input type="checkbox" @bind="incrementHumidity" /> Increment Value?
+                </label>
+                <input type="number" class="iot-input" placeholder="Increment Value" @bind="incrementHumidityValue" />
+            </div>
+        </div>
+
+        <!-- Simulator Administration and Progress -->
+        <div class="iot-admin-progress">
+            <!-- Simulator Administration -->
+            <div class="iot-sim-admin">
+                <label>Simulator Administration</label>
+                <input type="number" class="iot-input" placeholder="Message Intervals (Sec)" @bind="messageInterval" />
+                <select class="iot-select" @bind="selectedDevice">
+                    <option value="Refrigeration01">Refrigeration01</option>
+                    <option value="Refrigeration02">Refrigeration02</option>
+                    <option value="Refrigeration03">Refrigeration03</option>
+                    <option value="Refrigeration04">Refrigeration04</option>
+                </select>
+                <div class="iot-admin-buttons">
+                    <button class="iot-button" @onclick="StartSimulation">Start</button>
+                    <button class="iot-button" @onclick="StopSimulation">Stop</button>
+                </div>
+            </div>
+
+            <!-- Simulation Progress -->
+            <div class="iot-sim-progress">
+                <label>Simulation Progress</label>
+                <textarea class="iot-listbox" @bind="simulationMessages"></textarea>
+                <button class="iot-button" @onclick="ClearSimulationData">Clear Simulation Data</button>
+                <label class="iot-sim-progress-label">@simulationProgressLabel</label>
+            </div>
+        </div>
+    </div>
+    <div class="iot-other-controls">
+        <div class="IOTResults-container">
+            <div class="IOTResults-anomalies">
+                <h2 class="IOTResults-title" style="text-align: center;">Latest Anomaly Detected</h2>
+                <div class="IOTResults-anomalies-details">
+                    <div class="IOTResults-anomalies-data" style="display: flex; justify-content: center; align-items: center;">
+                        <!-- Temperature with Image -->
+                        <div class="IOTResults-temperature">
+                            <img src="placeholder-image-url" alt="Temperature" class="IOTResults-icon" />
+                            <p><strong>Temperature:</strong> @latestAnomalyTemperature</p>
+                        </div>
+
+                        <!-- Humidity with Image -->
+                        <div class="IOTResults-humidity">
+                            <img src="placeholder-image-url" alt="Humidity" class="IOTResults-icon" />
+                            <p><strong>Humidity:</strong> @latestAnomalyHumidity</p>
+                        </div>
+                    </div>
+
+                    <!-- Other details -->
+                    <p><strong>Detection Time:</strong> @latestAnomalyDetectionTime</p>
+                    <p><strong>Device Name:</strong> @selectedDevice</p>
+                    <button class="IOTResults-button" @onclick="EscalateAnomaly">Escalate</button>
+                </div>
+            </div>
+
+            <!-- Realtime Telemetry Table -->
+            <div class="IOTResults-table-container">
+                <h2 class="IOTResults-title" style="text-align: center;">Realtime Telemetry</h2>
+                <table class="IOTResults-table">
+                    <thead>
+                        <tr>
+                            <th>Device Name</th>
+                            <th>Temperature</th>
+                            <th>Humidity</th>
+                            <th>Gen AI Failure Prediction</th> <!-- Add this column -->
+                            <th>Occurrence Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var telemetryEvent in telemetryEvents)
+                        {
+                            <tr>
+                                <td>@telemetryEvent.DeviceName</td>
+                                <td>@telemetryEvent.Temperature</td>
+                                <td>@telemetryEvent.Humidity</td>
+                                <td>@telemetryEvent.OpenAIPrediction</td> <!-- Bind your data here -->
+                                <td>@telemetryEvent.OccurenceTime</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    // Properties for data binding
+    private string selectedDevice = "Refrigeration01";
+    private double currentTemperature = -20;
+    private double minTemperature = -25;
+    private double maxTemperature = -8;
+    private bool incrementTemperature = false;
+    private double incrementTemperatureValue = 1;
+
+    private double currentHumidity = 45;
+    private double minHumidity = 40;
+    private double maxHumidity = 60;
+    private bool incrementHumidity = false;
+    private double incrementHumidityValue = 1;
+
+    private int messageInterval = 2; // in seconds
+    private string simulationMessages = "";
+    private string simulationProgressLabel = "Select a device and press Start to begin simulation.";
+    private Timer updateTimer;
+
+    private string latestAnomalyTemperature;
+    private string latestAnomalyHumidity;
+    private DateTime latestAnomalyDetectionTime;
+    private int anomaliesCount;
+    private List<TelemetryEvent> telemetryEvents = new List<TelemetryEvent>();
+    private System.Threading.Timer pollingTimer;
+    private const int PollingIntervalMilliseconds = 60000; // 1 minute
+    // Methods to handle the new controls and sections
+    // ...
+
+    private async Task EscalateAnomaly()
+    {
+        try
+        {
+            // Create an object to hold the data
+            var escalationData = new
+            {
+                DeviceName = selectedDevice,
+                Temperature = latestAnomalyTemperature,
+                Humidity = latestAnomalyHumidity,
+                OccurrenceTime = latestAnomalyDetectionTime.ToString("yyyy-MM-ddTHH:mm:ss")
+            };
+
+            // Send the data to the controller
+            var response = await Http.PostAsJsonAsync("api/iot/escalate", escalationData);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Data sent successfully
+                simulationMessages += "Anomaly escalated successfully.\n";
+            }
+            else
+            {
+                // Handle error
+                simulationMessages += "Failed to escalate anomaly.\n";
+            }
+        }
+        catch (Exception ex)
+        {
+            simulationMessages += $"Error: {ex.Message}\n";
+        }
+    }
+
+
+    private async Task StartSimulation()
+    {
+        try
+        {
+           // var payload = new SimulationRequest
+            var payload = new SimulationRequest
+                {
+                    DeviceId = selectedDevice,
+                    CurrentTemperature = currentTemperature,
+                    MinTemperature = minTemperature,
+                    MaxTemperature = maxTemperature,
+                    IncrementTemperature = incrementTemperature,
+                    IncrementTemperatureValue = incrementTemperatureValue,
+                    CurrentHumidity = currentHumidity,
+                    MinHumidity = minHumidity,
+                    MaxHumidity = maxHumidity,
+                    IncrementHumidity = incrementHumidity,
+                    IncrementHumidityValue = incrementHumidityValue,
+                    MessageInterval = messageInterval
+                };
+
+
+            var response = await Http.PostAsJsonAsync("api/iot/start", payload);
+            if (response.IsSuccessStatusCode)
+            {
+                simulationMessages += "Simulation started for " + selectedDevice + "\n";
+               // updateTimer = new Timer(async _ => await FetchUpdates(), null, 0, 1000); // Poll every second
+            }
+            else
+            {
+                // Handle error
+                simulationMessages += "Failed to start simulation for " + selectedDevice + "\n";
+            }
+        }
+        catch (Exception ex)
+        {
+            simulationMessages += $"Error: {ex.Message}\n";
+            return;
+        }
+    
+    }
+
+    private async Task FetchUpdates()
+    {
+        var response = await Http.GetAsync("api/iot/updates");
+        if (response.IsSuccessStatusCode)
+        {
+            var updates = await response.Content.ReadAsStringAsync();
+            simulationMessages += updates; // Append updates to the messages
+            StateHasChanged(); // Refresh the UI
+        }
+        else
+        {
+            // Handle error in fetching updates
+        }
+    }
+
+    private async Task StopSimulation()
+    {
+        try
+        {
+            var requestUri = $"api/iot/stop/{selectedDevice}";
+            var response = await Http.PostAsJsonAsync(requestUri, new StopSimulationRequest());
+
+            if (response.IsSuccessStatusCode)
+            {
+                simulationMessages += $"Simulation stopped for {selectedDevice}.\n";
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                simulationMessages += $"Failed to stop simulation for {selectedDevice}: {errorContent}\n";
+            }
+        }
+        catch (Exception ex)
+        {
+            simulationMessages += $"Error stopping simulation: {ex.Message}\n";
+        }
+        finally
+        {
+            updateTimer?.Change(Timeout.Infinite, Timeout.Infinite); // Stop the timer
+            StateHasChanged(); // Refresh the UI
+        }
+    }
+
+    // Define an empty DTO if your server does not require a body for the stop request
+    public class StopSimulationRequest
+    {
+    }
+
+    private void ClearSimulationData()
+    {
+        simulationMessages = "";
+        simulationProgressLabel = "Simulation data cleared.";
+    }
+   
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+     
+        StartPolling();
+        // Add more elements as needed...
+    }
+    private void StartPolling()
+    {
+        pollingTimer = new System.Threading.Timer(async _ =>
+        {
+            await InvokeAsync(async () =>
+            {
+                try
+                {
+                    var response = await Http.GetAsync("api/iot/getlatestdata");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var jsonString = await response.Content.ReadAsStringAsync();
+                        var data = JsonConvert.DeserializeObject<LatestDataResponse>(jsonString);
+                        UpdateUI(data);
+                    }
+                    else
+                    {
+                        Console.Error.WriteLine("Failed to fetch latest data.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine($"Exception while fetching data: {ex.Message}");
+                }
+            });
+        }, null, 0, PollingIntervalMilliseconds);
+    }
+
+    private void UpdateUI(LatestDataResponse data)
+    {
+        try
+        {
+            // Deserialize the LatestAnomaly data
+            var latestAnomaly = JsonConvert.DeserializeObject<AnomalyData>(data.LatestAnomaly);
+
+            // Deserialize the RealTimeEvents data
+            var realTimeEvents = JsonConvert.DeserializeObject<List<TelemetryEvent>>(data.RealTimeEvents);
+
+            // Assign data to UI binding properties
+            latestAnomalyTemperature = latestAnomaly.Temperature;
+            latestAnomalyHumidity = latestAnomaly.Humidity;
+            latestAnomalyDetectionTime = DateTime.Parse(latestAnomaly.OccurenceTime);
+            selectedDevice = latestAnomaly.DeviceName; // Assuming you have a DeviceName property in AnomalyData
+
+            // Update the telemetry events for the UI
+            telemetryEvents.Clear();
+            foreach (var realTimeEvent in realTimeEvents)
+            {
+                if (!string.IsNullOrWhiteSpace(realTimeEvent.OccurenceTime) && DateTime.TryParse(realTimeEvent.OccurenceTime, out DateTime parsedDate))
+                {
+                    telemetryEvents.Add(new TelemetryEvent
+                        {
+                            DeviceName = realTimeEvent.DeviceName,
+                            Temperature = realTimeEvent.Temperature,                            
+                            Humidity = realTimeEvent.Humidity,
+                            OccurenceTime = Convert.ToString(parsedDate),
+                            OpenAIPrediction = realTimeEvent.OpenAIPrediction
+                        });
+                }
+                else
+                {
+                    // Handle the case where the date-time string is not valid or empty
+                    // You can set a default value or handle the error accordingly.
+                }
+            }
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            // Handle the exception (e.g., log or display an error message)
+            Console.Error.WriteLine($"Exception while updating UI: {ex.Message}");
+        }
+    }
+    public class RealTimeEvent
+    {
+        public string EventId { get; set; }
+        public string Temperature { get; set; }
+        public string Pressure { get; set; }
+        public string Humidity { get; set; }
+        public string OccurrenceDate { get; set; } // Make sure the property name matches the JSON key
+    }
+    public class LatestDataResponse
+    {
+        public string LatestAnomaly { get; set; }
+        public string RealTimeEvents { get; set; }
+    }
+
+    public class AnomalyData
+    {
+        public string Temperature { get; set; }
+        public string Humidity { get; set; }
+        public string DeviceName { get; set; } // Match the JSON property name exactly
+        public string OccurenceTime { get; set; } // Match the JSON property name exactly
+    }
+
+    public class TelemetryEvent
+    {
+        public string Temperature { get; set; }
+        public string Humidity { get; set; }
+        public string DeviceName { get; set; } // Match the JSON property name exactly
+        public string OccurenceTime { get; set; } // Match the JSON property name exactly
+        public string OpenAIPrediction { get; set; } // Match the JSON property name exactly
+    }
+ 
+
+    public void Dispose()
+    {
+        pollingTimer?.Dispose();
+    }
+}

@@ -1907,3 +1907,300 @@ button {
     border-radius: 8px; /* Rounded corners */
     box-shadow: 8px 8px 15px #aaaaaa, -8px -8px 15px #ffffff; /* Neumorphic effect */
 }
+
+/*IoT Simulator*/
+.iot-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.iot-simulator {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    font-family: 'Lato', Tahoma, Geneva, Verdana, sans-serif;
+    width: 40%;  Adjust width to take up 50% of the space 
+    margin: auto;  Center the simulator in the available space 
+}
+
+/*.iot-simulator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;*/ /* Optionally, set the width to 100% to span the entire viewport */
+    /*z-index: 999;*/ /* Optionally, set a higher z-index to ensure it's above other content */
+/*}*/
+
+.iot-simulator-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+    background: #e0e5ec;
+    padding: 10px 0;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
+    font-weight: bold;
+}
+.iot-other-controls {
+    width: 60%; /* Placeholder for the other half */
+     
+}
+
+.iot-controls {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.iot-temp-humidity {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.iot-temperature, .iot-humidity {
+    background: #e0e5ec;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 9px 9px 16px rgba(189, 195, 199, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+    margin-right: 10px;
+    width: calc(50% - 10px);
+}
+
+.iot-admin-progress {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.iot-sim-admin {
+    flex: 30%;
+    background: #e0e5ec;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 9px 9px 16px rgba(189, 195, 199, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+}
+
+.iot-sim-progress {
+    flex: 70%;
+    background: #e0e5ec;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 9px 9px 16px rgba(189, 195, 199, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+}
+.iot-sim-admin, .iot-sim-progress {
+    background: #e0e5ec;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 9px 9px 16px rgba(189, 195, 199, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* This will ensure the footer elements align at the bottom */
+    height: 100%; /* Make sure both elements have the same height */
+}
+
+.iot-input, .iot-select, .iot-listbox {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    background: inherit;
+    box-shadow: inset 6px 6px 6px rgba(189, 195, 199, 0.6), inset -6px -6px 6px rgba(255, 255, 255, 0.5);
+}
+
+.iot-button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    color: #000; /* Changed text color to black */
+    background: #8e9eab;
+    box-shadow: 4px 4px 8px rgba(189, 195, 199, 0.6), -4px -4px 8px rgba(255, 255, 255, 0.5);
+    margin-right: 10px;
+    cursor: pointer;
+    white-space: nowrap; /* Prevents text wrapping */
+}
+
+    .iot-button:hover {
+        background: #bdc3c7;
+    }
+
+.iot-listbox {
+    height: 150px;
+    resize: none;
+}
+
+.iot-checkbox input {
+    margin-right: 5px;
+}
+
+.iot-admin-buttons {
+    display: flex;
+    justify-content: start;
+}
+
+.iot-sim-progress-label {
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .iot-simulator {
+        width: 100%;
+    }
+
+    .iot-temperature, .iot-humidity, .iot-sim-admin, .iot-sim-progress {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+/*IoT Results*/
+.IOTResults-container {
+    background: #e0e5ec;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 6px 6px 12px #babecc, -6px -6px 12px #ffffff;
+    margin: 20px;
+}
+
+.IOTResults-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight:bold;
+    color: #333;
+    margin-bottom: 10px;
+    background: #e0e5ec;
+    border-radius: 15px;
+    box-shadow: 6px 6px 12px #babecc, -6px -6px 12px #ffffff;
+    padding: 10px 20px;
+    display: inline-block;
+}
+.IOTResults-anomalies {
+    background: #e0e5ec;
+    border-radius: 15px;
+    /*box-shadow: inset 4px 4px 8px #babecc, inset -4px -4px 8px #ffffff;*/
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align:center;
+}
+
+.IOTResults-anomalies-details {
+    background: #e0e5ec;
+    border-radius: 15px;
+    box-shadow: inset 6px 6px 12px #babecc, inset -6px -6px 12px #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.IOTResults-button {
+    background: #ff6b6b;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 4px 4px 8px #babecc, -4px -4px 8px #ffffff;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 1em;
+    color: #fff;
+}
+    .IOTResults-button:hover {
+        background: #ff4d4d; /* Darker red on hover */
+    }
+
+    .IOTResults-button:hover {
+        background: #dce1e7;
+    }
+
+.IOTResults-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #e0e5ec;
+    box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    width: 100%;
+    table-layout: fixed;
+}
+
+    .IOTResults-table th,
+    .IOTResults-table td {
+        padding: 10px;
+        background: #e0e5ec;
+        color: #333;
+        text-align:center;
+    }
+
+    .IOTResults-table th {
+        text-align: left;
+        border-bottom: 2px solid #aaa;
+    }
+
+/* Add more styling as needed */
+.IOTResults-anomalies-data {
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+.IOTResults-humidity,
+.IOTResults-temperature {
+    display: flex;
+    align-items: center;
+    margin: 10px; /* Add margin for spacing */
+    padding: 10px;
+    background: #e0e5ec;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff; /* Neumorphic shadow */
+    color: #333;
+}
+.IOTResults-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    background: #e0e5ec; /* or any other background */
+    border-radius: 50%;
+    box-shadow: 4px 4px 8px #babecc, -4px -4px 8px #ffffff; /* Neumorphic shadow */
+}
+.IOTResults-table-container {
+    background: #e0e5ec;
+    border-radius: 15px;
+    /*box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff;*/ /* Neumorphic shadow */
+    padding: 20px;
+    margin-bottom: 20px;
+    overflow-x: auto; /* Add horizontal scroll if necessary */
+    max-width: 100%;
+    text-align:center;
+}
+.IOTResults-table tr {
+    background: #e0e5ec;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff; /* Neumorphic shadow */
+    margin-bottom: 10px; /* Add some margin between rows for better separation */
+}
+
+.IOTResults-table td {
+    padding: 10px;
+    color: #333;
+}
+.IOTResults-anomalies .IOTResults-title {
+    text-align: center; /* Center-align the text */
+    background: #e0e5ec;
+    border-radius: 15px;
+    box-shadow: 6px 6px 12px #babecc, -6px -6px 12px #ffffff;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+/* Center-align and add neumorphic styles to Realtime Telemetry header */
+.IOTResults-table-container .IOTResults-title {
+    text-align: center; /* Center-align the text */
+    background: #e0e5ec;
+    border-radius: 15px;
+    box-shadow: 6px 6px 12px #babecc, -6px -6px 12px #ffffff;
+    padding: 10px 20px;
+    display: inline-block;
+}
