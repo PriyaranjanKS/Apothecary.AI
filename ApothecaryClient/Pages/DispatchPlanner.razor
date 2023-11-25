@@ -1,4 +1,5 @@
 ﻿@page "/dispatch-planner"
+@using System.Reflection.Metadata
 @inject HttpClient Http
 <ReadinessCheckModal @ref="readinessCheckModal" OnStateChanged="() => RefreshParentComponent()" />
 <SchedulePopup @ref="schedulePopup" />
@@ -13,7 +14,12 @@
 
 <div class="dispatch-container">
     <div class="dispatch-header">
-        <h2>Total number of Open Orders: @orders?.Count</h2>
+        <div class="header-left">
+            <button class="dispatch-demand-forecast neumorphic" @onclick="ShowDemandForecastPopup">Demand Forecast</button>
+        </div>
+        <div class="header-center">
+            <h2>Total number of Open Orders: @orders?.Count</h2>
+        </div>
     </div>
     <div class="dispatch-orders-grid">
         @if (orders != null)
@@ -46,11 +52,54 @@
         }
     </div>
 </div>
-
+@if (showDemandForecastPopup)
+{
+     <div class="demand-forecast-overlay">
+    <div class="demand-forecast-popup" >
+        <div class="demand-forecast-left neumorphic">
+            <h3 class="demand-forecast-heading">Demand Forecast</h3>
+            <div class="demand-forecast-controls">
+                <label>Medicine Name:</label>
+                <select class="medicine-dropdown neumorphic">
+                    <option value="FocusFusion">FocusFusion</option>
+                    <option value="DiabeControl">DiabeControl</option>
+                    <option value="MorphEase">MorphEase</option>
+                    <option value="MorphineInject">MorphineInject</option>
+                </select>
+                <label>Manufacturer:</label>
+                <select class="manufacturer-dropdown neumorphic">
+                    <option value="ClarityWaves">ClarityWaves</option>
+                    <option value="InsuLife">InsuLife</option>
+                    <option value="EasePharma">EasePharma</option>
+                    <option value="InjectCare">InjectCare</option>
+                </select>
+                <label>Forecast Date:</label>
+                <input type="date" class="forecast-date neumorphic">
+                <label>Unit Price:</label>
+                <input type="text" class="unit-price neumorphic">
+                <label>Discount:</label>
+                <input type="text" class="discount neumorphic">
+                <button class="forecast-button neumorphic">Forecast</button>
+            </div>
+        </div>
+        <div class="demand-forecast-right neumorphic">
+            <div class="demand-forecast-container">
+                <h4 class="forecast-container-heading">Azure ML Demand Forecast</h4>
+                <p class="forecast-container-text">This is the Azure ML demand forecast text.</p>
+            </div>
+            <div class="demand-forecast-container">
+                <h4 class="forecast-container-heading">Azure Open AI Suggestions</h4>
+                <p class="forecast-container-text">These are the Azure Open AI suggestions text.</p>
+            </div>
+        </div>
+    </div>
+</div>
+}
 @code {
     private List<Order> orders;
     private ReadinessCheckModal readinessCheckModal;
     private SchedulePopup schedulePopup;
+    private bool showDemandForecastPopup = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -110,5 +159,14 @@
     private void RefreshParentComponent()
     {
         StateHasChanged();
+    }
+    private void ShowDemandForecastPopup()
+    {
+        showDemandForecastPopup = true;
+    }
+
+    private void CloseDemandForecastPopup()
+    {
+        showDemandForecastPopup = false;
     }
 }

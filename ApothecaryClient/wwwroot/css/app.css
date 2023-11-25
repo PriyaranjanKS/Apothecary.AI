@@ -2204,3 +2204,124 @@ button {
     padding: 10px 20px;
     display: inline-block;
 }
+
+/* Style for the Demand Forecast Pop-up */
+.demand-forecast-popup {
+    width: 60%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+}
+
+/* Style for the left side of the Demand Forecast Pop-up */
+.demand-forecast-left {
+    flex: 1;
+    width: 50%; /* Divide into two halves */
+    background: #E0E5EC; /* Background color for left side */
+    padding: 20px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2), -10px -10px 20px rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for the Demand Forecast heading */
+.demand-forecast-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Style for the controls in the left side */
+.demand-forecast-controls label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+.demand-forecast-controls select,
+.demand-forecast-controls input[type="date"],
+.demand-forecast-controls input[type="text"],
+.demand-forecast-controls button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    background: #E0E5EC;
+    box-shadow: inset 3px 3px 5px #C7CCD4, inset -3px -3px 5px #F0F5FC;
+}
+
+.demand-forecast-controls button {
+    background: #4CAF50; /* Button background color */
+    color: white; /* Button text color */
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Style for the right side of the Demand Forecast Pop-up */
+.demand-forecast-right {
+    flex: 1;
+    width: 50%; /* Divide into two halves */
+    background: #E0E5EC; /* Background color for right side */
+    padding: 20px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2), -10px -10px 20px rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for the Azure ML Demand Forecast and Azure Open AI Suggestions containers */
+.forecast-container-heading {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.forecast-container-text {
+    color: #555;
+}
+.demand-forecast-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dispatch-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    text-align: left;
+}
+
+.header-center {
+    text-align: center;
+}
+.demand-forecast-container {
+    display: flex;
+    min-width: 600px;
+    margin: 0 auto;
+}
