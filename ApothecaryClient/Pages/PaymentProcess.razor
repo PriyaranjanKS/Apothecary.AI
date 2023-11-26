@@ -1,8 +1,10 @@
 ﻿@page "/payment-process/{orderDetailsJson}"
 @using Newtonsoft.Json
 @using ApothecaryShared
+@using System.Text
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
+@inject HttpClient Http
 
 <div class="payment-container">
     <div class="payment-neumorphic payment-order-details">
@@ -54,7 +56,10 @@
         <div class="payment-success-content">
             <p>Payment successful!</p>
             <p>Receipt Number: @receiptNumber</p>
-            <button class="payment-success-button" @onclick="GoToOrderPlacement">OK</button>
+            <label for="feedbackTextarea">Submit Feedback</label>
+            <textarea id="feedbackTextarea" class="feedback-textarea neumorphic" @bind="feedback"></textarea>
+
+            <button class="payment-success-button neumorphic" @onclick="SubmitFeedback">OK</button>
         </div>
     </div>
 }
@@ -63,6 +68,7 @@
     private int totalBillInCents;
 
     private string receiptNumber;
+    private string feedback = "";
 
         [Parameter]
         public string OrderDetailsJson { get; set; }
@@ -88,6 +94,47 @@
         catch (Exception ex)
         {
             // Handle other exceptions
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+
+    private async Task SubmitFeedback()
+    {
+        try
+        {
+            // Send feedback to Power Automate
+            if (!string.IsNullOrEmpty(feedback))
+            {
+                var feedbackData = new
+                {
+                    ReceiptNumber = receiptNumber,
+                    CustomerFeedback = feedback
+                };
+
+                var jsonFeedbackData = JsonConvert.SerializeObject(feedbackData);
+                 
+                var powerAutomateUrl = "https://prod-132.westus.logic.azure.com:443/workflows/5bd7e59631ba4a5192d8247039d2a474/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=R8M7ld2PCkYOfLdoI0903B_3tKSVXyWu9oadw4Hl0v8";
+                
+                var response = await Http.PostAsync(powerAutomateUrl, new StringContent(jsonFeedbackData, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
+                {
+                    // Feedback submitted successfully, navigate to the order placement page
+                    NavigationManager.NavigateTo("/order-placement");
+                }
+                else
+                {
+                    // Handle the case where feedback submission failed
+                    Console.WriteLine("Feedback submission failed.");
+                }
+            }
+            else
+            {
+                // No feedback provided, navigate to the order placement page
+                NavigationManager.NavigateTo("/order-placement");
+            }
+        }
+        catch (Exception ex)
+        {
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
@@ -124,8 +171,5 @@
         StateHasChanged();
     }
 
-    private void GoToOrderPlacement()
-    {
-        NavigationManager.NavigateTo("/order-placement");
-    }
+     
 }
