@@ -35,10 +35,16 @@ public class AlternateMedicineController : ControllerBase
             {
                 // Read the response content and deserialize it
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var alternateMedicineSuggestion = JsonConvert.DeserializeObject<AlternateMedicineResponse>(responseContent);
+               var alternateMedicineResponse = JsonConvert.DeserializeObject<AlternateMedicineResponse>(responseContent);
 
+                // Modify the response object to include DALL-EImageURL
+                var responseWithImageUrl = new
+                {
+                    AlternateMedicine = alternateMedicineResponse.AlternateMedicine,
+                    DALL_EImageURL = alternateMedicineResponse.DALL_EImageURL
+                };
 
-                return Ok(alternateMedicineSuggestion);
+                return Ok(responseWithImageUrl);
             }
             else
             {
@@ -61,5 +67,6 @@ public class AlternateMedicineController : ControllerBase
     private class AlternateMedicineResponse
     {
         public string AlternateMedicine { get; set; }
+        public string DALL_EImageURL { get; set; }
     }
 }

@@ -44,19 +44,27 @@
 {
     <div class="alternate-popup-overlay" @onclick="CloseAlternatePopup">
         <div class="alternate-popup-content" @onclick:stopPropagation="true">
-            <h2 class="alternate-popup-header">Alternate Medicine Suggestion</h2>
-            @if (isFetchingAlternateSuggestion)
-            {
-                <div class="alternate-fetching-container">
-                    <div class="alternate-popup-spinner"></div>
-                    <p class="alternate-fetching-text">Fetching alternate medicine suggestion,Please wait!</p>
-                </div>
-            }
-            else
-            {
-                <p class="alternate-popup-message">@alternatePopupMessage</p>
-                <button class="alternate-popup-close-btn" @onclick="CloseAlternatePopup">OK</button>
-            }
+            <div class="alternate-popup-left">
+                <!-- Left section to display an image -->
+                <img src="@DalleImageURL" alt="Alternate Medicine Image" class="alternate-popup-image" />
+                <p class="image-generation-text">DALL-E powered image generation</p>
+            </div>
+            <div class="alternate-popup-right">
+                <!-- Right section for the current UI elements -->
+                <h2 class="alternate-popup-header">Alternate Medicine Suggestion</h2>
+                @if (isFetchingAlternateSuggestion)
+                {
+                    <div class="alternate-fetching-container">
+                        <div class="alternate-popup-spinner"></div>
+                        <p class="alternate-fetching-text">Fetching alternate medicine suggestion,Please wait!</p>
+                    </div>
+                }
+                else
+                {
+                    <p class="alternate-popup-message">@alternatePopupMessage</p>
+                    <button class="alternate-popup-close-btn" @onclick="CloseAlternatePopup">OK</button>
+                }
+            </div>
         </div>
     </div>
 }
@@ -255,6 +263,8 @@
     private string audioData = ""; // Base64 encoded audio data
     private VoiceOrderResponse voiceOrderResponse = new VoiceOrderResponse();
     private bool showPlaceOrderButton = false;
+
+    private string DalleImageURL = "";
 
     private void OpenVoiceOrderModal() => showVoiceOrderModal = true;
 
@@ -524,6 +534,12 @@
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     var responseData = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
                     alternatePopupMessage = responseData?.alternateMedicine;
+                    string imageUrl = responseData?.dalL_EImageURL;
+
+                    if (!string.IsNullOrEmpty(imageUrl))
+                    {
+                        DalleImageURL = imageUrl;
+                    }
                 }
                 else
                 {

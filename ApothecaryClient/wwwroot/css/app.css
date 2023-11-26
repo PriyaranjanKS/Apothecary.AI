@@ -23,7 +23,7 @@ body, .action-btn, .add-to-cart-btn, .btn, .group-heading,
 .alternate-popup-close-btn, .alternate-fetching-text,
 .product-loading-content p {
     font-family: 'Lato', sans-serif !important;
-    /* ... other styles ... */
+     
 }
 /* Neumorphic Overlay */
 .neumorphic-overlay {
@@ -727,9 +727,14 @@ button {
     border-radius: 20px;
     box-shadow: 4px 4px 8px #b8b9be, -4px -4px 8px #ffffff; /* Reduced shadow intensity */
     padding: 20px;
-    width: 400px;
+    display: flex; /* Display children side by side */
+    
+    width: 600px; /* Increase the width for both sections */
     text-align: center;
     box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center;
 }
 
 .alternate-popup-header {
@@ -758,10 +763,10 @@ button {
     border: none;
     padding: 10px 20px;
     border-radius: 10px;
-    box-shadow: 2px 2px 4px #cbcbcb, -2px -2px 4px #ffffff; /* Reduced shadow intensity */
+    box-shadow: 2px 2px 4px #cbcbcb, -2px -2px 4px #ffffff;
     cursor: pointer;
     font-size: 16px;
-    transition: box-shadow 0.2s ease-in-out; /* Smooth transition for shadow */
+    transition: box-shadow 0.2s ease-in-out;
     margin-top: 20px;
 }
 
@@ -786,7 +791,32 @@ button {
     flex-direction: column;
     margin-top: 20px;
 }
+.alternate-popup-left {
+    flex: 30%; /* Occupies 30% of the width */
+    padding-right: 20px; /* Add spacing between left and right sections */
+}
 
+/* Right section styles */
+.alternate-popup-right {
+    flex: 70%; /* Occupies 70% of the width */
+    
+}
+
+/* Add styles for the image in the left section */
+.alternate-popup-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Optional border-radius for the image */
+}
+
+.image-generation-text {
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    margin-top: 5px; /* Adjust the margin as needed */
+    color: #666; /* Text color */
+    font-size: 13px;
+}
 /* Style for the fetching text */
 .alternate-fetching-text {
     margin-top: 20px;
