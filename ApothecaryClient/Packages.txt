@@ -1,0 +1,1 @@
+﻿Azure.AI.OpenAI,1.0.0

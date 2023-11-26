@@ -1,0 +1,36 @@
+﻿@page "/ProductChat"
+
+
+@* <script>
+    function SendMessage() {
+        var userMessage = $("#userMessage").val();
+        $.post("https://localhost:7092/api/Chat/GetOpenAIResponse", { usermessage: userMessage }, function (data) {
+            $("#chatBox").append("<p>User:" + userMessage + "</p>");
+            $("#chatBox").append("<p>Elisa AI:" + data.response + "</p>");
+        });
+    }
+</script> *@
+
+<script>
+    function SendMessage() {
+        var userMessage = $("#userMessage").val();
+        var apiUrl = "https://localhost:7092/api/chat/GetOpenAIResponse?usermessage=" + encodeURIComponent(userMessage);
+
+        $.post(apiUrl, function (data) {
+            $("#chatBox").append("<p>User:" + userMessage + "</p>");
+            $("#chatBox").append("<p>Elisa AI:" + data.response + "</p>");
+        });
+    }
+</script>
+
+
+<h3>ProductChatbot</h3>
+<div id="chatBox">
+</div>
+<input type="text" id="userMessage" />
+<button onclick="SendMessage()">Send</button>
+
+<button class="modal-upload-btn">Upload chat</button>
+
+
+

@@ -1,5 +1,10 @@
+using DotNetEnv;
+using static System.Environment;
 var builder = WebApplication.CreateBuilder(args);
 
+Env.Load();
+string endpoint = GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT");
+Console.WriteLine(endpoint);
 // Add services to the container.
 
 builder.Services.AddControllers();

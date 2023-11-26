@@ -6,6 +6,26 @@
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
+
+<!-- Add this script block at the end of your Razor page -->
+<script>
+    function loadChatBot() {
+        var iframe = document.getElementById('chatIframe');
+        iframe.src = '/chatbot'; // Adjust the URL based on your chatbot endpoint
+    }
+</script>
+
+<script type="text/javascript">
+
+    function AlertName(name) {
+
+        alert('You clicked ' + name + "!");
+
+    }
+
+</script>
+
+
 @if (isProductListLoading)
 {
     <div class="product-loading-overlay">
@@ -195,13 +215,23 @@
                 }
             </tbody>
         </table>
+
+      
         <div class="cart-footer">
             <span class="total-bill form-label">Total Bill Value: $@cartOrders.Sum(o => o.TotalPrice)</span>
            <button class="btn place-order-btn neumorphic form-label" @onclick="OnPlaceOrder">Place Order</button>
 
         </div>
+
     </aside>
+    @* <div style="float:right;align-content:baseline;">
+        <button class="btn about-btn neumorphic form-label" onclick="loadChatBot()">testbot</button>
+        <div>
+            <iframe id="chatIframe" src="about:blank" width="400" height="600" style="border: 1px solid #ccc;"></iframe>
+        </div>
+    </div> *@
 </div>
+
 
 @code {
     private string userName; 

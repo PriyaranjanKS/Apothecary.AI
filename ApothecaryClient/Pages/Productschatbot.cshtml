@@ -1,0 +1,20 @@
+﻿@page
+@model ApothecaryClient.Pages.ProductschatbotModel
+@{
+}
+
+<div id="chatbox">
+
+</div>
+<input type="text" id="usermessage" />
+<button onclick="sendMessage()">Send</button>
+
+<script>
+    function SendMessage() {
+        var userMessage = $("#usermessage").val();
+        $.post("/chat/GetResponse", { userMessage: userMessage }, function (data) {
+            $("#chatBox").append("<p>User:"+userMessage+"</p>");
+            $("#chatBox").append("<p>Elisa AI:" + data.response + "</p>");
+        }
+    }
+</script>
