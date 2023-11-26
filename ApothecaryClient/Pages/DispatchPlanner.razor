@@ -1,5 +1,6 @@
 ﻿@page "/dispatch-planner"
 @using System.Reflection.Metadata
+@using Newtonsoft.Json
 @inject HttpClient Http
 <ReadinessCheckModal @ref="readinessCheckModal" OnStateChanged="() => RefreshParentComponent()" />
 <SchedulePopup @ref="schedulePopup" />
@@ -15,7 +16,7 @@
 <div class="dispatch-container">
     <div class="dispatch-header">
         <div class="header-left">
-            <button class="dispatch-demand-forecast neumorphic" @onclick="ShowDemandForecastPopup">Demand Forecast</button>
+            <button class="dispatch-demand-forecast" @onclick="ShowDemandForecastPopup">Demand Forecast</button>
         </div>
         <div class="header-center">
             <h2>Total number of Open Orders: @orders?.Count</h2>
@@ -43,7 +44,8 @@
                     </div>
                     <div class="dispatch-order-row">
                         <div class="dispatch-order-actions">
-                            <button class="dispatch-readiness-check" @onclick="() => CheckReadiness(order.OrderNumber)">Readiness Check</button>
+                            <button class="fraud-check-button" style="min-width: 110px;" @onclick="() => CheckFraud(order.OrderNumber)">Fraud Check</button>
+                            <button class="dispatch-readiness-check" style="min-width: 140px;" @onclick="() => CheckReadiness(order.OrderNumber)">Readiness Check</button>
                             <button class="dispatch-schedule" @onclick="() => OnScheduleClick(order)">Schedule</button>
                         </div>
                     </div>
@@ -52,6 +54,29 @@
         }
     </div>
 </div>
+@if (showFraudCheckPopup)
+{
+    <div class="fraud-check-overlay">
+        <div class="fraud-check-popup neumorphic">
+            <div class="fraud-check-container">
+                <div class="fraud-check-spinner"></div>
+                <p class="fraud-check-text">Checking prescription for potential fraud using Google PaLM...</p>
+            </div>
+        </div>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(fraudCheckResult))
+{
+    <div class="fraud-check-result-popup neumorphic">
+        <div class="fraud-check-result-container">
+            <h3>Google PaLM Powered Fraud Check Result</h3>
+            <p>@fraudCheckResult</p>
+            <button class="close-popup-button neumorphic" @onclick="CloseFraudCheckPopup">Close</button>
+        </div>
+    </div>
+}
+
 @if (showDemandForecastPopup)
 {
     <div class="demand-forecast-overlay">
@@ -119,6 +144,65 @@
     private string azureMLDemandForecast = "";
     private string azureOpenAISuggestions = "";
 
+    private bool showFraudCheckPopup = false;
+    private string fraudCheckResult = "";
+
+    private async Task CheckFraud(string orderNumber)
+    {
+        try
+        {
+            showFraudCheckPopup = true; // Show the loading popup
+
+            // Create a request object to send to the controller
+            var fraudCheckRequest = new FraudCheckRequest { OrderNumber = orderNumber };
+
+            // Send a POST request to the controller to initiate fraud check
+            var response = await Http.PostAsJsonAsync("api/DispatchOrders/fraud-check", fraudCheckRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                var fraudCheckResponse = JsonConvert.DeserializeObject<FraudCheckResponse>(result);
+
+                if (fraudCheckResponse != null)
+                {
+                    fraudCheckResult = fraudCheckResponse.fraudCheckResult;
+                   
+                }
+                else
+                {
+                    fraudCheckResult = "No fraud check result available.";
+                }
+            }
+            else
+            {
+                fraudCheckResult = "Failed to check for fraud.";
+            }
+        }
+        catch (Exception ex)
+        {
+            fraudCheckResult = $"An error occurred during fraud check: {ex.Message}";
+        }
+        finally
+        {
+            Console.WriteLine($"fraudCheckResult: {fraudCheckResult}");
+            showFraudCheckPopup = false; // Hide the loading popup
+            StateHasChanged();
+        }
+    }
+    public class FraudCheckRequest
+    {
+        public string OrderNumber { get; set; }
+    }
+
+    public class FraudCheckResponse
+    {
+        public string fraudCheckResult { get; set; }
+    }
+    private void CloseFraudCheckPopup()
+    {
+        fraudCheckResult = ""; // Clear the fraud check result
+    }
     protected override async Task OnInitializedAsync()
     {
         try

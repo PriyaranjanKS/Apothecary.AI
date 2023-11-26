@@ -78,6 +78,47 @@ public class DispatchOrdersController : ControllerBase
             return StatusCode(500, $"An error occurred: {ex.Message}");
         }
     }
+
+    [HttpPost("fraud-check")]
+    public async Task<ActionResult> CheckFraud([FromBody] FraudCheckRequest request)
+    {
+        try
+        {
+            // Create a new HttpClient to call Power Automate
+            using var httpClient = new HttpClient();
+
+            // Create a JSON payload with the order information
+            var jsonPayload = JsonConvert.SerializeObject(new { OrderId = request.OrderNumber });
+            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+            // Send a POST request to Power Automate
+            var response = await httpClient.PostAsync("https://prod-173.westus.logic.azure.com:443/workflows/d74efa8a764b419699bcd6bc0645e4db/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=0Yr9geIMh0a1oWIkjMEu5yTcrlXJaMLkrlFBlqU0Ci8", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+
+                // Deserialize the response from Power Automate
+                var fraudCheckResponse = JsonConvert.DeserializeObject<FraudCheckResponse>(result);
+
+                if (fraudCheckResponse != null && !string.IsNullOrEmpty(fraudCheckResponse.FraudCheck))
+                {
+                    return Ok(new { FraudCheckResult = fraudCheckResponse.FraudCheck });
+                }
+            }
+            else
+            {
+                return StatusCode((int)response.StatusCode, "Failed to trigger Power Automate.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"An error occurred during fraud check: {ex.Message}");
+        }
+
+        return BadRequest("Failed to check for fraud.");
+    }
+
     [HttpPost("forecast")]
     public async Task<ActionResult> ForecastDemand([FromBody] ForecastRequest request)
     {
@@ -123,6 +164,7 @@ public class DispatchOrdersController : ControllerBase
 
         return BadRequest("Failed to forecast demand.");
     }
+
 
     [HttpGet]
     public async Task<IActionResult> GetOrders()
@@ -195,4 +237,14 @@ public class Order
     public int TotalItems { get; set; }
     public string DispatchStatus { get; set; }
     public string Readiness { get; set; }
+}
+
+public class FraudCheckRequest
+{
+    public string OrderNumber { get; set; }
+}
+
+public class FraudCheckResponse
+{
+    public string FraudCheck { get; set; }
 }

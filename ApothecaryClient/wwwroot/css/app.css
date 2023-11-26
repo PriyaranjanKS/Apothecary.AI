@@ -1285,7 +1285,7 @@ button {
 
 .dispatch-readiness-check,
 .dispatch-schedule {
-    min-width: 150px;
+    
     padding: 10px;
     border-radius: 10px;
     background: #e0e5ec;
@@ -2381,3 +2381,89 @@ button {
     align-items: flex-start; /* Aligns items to the start of the container */
     width: 100%; /* Takes full width of its parent */
 }
+
+
+/* Fraud check popup styles */
+.dispatch-demand-forecast {
+    padding: 10px;
+    border-radius: 10px;
+    background: #e0e5ec;
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff; /* Elevated look */
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.fraud-check-container {
+    text-align: center;  
+}
+.fraud-check-button {
+    padding: 10px;
+    border-radius: 10px;
+    background: #e0e5ec;
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff; /* Elevated look */
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.fraud-check-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.fraud-check-popup {
+    background: #f0f0f0;
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    border: none;
+    max-width: 80%;
+}
+
+.fraud-check-spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+}
+/*Fraud Check Result styles*/
+.fraud-check-result-popup {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    position: fixed; /* Change from absolute to fixed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Adjust the z-index as needed */
+}
+
+
+/* Define styles for the popup content container */
+.fraud-check-result-container {
+    text-align: center;
+}
+
+/* Define styles for the close button */
+.close-popup-button {
+    background-color: #ccc;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+    .close-popup-button:hover {
+        background-color: #ddd;
+    }
