@@ -72,19 +72,27 @@
 {
     <div class="medicine-warning-popup-overlay" @onclick="CloseMedicineWarningPopup">
         <div class="medicine-warning-popup-content" @onclick:stopPropagation="true">
-            <h2 class="medicine-warning-popup-header">Medicine Warning</h2>
-            @if (isFetchingMedicineWarning)
-            {
-                <div class="medicine-warning-fetching-container">
-                    <div class="medicine-warning-popup-spinner"></div>
-                    <p class="medicine-warning-fetching-text">Fetching medicine warning, please wait...</p>
-                </div>
-            }
-            else
-            {
-                <p class="medicine-warning-popup-message">@medicineWarningPopupMessage</p>
-                <button class="medicine-warning-popup-close-btn" @onclick="CloseMedicineWarningPopup">OK</button>
-            }
+            <div class="medicine-warning-popup-left">
+                <!-- Left section to display an image -->
+                <img src="@MedicineWarningImageURL" alt="Medicine Warning Image" class="medicine-warning-popup-image" />
+                <p class="image-generation-text">DALL-E powered image generation</p>
+            </div>
+            <div class="medicine-warning-popup-right">
+                <!-- Right section for the current UI elements -->
+                <h2 class="medicine-warning-popup-header">Medicine Warning</h2>
+                @if (isFetchingMedicineWarning)
+                {
+                    <div class="medicine-warning-fetching-container">
+                        <div class="medicine-warning-popup-spinner"></div>
+                        <p class="medicine-warning-fetching-text">Fetching medicine warning, please wait...</p>
+                    </div>
+                }
+                else
+                {
+                    <p class="medicine-warning-popup-message">@medicineWarningPopupMessage</p>
+                    <button class="medicine-warning-popup-close-btn" @onclick="CloseMedicineWarningPopup">OK</button>
+                }
+            </div>
         </div>
     </div>
 }
@@ -265,6 +273,7 @@
     private bool showPlaceOrderButton = false;
 
     private string DalleImageURL = "";
+     private string MedicineWarningImageURL = "";
 
     private void OpenVoiceOrderModal() => showVoiceOrderModal = true;
 
@@ -488,6 +497,13 @@
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     var responseData = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
                     medicineWarningPopupMessage = responseData?.medicineWarning;
+
+                    string imageUrl = responseData?.dalL_EImageURL; // Retrieve the image URL
+
+                    if (!string.IsNullOrEmpty(imageUrl))
+                    {
+                        MedicineWarningImageURL = imageUrl; // Update the image URL
+                    }
                 }
                 else
                 {

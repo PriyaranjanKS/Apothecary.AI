@@ -83,5 +83,49 @@ window.interop = {
             paymentButton.style.textShadow = 'none';
             paymentButton.style.color = '#000000'; // Adjust text color as needed
         }
+    },
+
+    SendMessage: function () {
+        var userMessage = document.getElementById("userMessage").value;
+        var apiUrl = "https://localhost:7092/api/chat/GetOpenAIResponse?usermessage=" + encodeURIComponent(userMessage);
+
+        fetch(apiUrl, {
+            method: "POST"
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                var chatTable = document.getElementById("chatTable");
+
+                // Create a new table row for the user
+                var userTableRow = document.createElement("tr");
+
+                // Create a cell for user bubble
+                var userBubbleCell = document.createElement("td");
+                userBubbleCell.className = "chat-bubble user-bubble";
+                userBubbleCell.textContent = "User: " + userMessage;
+                userTableRow.appendChild(userBubbleCell);
+
+                // Append the user row to the table
+                chatTable.appendChild(userTableRow);
+
+                // Create a new table row for Elisa AI
+                var elisaTableRow = document.createElement("tr");
+
+                // Create a cell for Elisa AI bubble
+                var elisaBubbleCell = document.createElement("td");
+                elisaBubbleCell.className = "chat-bubble elisa-bubble";
+                elisaBubbleCell.textContent = "Elisa AI: " + data.response;
+                elisaTableRow.appendChild(elisaBubbleCell);
+
+                // Append the Elisa AI row to the table
+                chatTable.appendChild(elisaTableRow);
+            })
+            .catch(function (error) {
+                console.error("Error:", error);
+            });
     }
+
+
 };

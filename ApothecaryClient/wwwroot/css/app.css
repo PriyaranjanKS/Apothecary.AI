@@ -2497,3 +2497,155 @@ button {
     .close-popup-button:hover {
         background-color: #ddd;
     }
+
+    /*Medicine Warning DALL -E */
+.medicine-warning-popup-content {
+    display: flex;  
+    justify-content: space-between;  
+    align-items: center; 
+}
+
+.medicine-warning-popup-left {
+    flex: 1; /* Let the left section grow to take available space */
+    text-align: center; /* Center-align content horizontally */
+}
+
+.medicine-warning-popup-image {
+    max-width: 100%; /* Ensure the image fits within its container */
+    height: auto; /* Maintain the image's aspect ratio */
+    margin-bottom: 10px; /* Adjust spacing between image and text */
+}
+
+.medicine-warning-popup-right {
+    flex: 2; /* Let the right section grow to take available space */
+    padding: 0 20px; /* Add some horizontal padding to the right section */
+}
+
+/*Chatbot*/
+/* Chat Container */
+.chat-container {
+    width: 350px; /* Adjust the width as needed */
+    height: 500px; /* Adjust the height as needed */
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Chat Box */
+.chat-container {
+    width: 350px; /* Adjust the width as needed */
+    height: 500px; /* Adjust the height as needed */
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Chat Box (Scrollable Area) */
+.chat-box {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+/* User Input Section */
+.chat-user-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+/* User Message Input */
+.chat-user-message {
+    flex-grow: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    margin-right: 10px;
+    outline: none;
+}
+
+/* Send Button */
+.chat-send-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    outline: none;
+}
+
+    .chat-send-button:hover {
+        background-color: #0056b3;
+    }
+
+/* Chat Bubble (Response) */
+.chat-bubble {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 6px 0; /* Increase margin to create a 12px vertical gap */
+    max-width: 70%;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Hide overflow to prevent stretching */
+    display: inline-block; /* Display bubbles inline */
+}
+ 
+/* User's Chat Bubble (Right-aligned) */
+.user-bubble {
+    background-color: #dcf8c6; /* Light green background for user messages */
+    color: #000; /* Black text for visibility */
+    border-radius: 18px 18px 0 18px; /* Rounded corners except bottom-left for user messages */
+    padding: 10px;
+    margin-right: 0; /* Align to right */
+    margin-left: auto; /* Ensure it stays on the right */
+    max-width: 70%;
+    box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.1); /* Shadow to the left for user messages */
+    text-align: right; /* Right-align text within the user bubble */
+}
+
+/* Elisa AI's Chat Bubble (Left-aligned) */
+.elisa-bubble {
+    background-color: #e0e5ec; /* Different color background for Elisa AI */
+    color: #000; /* Black text for visibility */
+    border-radius: 18px 18px 18px 0; /* Rounded corners except bottom-right for Elisa AI messages */
+    padding: 10px;
+    margin-left: 0; /* Align to left */
+    margin-right: auto; /* Ensure it stays on the left */
+    max-width: 70%;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); /* Shadow to the right for Elisa AI messages */
+    text-align: left; /* Left-align text within the Elisa AI bubble */
+}
+
+/* Elisa AI Title */
+.ElisaTitle {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    background: #e0e5ec;
+    border-radius: 15px;
+    box-shadow: 6px 6px 12px #babecc, -6px -6px 12px #ffffff;
+    padding: 10px 20px;
+    display: inline-block;
+}
+.chat-table {
+    width: 100%;
+}
+
+    /* Ensure that the table row does not affect the bubble alignment */
+    .chat-table tr {
+        display: flex;
+        justify-content: flex-end; /* Align user messages to the end (right) */
+    }

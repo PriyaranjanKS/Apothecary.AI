@@ -18,6 +18,7 @@ public class MedicineWarningsController : ControllerBase
     private class MedicineWarningResponse
     {
         public string MedicineWarning { get; set; }
+        public string DALL_EImageURL { get; set; } // Include MedicineWarningImageURL
     }
 
     [HttpPost("get-warning")]

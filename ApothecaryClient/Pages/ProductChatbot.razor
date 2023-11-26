@@ -1,0 +1,23 @@
+﻿@page "/ProductChat"
+@inject IJSRuntime JSRuntime
+
+<h3 class="ElisaTitle">Elisa AI</h3>
+ 
+<div class="chat-container">
+    <table id="chatTable" class="chat-table">
+        <tbody id="chatBox" class="chat-box"></tbody>
+    </table>
+    <div class="chat-user-input">
+        <input type="text" id="userMessage" class="chat-user-message" />
+        <button id="sendMessageButton" class="chat-send-button" @onclick="SendMessageAsync">Send</button>
+    </div>
+</div>
+
+@code {
+    private async Task SendMessageAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("interop.SendMessage");
+    }
+}
+
+ 
