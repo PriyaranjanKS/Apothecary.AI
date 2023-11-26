@@ -7,6 +7,7 @@ body {
     background-color: #f2f2f2;
     overflow-x: hidden;
 }
+
 .sub-heading {
     text-align: center; /* Align text to the center */
     width: 100%; /* Ensure the div takes full width */
@@ -81,6 +82,7 @@ body, .action-btn, .add-to-cart-btn, .btn, .group-heading,
     min-height: 100vh;
     background-color: #e0e5ec;
 }
+
 .uploaded-image {
     max-width: 70%;
 }
@@ -338,7 +340,7 @@ body {
 
 /* Control Panel Styles */
 .control-panel {
-    height: 580px!important;
+    height: 580px !important;
     width: 250px;
     background: #e0e5ec;
     padding: 20px;
@@ -347,6 +349,7 @@ body {
     justify-content: space-between;
     box-shadow: 5px 5px 10px #a7a7a7, -5px -5px 10px #ffffff;
 }
+
 .single-btn {
     /*padding-top: 10px !important;*/
     margin-top: 20px !important;
@@ -364,17 +367,19 @@ body {
     padding: 15px;
     margin-bottom: 30px;
 }
+
 .user-info, .form-label {
     font-size: .8rem !important;
     font-weight: bold;
 }
+
 .cartHeader {
     font-size: 1.3rem !important;
     font-weight: bold;
 }
-.add-to-cart-btn {
 
-width : 40% !important;
+.add-to-cart-btn {
+    width: 40% !important;
 }
 /* Standard Button Styles */
 .action-btn,
@@ -394,8 +399,9 @@ width : 40% !important;
     outline: none;
     margin: auto;
 }
+
 .place-order-btn {
-width:30%!important;
+    width: 30% !important;
 }
 /* Ensuring all buttons have the same width */
 .button-group-neumorphic .action-btn {
@@ -408,9 +414,10 @@ width:30%!important;
     /* Inset shadow to create a pressed effect */
     box-shadow: inset 8px 8px 16px #cbcbcb, inset -8px -8px 16px #ffffff;
     padding: 20px; /* Increased padding for better visual */
-    padding-top: 0px!important;
+    padding-top: 0px !important;
     margin-bottom: 20px; /* Space between button groups */
 }
+
 .group-heading {
     margin: auto !important;
     padding-top: 5px !important;
@@ -457,13 +464,13 @@ width:30%!important;
     flex-grow: 1;
     margin: 0 20px;
     padding: 20px;
-    height:580px!important;
+    height: 580px !important;
 }
 
 /* User Info Styles */
 .user-info {
     margin-bottom: 20px;
-    margin-top:16px !important;
+    margin-top: 16px !important;
 }
 
 /* Cart Styles */
@@ -502,6 +509,7 @@ width:30%!important;
         border-radius: 10px;
         box-shadow: inset 4px 4px 8px #cbcbcb, inset -4px -4px 8px #ffffff;
     }
+
     .cart-table th {
         position: sticky;
         top: 0;
@@ -720,7 +728,7 @@ button {
     box-shadow: 4px 4px 8px #b8b9be, -4px -4px 8px #ffffff; /* Reduced shadow intensity */
     padding: 20px;
     width: 400px;
-    text-align: center; 
+    text-align: center;
     box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
 }
 
@@ -756,6 +764,7 @@ button {
     transition: box-shadow 0.2s ease-in-out; /* Smooth transition for shadow */
     margin-top: 20px;
 }
+
     .alternate-popup-close-btn:active {
         box-shadow: inset 2px 2px 4px #cbcbcb, inset -2px -2px 4px #ffffff; /* Inward shadow for depressed effect */
     }
@@ -799,6 +808,7 @@ button {
     align-items: center;
     z-index: 1050; /* Higher than other overlays */
 }
+
 .product-loading-content {
     text-align: center;
     padding: 30px;
@@ -1111,6 +1121,7 @@ button {
     font-weight: bold;
     margin-bottom: 10px;
 }
+
 .payment-button-container {
     display: flex;
     justify-content: center; /* Center button horizontally */
@@ -1163,6 +1174,7 @@ button {
     width: auto; /* Adjust width as needed */
     min-width: 300px;
 }
+
 .payment-success-button {
     padding: 10px 20px;
     border-radius: 20px;
@@ -1189,7 +1201,7 @@ button {
         box-shadow: inset 5px 5px 10px #a3a3a3, inset -5px -5px 10px #ffffff;
     }
 
-    /*Dispatch Planner CSS*/
+/*Dispatch Planner CSS*/
 /* Dispatch Planner CSS */
 .dispatch-container {
     display: flex;
@@ -1247,6 +1259,7 @@ button {
 .dispatch-order-row > .dispatch-order-column:last-child {
     margin-right: 0;
 }
+
 .dispatch-order-column.dispatch-status-packaging-completed {
     background-color: #c8e6c9; /* green-ish for packaging completed */
 }
@@ -1414,15 +1427,17 @@ button {
     overflow-y: auto;
     max-height: 65vh;
 }
- 
+
 .generative-text {
     padding-left: 200px;
     font-weight: bold;
 }
+
 .stock-loading {
     text-align: center;
     font-weight: bold;
 }
+
 .medicine-card {
     background: #e0e5ec;
     border-radius: 10px;
@@ -1461,15 +1476,16 @@ button {
     border-radius: 10px;
     padding: 20px; /* Increased padding */
     box-shadow: inset 5px 5px 10px #babecc, inset -5px -5px 10px #ffffff;
-    
     margin-top: 20px; /* Add margin on top for spacing */
     padding-left: 10px;
     font-weight: bold;
 }
+
 .generative-paragraph {
     font-size: 14px;
     padding-left: 50px;
 }
+
 .azure-openai-output h3 {
     margin-bottom: 15px; /* Space between the heading and the content */
     font-size: 1.25em; /* Larger font size for heading */
@@ -1555,7 +1571,7 @@ button {
     padding: 40px; /* Increase padding */
 }
 /*Dispatch Orders Filters*/
- 
+
 
 .dispatch-filter {
     display: flex;
@@ -1642,6 +1658,7 @@ button {
     font-size: 22px;
     font-weight: bold;
 }
+
 .schedule-loading-spinner {
     border: 4px solid #f3f3f3; /* Light gray */
     border-top: 4px solid #3498db; /* Blue */
@@ -1650,10 +1667,12 @@ button {
     height: 50px;
     animation: spin 2s linear infinite;
 }
+
 .neumorphic-header h3 {
     font-size: 22px;
     font-weight: bold;
 }
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -1663,6 +1682,7 @@ button {
         transform: rotate(360deg);
     }
 }
+
 .schedule-loading-text {
     /* Style your loading text here */
     margin-top: 10px; /* Example: Add space above the text */
@@ -1670,6 +1690,7 @@ button {
     font-size: 16px;
     color: #666; /* Example: Grey text color */
 }
+
 .schedule-loading-container {
     display: flex;
     flex-direction: column; /* Stack children vertically */
@@ -1920,8 +1941,9 @@ button {
     flex-direction: column;
     margin: 20px;
     font-family: 'Lato', Tahoma, Geneva, Verdana, sans-serif;
-    width: 40%;  Adjust width to take up 50% of the space 
-    margin: auto;  Center the simulator in the available space 
+    width: 40%;
+    Adjust width to take up 50% of the space margin: auto;
+    Center the simulator in the available space
 }
 
 /*.iot-simulator {
@@ -1929,7 +1951,7 @@ button {
     top: 0;
     left: 0;
     width: 100%;*/ /* Optionally, set the width to 100% to span the entire viewport */
-    /*z-index: 999;*/ /* Optionally, set a higher z-index to ensure it's above other content */
+/*z-index: 999;*/ /* Optionally, set a higher z-index to ensure it's above other content */
 /*}*/
 
 .iot-simulator-title {
@@ -1943,9 +1965,9 @@ button {
     box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
     font-weight: bold;
 }
+
 .iot-other-controls {
     width: 60%; /* Placeholder for the other half */
-     
 }
 
 .iot-controls {
@@ -1993,6 +2015,7 @@ button {
     display: flex;
     flex-direction: column;
 }
+
 .iot-sim-admin, .iot-sim-progress {
     background: #e0e5ec;
     padding: 20px;
@@ -2070,7 +2093,7 @@ button {
 .IOTResults-title {
     text-align: center;
     font-size: 22px;
-    font-weight:bold;
+    font-weight: bold;
     color: #333;
     margin-bottom: 10px;
     background: #e0e5ec;
@@ -2079,13 +2102,14 @@ button {
     padding: 10px 20px;
     display: inline-block;
 }
+
 .IOTResults-anomalies {
     background: #e0e5ec;
     border-radius: 15px;
     /*box-shadow: inset 4px 4px 8px #babecc, inset -4px -4px 8px #ffffff;*/
     padding: 20px;
     margin-bottom: 20px;
-    text-align:center;
+    text-align: center;
 }
 
 .IOTResults-anomalies-details {
@@ -2108,6 +2132,7 @@ button {
     font-size: 1em;
     color: #fff;
 }
+
     .IOTResults-button:hover {
         background: #ff4d4d; /* Darker red on hover */
     }
@@ -2133,7 +2158,7 @@ button {
         padding: 10px;
         background: #e0e5ec;
         color: #333;
-        text-align:center;
+        text-align: center;
     }
 
     .IOTResults-table th {
@@ -2146,6 +2171,7 @@ button {
     justify-content: space-evenly;
     margin-bottom: 20px;
 }
+
 .IOTResults-humidity,
 .IOTResults-temperature {
     display: flex;
@@ -2157,6 +2183,7 @@ button {
     box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff; /* Neumorphic shadow */
     color: #333;
 }
+
 .IOTResults-icon {
     width: 50px;
     height: 50px;
@@ -2165,6 +2192,7 @@ button {
     border-radius: 50%;
     box-shadow: 4px 4px 8px #babecc, -4px -4px 8px #ffffff; /* Neumorphic shadow */
 }
+
 .IOTResults-table-container {
     background: #e0e5ec;
     border-radius: 15px;
@@ -2173,8 +2201,9 @@ button {
     margin-bottom: 20px;
     overflow-x: auto; /* Add horizontal scroll if necessary */
     max-width: 100%;
-    text-align:center;
+    text-align: center;
 }
+
 .IOTResults-table tr {
     background: #e0e5ec;
     border-radius: 15px;
@@ -2186,6 +2215,7 @@ button {
     padding: 10px;
     color: #333;
 }
+
 .IOTResults-anomalies .IOTResults-title {
     text-align: center; /* Center-align the text */
     background: #e0e5ec;
@@ -2213,9 +2243,10 @@ button {
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: transparent;
+    background-color: #fff; /* Change to your desired background color */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 999;
@@ -2224,8 +2255,8 @@ button {
 /* Style for the left side of the Demand Forecast Pop-up */
 .demand-forecast-left {
     flex: 1;
-    width: 50%; /* Divide into two halves */
-    background: #E0E5EC; /* Background color for left side */
+    width: 50%;
+    background: #E0E5EC;
     padding: 20px;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2), -10px -10px 20px rgba(255, 255, 255, 0.5);
     border-radius: 10px;
@@ -2234,13 +2265,14 @@ button {
     align-items: center;
 }
 
+
 /* Style for the Demand Forecast heading */
 .demand-forecast-heading {
-    font-size: 24px;
+    font-size: 18px;
+    font-weight:bold;
     margin-bottom: 20px;
     color: #333;
     text-align: center;
-    margin-bottom: 20px;
 }
 
 /* Style for the controls in the left side */
@@ -2265,35 +2297,42 @@ button {
 }
 
 .demand-forecast-controls button {
-    background: #4CAF50; /* Button background color */
-    color: white; /* Button text color */
+    background: #4CAF50;
+    color: white;
     font-weight: bold;
     cursor: pointer;
+    margin-top: 25px;
 }
 
 /* Style for the right side of the Demand Forecast Pop-up */
 .demand-forecast-right {
     flex: 1;
-    width: 50%; /* Divide into two halves */
-    background: #E0E5EC; /* Background color for right side */
+    width: 50%;
+    background: #E0E5EC;
     padding: 20px;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2), -10px -10px 20px rgba(255, 255, 255, 0.5);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 /* Style for the Azure ML Demand Forecast and Azure Open AI Suggestions containers */
 .forecast-container-heading {
     font-size: 18px;
+    font-weight: bold;
     margin-bottom: 10px;
     color: #333;
+    text-align: center;
 }
 
 .forecast-container-text {
     color: #555;
+    text-align: left;
+    margin-top: 10px;
 }
+
 .demand-forecast-overlay {
     position: fixed;
     top: 0;
@@ -2307,10 +2346,26 @@ button {
     align-items: center;
 }
 
+.close-popup-button {
+    background-color: #E0E5EC;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+   
+    box-shadow: inset 3px 3px 5px #C7CCD4, inset -3px -3px 5px #F0F5FC;
+}
+
 .dispatch-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.close-popup-button:hover {
+    background-color: #ccc;
 }
 
 .header-left {
@@ -2320,8 +2375,9 @@ button {
 .header-center {
     text-align: center;
 }
+
 .demand-forecast-container {
-    display: flex;
-    min-width: 600px;
-    margin: 0 auto;
+    display: flex;    
+    align-items: flex-start; /* Aligns items to the start of the container */
+    width: 100%; /* Takes full width of its parent */
 }

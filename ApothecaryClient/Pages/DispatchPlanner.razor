@@ -54,52 +54,70 @@
 </div>
 @if (showDemandForecastPopup)
 {
-     <div class="demand-forecast-overlay">
-    <div class="demand-forecast-popup" >
-        <div class="demand-forecast-left neumorphic">
-            <h3 class="demand-forecast-heading">Demand Forecast</h3>
-            <div class="demand-forecast-controls">
-                <label>Medicine Name:</label>
-                <select class="medicine-dropdown neumorphic">
-                    <option value="FocusFusion">FocusFusion</option>
-                    <option value="DiabeControl">DiabeControl</option>
-                    <option value="MorphEase">MorphEase</option>
-                    <option value="MorphineInject">MorphineInject</option>
-                </select>
-                <label>Manufacturer:</label>
-                <select class="manufacturer-dropdown neumorphic">
-                    <option value="ClarityWaves">ClarityWaves</option>
-                    <option value="InsuLife">InsuLife</option>
-                    <option value="EasePharma">EasePharma</option>
-                    <option value="InjectCare">InjectCare</option>
-                </select>
-                <label>Forecast Date:</label>
-                <input type="date" class="forecast-date neumorphic">
-                <label>Unit Price:</label>
-                <input type="text" class="unit-price neumorphic">
-                <label>Discount:</label>
-                <input type="text" class="discount neumorphic">
-                <button class="forecast-button neumorphic">Forecast</button>
-            </div>
-        </div>
-        <div class="demand-forecast-right neumorphic">
+    <div class="demand-forecast-overlay">
+        <div class="demand-forecast-popup">
             <div class="demand-forecast-container">
-                <h4 class="forecast-container-heading">Azure ML Demand Forecast</h4>
-                <p class="forecast-container-text">This is the Azure ML demand forecast text.</p>
-            </div>
-            <div class="demand-forecast-container">
-                <h4 class="forecast-container-heading">Azure Open AI Suggestions</h4>
-                <p class="forecast-container-text">These are the Azure Open AI suggestions text.</p>
+                <div class="demand-forecast-left neumorphic" style="height:600px">
+                    <h3 class="demand-forecast-heading neumorphic" style="margin-bottom: 5px;">Product Forecast</h3>
+                    <div class="demand-forecast-controls">
+                        <label>Medicine Name:</label>
+                        <select class="medicine-dropdown neumorphic" @bind="selectedMedicine">
+                            <option value="FocusFusion">FocusFusion</option>
+                            <option value="DiabeControl">DiabeControl</option>
+                            <option value="MorphEase">MorphEase</option>
+                            <option value="MorphineInject">MorphineInject</option>
+                        </select>
+                        <label>Manufacturer:</label>
+                        <select class="manufacturer-dropdown neumorphic" @bind="selectedManufacturer">
+                            <option value="ClarityWaves">ClarityWaves</option>
+                            <option value="InsuLife">InsuLife</option>
+                            <option value="EasePharma">EasePharma</option>
+                            <option value="InjectCare">InjectCare</option>
+                        </select>
+                        <label>Forecast Date:</label>
+                        <input type="date" class="forecast-date neumorphic" @bind="selectedForecastDate">
+                        <label>Unit Price:</label>
+                        <input type="text" class="unit-price neumorphic" @bind="selectedUnitPrice">
+                        <label>Discount %:</label>
+                        <input type="text" class="discount neumorphic" @bind="selectedDiscount">
+                        <button class="forecast-button neumorphic" @onclick="ForecastDemand">Forecast</button>
+                    </div>
+                </div>
+                <div class="demand-forecast-right neumorphic" style="height:600px">
+                    <table class="forecast-table">
+                        <tr>
+                            <td colspan="2" class="forecast-container-heading neumorphic">Azure ML Demand Forecast</td>
+                        </tr>
+                        <tr style="height:200px">
+                            <td colspan="2" class="forecast-container-text">@azureMLDemandForecast</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="forecast-container-heading neumorphic">Azure Open AI Suggestions</td>
+                        </tr>
+                        <tr style="height:200px">
+                            <td colspan="2" class="forecast-container-text">@azureOpenAISuggestions</td>
+                        </tr>
+                    </table>
+                    <button class="close-popup-button neumorphic" @onclick="CloseDemandForecastPopup">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
+
 @code {
     private List<Order> orders;
     private ReadinessCheckModal readinessCheckModal;
     private SchedulePopup schedulePopup;
     private bool showDemandForecastPopup = false;
+
+    private string selectedMedicine = "FocusFusion";
+    private string selectedManufacturer = "ClarityWaves";
+    private DateTime selectedForecastDate = DateTime.Today;
+    private string selectedUnitPrice = "";
+    private string selectedDiscount = "";
+    private string azureMLDemandForecast = "";
+    private string azureOpenAISuggestions = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -168,5 +186,52 @@
     private void CloseDemandForecastPopup()
     {
         showDemandForecastPopup = false;
+    }
+    private async Task ForecastDemand()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/DispatchOrders/forecast", new ForecastRequest
+                {
+                    MedicineName = selectedMedicine,
+                    Manufacturer = selectedManufacturer,
+                    ForecastDate = selectedForecastDate,
+                    UnitPrice = selectedUnitPrice,
+                    Discount = selectedDiscount
+                });
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<List<PowerAutomateForecastResponse>>();
+                if (result != null && result.Count > 0)
+                {
+                    azureMLDemandForecast = Convert.ToString((int)(result[0].AzureMLDemandForecast)) + " units of "+ selectedMedicine+" will be needed as per the demand forecasting for " + selectedForecastDate;
+                    azureOpenAISuggestions = result[0].AzureOpenAISuggestions;
+                    StateHasChanged();
+                }
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error: {errorMessage}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+    public class ForecastRequest
+    {
+        public string MedicineName { get; set; }
+        public string Manufacturer { get; set; }
+        public DateTime ForecastDate { get; set; }
+        public string UnitPrice { get; set; }
+        public string Discount { get; set; }
+    }
+    public class PowerAutomateForecastResponse
+    {
+        public double AzureMLDemandForecast { get; set; }
+        public string AzureOpenAISuggestions { get; set; }
     }
 }

@@ -43,6 +43,11 @@ public class DispatchOrdersController : ControllerBase
     {
         public string OpenAIOutput { get; set; }
     }
+    public class PowerAutomateForecastResponse
+    {
+        public double AzureMLDemandForecast { get; set; } 
+        public string AzureOpenAISuggestions { get; set; }
+    }
     [HttpGet("ReadinessCheck/{orderNumber}")]
     public async Task<IActionResult> GetOrderReadiness(string orderNumber)
     {
@@ -72,6 +77,51 @@ public class DispatchOrdersController : ControllerBase
         {
             return StatusCode(500, $"An error occurred: {ex.Message}");
         }
+    }
+    [HttpPost("forecast")]
+    public async Task<ActionResult> ForecastDemand([FromBody] ForecastRequest request)
+    {
+        try
+        {
+            var payload = new
+            {
+                MedicineName = request.MedicineName,
+                Manufacturer = request.Manufacturer,
+                ForecastDate = request.ForecastDate,
+                UnitPrice = request.UnitPrice,
+                Discount = request.Discount
+            };
+
+            // Serialize the payload
+            var jsonPayload = JsonConvert.SerializeObject(payload);
+
+            using (var httpClient = new HttpClient())
+            {
+                var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+                // Send the POST request to Power Automate
+                var response = await httpClient.PostAsync("https://prod-49.westus.logic.azure.com:443/workflows/30d38e068f204a73a84533df44c7c563/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=al3FHNygQrJ6rJFXTqr9PxLDf3BmEhaBlB6MxuYHbMo", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<List<PowerAutomateForecastResponse>>();
+                    if (result != null && result.Count > 0)
+                    {
+                        return Ok(result);
+                    }
+                }
+                else
+                {
+                    return StatusCode((int)response.StatusCode, "Failed to trigger Power Automate.");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"An error occurred: {ex.Message}");
+        }
+
+        return BadRequest("Failed to forecast demand.");
     }
 
     [HttpGet]
@@ -103,7 +153,14 @@ public class DispatchOrdersController : ControllerBase
         }
     }
 }
-
+public class ForecastRequest
+{
+    public string MedicineName { get; set; }
+    public string Manufacturer { get; set; }
+    public DateTime ForecastDate { get; set; }
+    public string UnitPrice { get; set; }
+    public string Discount { get; set; }
+}
 public class MedicineInfo
 {
     [JsonProperty("AvailableStock")]
