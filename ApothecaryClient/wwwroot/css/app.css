@@ -382,9 +382,9 @@ body {
     font-weight: bold;
 }
 
-.add-to-cart-btn {
+/*.add-to-cart-btn {
     width: 40% !important;
-}
+}*/
 /* Standard Button Styles */
 .action-btn,
 .add-to-cart-btn,
@@ -404,9 +404,7 @@ body {
     margin: auto;
 }
 
-.place-order-btn {
-    width: 30% !important;
-}
+ 
 /* Ensuring all buttons have the same width */
 .button-group-neumorphic .action-btn {
     width: calc(100% - 30px); /* 15px padding on each side */
@@ -558,9 +556,7 @@ body {
     margin-top: 10px; /* Space above total bill */
 }
 
-.place-order-btn {
-    margin-top: 15px; /* Space above the button */
-}
+ 
 
 /* Button Active/Focus Styles */
 .action-btn:active,
@@ -1215,12 +1211,12 @@ button {
     background: #e0e5ec;
     border: none;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 14px;
     color: #333;
     outline: none;
     margin-top: 15px; /* Space above the button */
     box-shadow: 4px 4px 8px #cbcbcb, -4px -4px 8px #ffffff;
-    width: 50%; /* Set the width of the button */
+    /*width: 50%;*/ /* Set the width of the button */
     display: block; /* Make the button a block element */
     margin-left: auto; /* Margin auto for centering */
     margin-right: auto; /* Margin auto for centering */
@@ -2755,4 +2751,28 @@ button {
     width: 40px; /* Adjust the image width as needed */
     height: 40px; /* Adjust the image height as needed */
     margin-right: 10px; /* Adjust the spacing between the image and button */
+}
+
+.image-and-text-container {
+    display: flex;
+    align-items: center;
+}
+
+.voice-left-image {
+    width: 20px; /* Adjust the image width as needed */
+    height: 20px; /* Adjust the image height as needed */
+    margin-right: 5px; /* Adjust the spacing between the image and text */
+}
+.voice-subheading {
+    font-weight: 100;
+    font-size: 12px;
+    text-align: end;
+}
+.voice-translation {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px;
+    border-style: dotted;
+    border-radius: 20px;
+    width: 450px;
 }

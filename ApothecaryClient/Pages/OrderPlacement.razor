@@ -137,7 +137,7 @@
             <div>
                 <img src="/images/robot.png" alt="Click to Show Chatbot" @onclick="ShowProductChatbot" style="box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);border-radius: 15px;cursor: pointer;width:40px;height:40px;" />
             </div>
-            <h3 class="group-heading">Order Placement</h3>
+            <h3 style="font-size: 14px!important;" class="group-heading">Order Placement</h3>
         </div>
         <div class="button-group-neumorphic">
             <div class="image-and-button-container">              
@@ -148,22 +148,59 @@
             {
                 <div class="whisper-modal-overlay" @onclick="CloseVoiceOrderModal">
                     <div class="whisper-modal-content" @onclick:stopPropagation="true">
-                        <h2 class="whisper-modal-header">Voice Assisted Ordering</h2>
-                        <div>
-                            <button class="whisper-button" @onclick="StartRecording">Start </button>
-                            <button class="whisper-button" @onclick="StopRecording" disabled="@(!isRecording)">Stop </button>
-                            <button class="whisper-button" @onclick="PlayRecording" disabled="@string.IsNullOrEmpty(audioData)">Play </button>
+                        <h2 class="whisper-modal-header neumorphic">
+                            <div class="image-and-text-container">
+                                <!-- Image for Voice Assisted Ordering -->
+                                <img src="/images/texttospeech.png" alt="Voice Assisted Ordering" class="left-image" />
+                                Voice Assisted Ordering
+                            </div>
+                            <div class="voice-subheading">
+                                Powered by Whisper Open AI
+                            </div>
+                        </h2>
+                        <div style="padding-top: 20px;">
+                            <button class="whisper-button" @onclick="StartRecording">
+                                <div class="image-and-text-container">
+                                    <!-- Image for Start -->
+                                    <img src="/images/start.png" alt="Start" class="voice-left-image" />
+                                    Start
+                                </div>
+                            </button>
+                            <button class="whisper-button" @onclick="StopRecording" disabled="@(!isRecording)">
+                                <div class="image-and-text-container">
+                                    <!-- Image for Stop -->
+                                    <img src="/images/stop.png" alt="Stop" class="voice-left-image" />
+                                    Stop
+                                </div>
+                            </button>
+                            <button class="whisper-button" @onclick="PlayRecording" disabled="@string.IsNullOrEmpty(audioData)">
+                                <div class="image-and-text-container">
+                                    <!-- Image for Play -->
+                                    <img src="/images/play.png" alt="Play" class="voice-left-image" />
+                                    Play
+                                </div>
+                            </button>
+
+                            <div class="voice-translation" >
+                                @message
+                            </div>
+
                             @if (showPlaceOrderButton)
                             {
-                                <button class="btn place-order-btn neumorphic form-label" style="background: lightgreen; color: darkgrey;" @onclick="OnAddToCart">
-                                    Add to Cart
+                                <button class="btn place-order-btn neumorphic form-label" style="background: lightgreen; color: white;" @onclick="OnAddToCart">
+                                    <div class="image-and-text-container">
+                                        <!-- Image for Add to Cart -->
+                                        <img src="/images/addtocart.png" alt="Add to Cart" class="voice-left-image" />
+                                        Add to Cart
+                                    </div>
                                 </button>
                             }
-                            <div>@message</div>
+                           
                         </div>
                     </div>
                 </div>
             }
+
 
             <button class="action-btn upload-prescription-btn neumorphic single-btn"
                     @onclick="() => ShowUploadImageModal(true)">
@@ -216,12 +253,23 @@
                 <label class="form-label"  for="quantity">Quantity:</label>
                 <input type="number" id="quantity" class="input-control form-label" placeholder="Quantity" />
             </div>
-            <button class="action-btn add-to-cart-btn neumorphic form-label">Add To Cart</button>
+            <div style="padding-left: 20%;">
+                <div class="add-to-cart-container" style="display: flex; align-items: center;">
+                    <img src="/images/add-to-cart.png" alt="Add To Cart" class="left-image" style="margin-right: 5px; padding: 0;" />
+                    <button class="action-btn add-to-cart-btn neumorphic form-label" style="margin-left: 5px;width: 150px;">Add To Cart</button>
+                </div>
+           </div> 
         </section>
     </main>
 
     <aside class="cart neumorphic">
-        <h3 class="group-heading">Orders in Cart</h3>
+        <div>
+            <div class="place-order-container" style="display: flex; align-items: center;">
+                <img src="/images/cartorders.png" alt="Place Order" class="left-image" style="margin-right: 5px; padding: 0;" />
+                <h3 class="btn place-order-btn neumorphic form-label" style="font-size: 14px!important;">Orders in Cart</h3>
+            </div>
+        </div>
+
         <table class="cart-table form-label">
             <thead>
                 <tr>
@@ -252,8 +300,12 @@
         </table>
         <div class="cart-footer">
             <span class="total-bill form-label">Total Bill Value: $@cartOrders.Sum(o => o.TotalPrice)</span>
-           <button class="btn place-order-btn neumorphic form-label" @onclick="OnPlaceOrder">Place Order</button>
-
+            <div class="place-order-container" style="display: flex; align-items: center;float:right">
+                <img src="/images/pay.png" alt="Place Order" class="left-image" style="margin-right: 5px; padding: 0;" />
+                <button class="btn place-order-btn neumorphic form-label" style="width: 100px;" @onclick="OnPlaceOrder">
+                    Place Order
+                </button>
+            </div>
         </div>
     </aside>
 </div>
@@ -284,8 +336,8 @@
     private bool showVoiceOrderModal = false;
     private bool isRecording = false;
     private string audioFileUrl = "";
-    private string message = "";
-    private string audioData = ""; // Base64 encoded audio data
+    private string message = "Place your voice order by speaking after clicking on start...";
+    private string audioData = ""; 
     private VoiceOrderResponse voiceOrderResponse = new VoiceOrderResponse();
     private bool showPlaceOrderButton = false;
 

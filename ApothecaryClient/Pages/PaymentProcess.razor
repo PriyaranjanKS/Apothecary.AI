@@ -56,8 +56,13 @@
         <div class="payment-success-content">
             <p>Payment successful!</p>
             <p>Receipt Number: @receiptNumber</p>
-            <label for="feedbackTextarea">Submit Feedback</label>
-            <textarea id="feedbackTextarea" class="feedback-textarea neumorphic" @bind="feedback"></textarea>
+            <div class="feedback-container">
+                <label for="feedbackTextarea">
+                    <img src="/images/feedback.png" alt="Feedback" class="left-image" />
+                    Submit Feedback
+                </label>
+                <textarea id="feedbackTextarea" class="feedback-textarea neumorphic" @bind="feedback"></textarea>
+            </div>
 
             <button class="payment-success-button neumorphic" @onclick="SubmitFeedback">OK</button>
         </div>
