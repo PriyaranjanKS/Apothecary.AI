@@ -134,24 +134,25 @@
  
     <aside class="control-panel neumorphic">
         <div class="order-placement-header">
-            <div class="">
+            <div>
                 <img src="/images/robot.png" alt="Click to Show Chatbot" @onclick="ShowProductChatbot" style="box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);border-radius: 15px;cursor: pointer;width:40px;height:40px;" />
             </div>
             <h3 class="group-heading">Order Placement</h3>
         </div>
         <div class="button-group-neumorphic">
-
-            <button class="action-btn voice-order-btn neumorphic single-btn" @onclick="OpenVoiceOrderModal">Voice Assisted Ordering</button>
-
+            <div class="image-and-button-container">              
+                <img src="/images/microphone.png" alt="Image" class="left-image" />                
+                <button class="action-btn voice-order-btn neumorphic single-btn" @onclick="OpenVoiceOrderModal">Voice Assisted Ordering</button>
+            </div>
             @if (showVoiceOrderModal)
             {
                 <div class="whisper-modal-overlay" @onclick="CloseVoiceOrderModal">
                     <div class="whisper-modal-content" @onclick:stopPropagation="true">
                         <h2 class="whisper-modal-header">Voice Assisted Ordering</h2>
                         <div>
-                            <button class="whisper-button" @onclick="StartRecording">Start Recording</button>
-                            <button class="whisper-button" @onclick="StopRecording" disabled="@(!isRecording)">Stop Recording</button>
-                            <button class="whisper-button" @onclick="PlayRecording" disabled="@string.IsNullOrEmpty(audioData)">Play Recording</button>
+                            <button class="whisper-button" @onclick="StartRecording">Start </button>
+                            <button class="whisper-button" @onclick="StopRecording" disabled="@(!isRecording)">Stop </button>
+                            <button class="whisper-button" @onclick="PlayRecording" disabled="@string.IsNullOrEmpty(audioData)">Play </button>
                             @if (showPlaceOrderButton)
                             {
                                 <button class="btn place-order-btn neumorphic form-label" style="background: lightgreen; color: darkgrey;" @onclick="OnAddToCart">
