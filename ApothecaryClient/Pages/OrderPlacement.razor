@@ -62,6 +62,7 @@
                 else
                 {
                     <p class="alternate-popup-message">@alternatePopupMessage</p>
+                    <p class="image-generation-text">Disclaimer: Generative AI suggestions should be vetted with qualified medical professional</p>
                     <button class="alternate-popup-close-btn" @onclick="CloseAlternatePopup">OK</button>
                 }
             </div>
@@ -72,10 +73,12 @@
 {
     <div class="medicine-warning-popup-overlay" @onclick="CloseMedicineWarningPopup">
         <div class="medicine-warning-popup-content" @onclick:stopPropagation="true">
+              
             <div class="medicine-warning-popup-left">
                 <!-- Left section to display an image -->
                 <img src="@MedicineWarningImageURL" alt="Medicine Warning Image" class="medicine-warning-popup-image" />
                 <p class="image-generation-text">DALL-E powered image generation</p>
+               
             </div>
             <div class="medicine-warning-popup-right">
                 <!-- Right section for the current UI elements -->
@@ -90,18 +93,21 @@
                 else
                 {
                     <p class="medicine-warning-popup-message">@medicineWarningPopupMessage</p>
+                    <p class="image-generation-text">Disclaimer: Generative AI suggestions should be vetted with qualified medical professional</p>
                     <button class="medicine-warning-popup-close-btn" @onclick="CloseMedicineWarningPopup">OK</button>
                 }
-            </div>
-        </div>
+            </div>           
+        </div>         
     </div>
 }
 @if (showGdprPopup)
 {
     <div class="gdpr-popup-overlay" @onclick="CloseGdprPopup">
-        <div class="gdpr-popup-content" @onclick:stopPropagation="true">
-            <span class="gdpr-close-icon" @onclick="CloseGdprPopup">X</span>
+        <div class="gdpr-popup-content" @onclick:stopPropagation="true" style="margin-top:20px!important;padding-right: 20px;">
+            <span class="gdpr-close-icon" @onclick="CloseGdprPopup"><img src="/images/CloseBot.png" @onclick="CloseGdprPopup" alt="Close GDPR" class="neumorphic-image close-chatbot-btn" style="margin-bottom: 18px;margin-right:1px;height:30px;width:30px" /></span>
+        
             <h2 class="gdpr-popup-header">Personal Information</h2>
+            
             @if (isFetchingDetails)
             {
                 <div class="gdpr-spinner-container">
@@ -140,7 +146,7 @@
             <h3 style="font-size: 14px!important;" class="group-heading">Order Placement</h3>
         </div>
         <div class="button-group-neumorphic">
-            <div class="image-and-button-container">              
+            <div class="image-and-button-container" style="margin-bottom:0px;">              
                 <img src="/images/microphone.png" alt="Image" class="left-image" />                
                 <button class="action-btn voice-order-btn neumorphic single-btn" @onclick="OpenVoiceOrderModal">Voice Assisted Ordering</button>
             </div>
@@ -202,37 +208,64 @@
             }
 
 
-            <button class="action-btn upload-prescription-btn neumorphic single-btn"
-                    @onclick="() => ShowUploadImageModal(true)">
-                Upload Prescription
-            </button>
-            <button class="action-btn upload-btn neumorphic single-btn"
-                    @onclick="() => ShowUploadImageModal(false)">
-                Upload Image
-            </button>
+            <div class="image-and-button-container" style="margin-bottom:0px;">
+                <img src="/images/prescription.png" alt="Image" class="left-image" />
+                <button class="action-btn upload-prescription-btn neumorphic single-btn"
+                        @onclick="() => ShowUploadImageModal(true)">
+                    Upload Prescription
+                </button>
+            </div>
+            <div class="image-and-button-container" style="margin-bottom:0px;">
+                <img src="/images/medicine.png" alt="Image" class="left-image" />
+                <button class="action-btn upload-btn neumorphic single-btn"
+                        @onclick="() => ShowUploadImageModal(false)">
+                    Upload Image
+                </button>
+            </div>
         </div>
-        <h3 class="group-heading">Personalization</h3>
-        <div class="button-group-neumorphic">
-            
-            <button class="action-btn alternate-suggestions-btn neumorphic single-btn" @onclick="ShowAlternateSuggestionPopup">Alternate Suggestions</button>
-            <button class="action-btn medicine-warnings-btn neumorphic single-btn"
-                    @onclick="ShowMedicineWarningPopup">
-                Medicine Warnings
-            </button>
-            <button class="action-btn gdpr-checker-btn neumorphic single-btn"
-                    @onclick="ShowGdprPopup">
-                GDPR Checker
-            </button>
+        <h3 class="group-heading" style="font-size:14px">Personalization</h3>
+        <div class="button-group-neumorphic" style="margin-bottom: 0px!important">
+
+            <div class="image-and-button-container" style="margin-bottom: 0px!important">
+                <img src="/images/drugs.png" alt="Image" class="left-image" />
+                <button class="action-btn alternate-suggestions-btn neumorphic single-btn" style="margin-top: 25px!important;margin-bottom: 10px!important;" @onclick="ShowAlternateSuggestionPopup">Alternate Suggestions</button>
+            </div>
+            <div class="image-and-button-container" style="margin-bottom: 0px!important">
+                <img src="/images/medicinewarning.png" alt="Image" class="left-image" />
+                <button class="action-btn medicine-warnings-btn neumorphic single-btn" style="margin-top: 10px!important;margin-bottom: 10px!important"
+                        @onclick="ShowMedicineWarningPopup">
+                    Medicine Warnings
+                </button>
+            </div>
+            <div class="image-and-button-container" style="margin-bottom: 0px!important">
+                <img src="/images/gdpr.png" alt="Image" class="left-image"  />
+                <button class="action-btn gdpr-checker-btn neumorphic single-btn" style="margin-top: 10px!important;margin-bottom: 10px!important"
+                        @onclick="ShowGdprPopup">
+                    GDPR Checker
+                </button>
+            </div>
         </div>
     </aside>
 
     <main class="main-content neumorphic">
         <div class="user-info neumorphic">
             <label for="userName">User Name:</label>
-            <input type="text" id="userName" class="input-control form-label" @bind="userName" placeholder="Enter your name" />
+            <input type="text" id="userName" class="input-control form-label" @bind="userName" placeholder="User name" />
         </div>
 
         <section class="product-selection neumorphic">
+            <div>
+                <div class="place-order-container" style="display: flex; align-items: center;">
+                    <div style="width: 40%; text-align: end;">
+                        <img src="/images/pharmacy.png" alt="Details Order" class="left-image" style="margin-right: 5px; padding: 0;" />
+                    </div>
+                    <div><h2 class="group-heading" style="font-size: 14px;">
+                        Order Details
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label class="form-label" for="product">Product:</label>
                 <select id="product" class="input-control form-label" @bind="selectedMedicine">
@@ -341,8 +374,8 @@
     private VoiceOrderResponse voiceOrderResponse = new VoiceOrderResponse();
     private bool showPlaceOrderButton = false;
 
-    private string DalleImageURL = "";
-     private string MedicineWarningImageURL = "";
+    private string DalleImageURL = "/images/apothecary.png";
+    private string MedicineWarningImageURL = "/images/apothecary.png";
     private bool isChatbotVisible = false;
 
     private void ShowProductChatbot()
@@ -368,13 +401,13 @@
         {
             isRecording = true;
             await JSRuntime.InvokeVoidAsync("interop.startRecording");
-            
+
         }
         catch (Exception ex)
         {
             message = $"An error occurred: {ex.Message}";
         }
-   
+
     }
 
     private async Task StopRecording()
@@ -431,7 +464,7 @@
         // This assumes you have a method to process the order in your cart
         ProcessOrder(cartOrders);
         CloseVoiceOrderModal();
-       // NavigationManager.NavigateTo("/order-confirmation");
+        // NavigationManager.NavigateTo("/order-confirmation");
     }
     private void ProcessOrder(List<MedicineOrder> orders)
     {
@@ -451,7 +484,7 @@
             StateHasChanged(); // This will refresh the UI to show the updated cart
         }
     }
- 
+
     private void PopulateCart(string orderJson)
     {
         try
@@ -586,6 +619,7 @@
                     if (!string.IsNullOrEmpty(imageUrl))
                     {
                         MedicineWarningImageURL = imageUrl; // Update the image URL
+                        StateHasChanged();
                     }
                 }
                 else
@@ -638,6 +672,7 @@
                     if (!string.IsNullOrEmpty(imageUrl))
                     {
                         DalleImageURL = imageUrl;
+                        StateHasChanged();
                     }
                 }
                 else

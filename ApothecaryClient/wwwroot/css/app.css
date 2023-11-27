@@ -729,7 +729,7 @@ button {
     padding: 20px;
     display: flex; /* Display children side by side */
 
-    width: 600px; /* Increase the width for both sections */
+    width: 900px; /* Increase the width for both sections */
     text-align: center;
     box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
     justify-content: center; /* Center horizontally */
@@ -806,7 +806,7 @@ button {
 .alternate-popup-image {
     max-width: 100%;
     height: auto;
-    border-radius: 10px; /* Optional border-radius for the image */
+    border-radius: 15px; /* Optional border-radius for the image */
 }
 
 .image-generation-text {
@@ -912,7 +912,7 @@ button {
     box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
     text-align: center;
     position: relative;
-    max-width: 500px; /* Maximum width of the popup */
+    max-width: 900px; /* Maximum width of the popup */
     width: auto; /* Adjusts the width based on content */
     margin: 0 auto; /* Center the popup horizontally */
     overflow-wrap: break-word; /* Ensures the text wraps and does not overflow */
@@ -2515,6 +2515,7 @@ button {
     max-width: 100%; /* Ensure the image fits within its container */
     height: auto; /* Maintain the image's aspect ratio */
     margin-bottom: 10px; /* Adjust spacing between image and text */
+    border-radius:15px;
 }
 
 .medicine-warning-popup-right {
