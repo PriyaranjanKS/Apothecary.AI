@@ -119,10 +119,26 @@
         </div>
     </div>
 }
+@if (isChatbotVisible)
+{
+    <div class="product-chatbot">
+        <ProductChatbot />
+        <img src="/images/CloseBot.png" @onclick="CloseChatbot" alt="Close Bot" class="neumorphic-image close-chatbot-btn" />  
+    </div>
+}
+ 
 
+<div class="overlay" style="display: @((isChatbotVisible) ? "block" : "none")"></div>
 <div class="order-placement-container">
+    
+ 
     <aside class="control-panel neumorphic">
-        <h3 class="group-heading">Order Placement</h3>
+        <div class="order-placement-header">
+            <div class="">
+                <img src="/images/robot.png" alt="Click to Show Chatbot" @onclick="ShowProductChatbot" style="box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);border-radius: 15px;cursor: pointer;width:40px;height:40px;" />
+            </div>
+            <h3 class="group-heading">Order Placement</h3>
+        </div>
         <div class="button-group-neumorphic">
 
             <button class="action-btn voice-order-btn neumorphic single-btn" @onclick="OpenVoiceOrderModal">Voice Assisted Ordering</button>
@@ -274,7 +290,21 @@
 
     private string DalleImageURL = "";
      private string MedicineWarningImageURL = "";
+    private bool isChatbotVisible = false;
 
+    private void ShowProductChatbot()
+    {
+        isChatbotVisible = true;
+    }
+    private void CloseChatbot()
+    {
+        isChatbotVisible = false;
+        ScrollToOrderPlacement(); // Call a method to scroll to the order placement section
+    }
+    private async Task ScrollToOrderPlacement()
+    {
+        await JSRuntime.InvokeVoidAsync("scrollToOrderPlacement");
+    }
     private void OpenVoiceOrderModal() => showVoiceOrderModal = true;
 
     private void CloseVoiceOrderModal() => showVoiceOrderModal = false;

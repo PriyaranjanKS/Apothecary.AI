@@ -1,17 +1,37 @@
 ﻿@page "/ProductChat"
 @inject IJSRuntime JSRuntime
 
-<h3 class="ElisaTitle">Elisa AI</h3>
+<div class="title-container">
+    <img src="/images/healthcare.png" alt="Health Care" class="neumorphic-image" />
+    <h3 class="ElisaTitle">Elisa AI <span class="subtext">Powered by Azure Open AI</span></h3>
+</div>
+
  
 <div class="chat-container">
-    <table id="chatTable" class="chat-table">
-        <tbody id="chatBox" class="chat-box"></tbody>
-    </table>
-    <div class="chat-user-input">
-        <input type="text" id="userMessage" class="chat-user-message" />
-        <button id="sendMessageButton" class="chat-send-button" @onclick="SendMessageAsync">Send</button>
+    <div class="chat-box-container">
+        <table id="chatTable" class="chat-table">
+            <tbody id="chatBox" class="chat-box"></tbody>
+        </table>
+    </div>
+    <div class="chat-input-container">
+        <table style="width: 100%;">
+            <tr style="width: 100%;">
+                <td>
+                    <div class="typing-animation" id="typingAnimation">Elisa is typing<img src="chat.gif" alt="Elisa is typing..." /></div>
+                </td>
+            </tr>
+            <tr style="width: 100%;">
+                <td>
+                    <div class="chat-user-input">
+                        <input type="text" id="userMessage" class="chat-user-message" placeholder="Chat with Elisa" />
+                        <button id="sendMessageButton" class="chat-send-button" @onclick="SendMessageAsync">Send</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
+
 
 @code {
     private async Task SendMessageAsync()

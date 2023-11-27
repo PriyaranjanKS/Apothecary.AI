@@ -88,6 +88,11 @@ window.interop = {
     SendMessage: function () {
         var userMessage = document.getElementById("userMessage").value;
         var apiUrl = "https://localhost:7092/api/chat/GetOpenAIResponse?usermessage=" + encodeURIComponent(userMessage);
+        var typingAnimation = document.getElementById("typingAnimation");
+        typingAnimation.style.display = "inline-block";
+
+        document.getElementById("userMessage").value = "";
+        document.getElementById("userMessage").placeholder = "Chat with Elisa";
 
         fetch(apiUrl, {
             method: "POST"
@@ -95,37 +100,90 @@ window.interop = {
             .then(function (response) {
                 return response.json();
             })
+            // Inside the JavaScript function where you handle message sending
             .then(function (data) {
+                typingAnimation.style.display = "none";
                 var chatTable = document.getElementById("chatTable");
 
                 // Create a new table row for the user
-                var userTableRow = document.createElement("tr");
+                var userTableRow = document.createElement("tr");                
 
                 // Create a cell for user bubble
                 var userBubbleCell = document.createElement("td");
                 userBubbleCell.className = "chat-bubble user-bubble";
-                userBubbleCell.textContent = "User: " + userMessage;
+
+                // Create a span element for user message
+                var userMessageSpan = document.createElement("span");
+                userMessageSpan.textContent = "User: " + userMessage;
+
+                // Append the user message to the user bubble cell
+                userBubbleCell.appendChild(userMessageSpan);
+
+                // Append the user bubble cell to the user table row
                 userTableRow.appendChild(userBubbleCell);
 
                 // Append the user row to the table
                 chatTable.appendChild(userTableRow);
 
+                // Create a cell for the user's avatar
+                var userAvatarCell = document.createElement("td");
+                userAvatarCell.className = "avatar-cell";
+
+                // Create an image element for the user's avatar
+                var userAvatarImage = document.createElement("img");
+                userAvatarImage.src = "/images/user.png"; // Replace with the actual URL of the user's avatar
+                userAvatarImage.alt = "User Avatar";
+
+                // Append the user's avatar image to the cell
+                userAvatarCell.appendChild(userAvatarImage);
+
+                // Append the user's avatar cell to the user table row
+                userTableRow.appendChild(userAvatarCell);
+
                 // Create a new table row for Elisa AI
                 var elisaTableRow = document.createElement("tr");
+
+                // Create a cell for Elisa AI's avatar
+                var elisaAvatarCell = document.createElement("td");
+                elisaAvatarCell.className = "avatar-cell";
+
+                // Create an image element for Elisa AI's avatar
+                var elisaAvatarImage = document.createElement("img");
+                elisaAvatarImage.src = "/images/robot.png"; // Replace with the actual URL of Elisa AI's avatar
+                elisaAvatarImage.alt = "Elisa AI Avatar";
+
+                // Append Elisa AI's avatar image to the cell
+                elisaAvatarCell.appendChild(elisaAvatarImage);
+
+                // Append the Elisa AI's avatar cell to the Elisa AI table row
+                elisaTableRow.appendChild(elisaAvatarCell);
 
                 // Create a cell for Elisa AI bubble
                 var elisaBubbleCell = document.createElement("td");
                 elisaBubbleCell.className = "chat-bubble elisa-bubble";
-                elisaBubbleCell.textContent = "Elisa AI: " + data.response;
+
+                // Create a span element for Elisa AI's message
+                var elisaMessageSpan = document.createElement("span");
+                elisaMessageSpan.textContent = "Elisa AI: " + data.response;
+
+                // Append Elisa AI's message to the Elisa bubble cell
+                elisaBubbleCell.appendChild(elisaMessageSpan);
+
+                // Append the Elisa bubble cell to the Elisa AI table row
                 elisaTableRow.appendChild(elisaBubbleCell);
 
                 // Append the Elisa AI row to the table
                 chatTable.appendChild(elisaTableRow);
             })
-            .catch(function (error) {
-                console.error("Error:", error);
-            });
+
+    },
+    scrollToOrderPlacement: function () {
+        const orderPlacementSection = document.querySelector('.order-placement-container');
+        if (orderPlacementSection) {
+            orderPlacementSection.scrollIntoView({ behavior: 'smooth' });
+        }
     }
+
 
 
 };

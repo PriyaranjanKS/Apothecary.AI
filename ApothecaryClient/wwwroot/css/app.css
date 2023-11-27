@@ -23,7 +23,6 @@ body, .action-btn, .add-to-cart-btn, .btn, .group-heading,
 .alternate-popup-close-btn, .alternate-fetching-text,
 .product-loading-content p {
     font-family: 'Lato', sans-serif !important;
-     
 }
 /* Neumorphic Overlay */
 .neumorphic-overlay {
@@ -337,11 +336,16 @@ body {
     min-height: 100vh;
     padding-top: 20px;
 }
+.order-placement-header {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    margin-bottom: 20px; /* Adjust the margin as needed */
+}
 
 /* Control Panel Styles */
 .control-panel {
     height: 580px !important;
-    width: 250px;
+    width: 270px;
     background: #e0e5ec;
     padding: 20px;
     display: flex;
@@ -728,7 +732,7 @@ button {
     box-shadow: 4px 4px 8px #b8b9be, -4px -4px 8px #ffffff; /* Reduced shadow intensity */
     padding: 20px;
     display: flex; /* Display children side by side */
-    
+
     width: 600px; /* Increase the width for both sections */
     text-align: center;
     box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
@@ -791,6 +795,7 @@ button {
     flex-direction: column;
     margin-top: 20px;
 }
+
 .alternate-popup-left {
     flex: 30%; /* Occupies 30% of the width */
     padding-right: 20px; /* Add spacing between left and right sections */
@@ -799,7 +804,6 @@ button {
 /* Right section styles */
 .alternate-popup-right {
     flex: 70%; /* Occupies 70% of the width */
-    
 }
 
 /* Add styles for the image in the left section */
@@ -1315,7 +1319,6 @@ button {
 
 .dispatch-readiness-check,
 .dispatch-schedule {
-    
     padding: 10px;
     border-radius: 10px;
     background: #e0e5ec;
@@ -2299,7 +2302,7 @@ button {
 /* Style for the Demand Forecast heading */
 .demand-forecast-heading {
     font-size: 18px;
-    font-weight:bold;
+    font-weight: bold;
     margin-bottom: 20px;
     color: #333;
     text-align: center;
@@ -2384,7 +2387,6 @@ button {
     padding: 10px 20px;
     font-weight: bold;
     cursor: pointer;
-   
     box-shadow: inset 3px 3px 5px #C7CCD4, inset -3px -3px 5px #F0F5FC;
 }
 
@@ -2407,7 +2409,7 @@ button {
 }
 
 .demand-forecast-container {
-    display: flex;    
+    display: flex;
     align-items: flex-start; /* Aligns items to the start of the container */
     width: 100%; /* Takes full width of its parent */
 }
@@ -2423,9 +2425,11 @@ button {
     cursor: pointer;
     transition: all 0.3s;
 }
+
 .fraud-check-container {
-    text-align: center;  
+    text-align: center;
 }
+
 .fraud-check-button {
     padding: 10px;
     border-radius: 10px;
@@ -2435,6 +2439,7 @@ button {
     cursor: pointer;
     transition: all 0.3s;
 }
+
 .fraud-check-overlay {
     position: fixed;
     top: 0;
@@ -2498,11 +2503,11 @@ button {
         background-color: #ddd;
     }
 
-    /*Medicine Warning DALL -E */
+/*Medicine Warning DALL -E */
 .medicine-warning-popup-content {
-    display: flex;  
-    justify-content: space-between;  
-    align-items: center; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .medicine-warning-popup-left {
@@ -2522,46 +2527,84 @@ button {
 }
 
 /*Chatbot*/
-/* Chat Container */
 .chat-container {
-    width: 350px; /* Adjust the width as needed */
-    height: 500px; /* Adjust the height as needed */
+    width: 730px;
+    height: 600px;
     background-color: #f2f2f2;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
+    z-index: 100;
+    position: absolute;
+    z-index: 10000;
 }
 
-/* Chat Box */
-.chat-container {
-    width: 350px; /* Adjust the width as needed */
-    height: 500px; /* Adjust the height as needed */
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+.chat-box-container {
+    flex-grow: 1;
+    overflow-y: auto;
+   
+}
+
+.chat-input-container {
+    padding-top: 20px;
+    background-color: #ffffff;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    z-index: 2;
+    justify-content: space-between;
+}
+.close-chatbot-btn {
+    z-index: 10000;
+    position: relative;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+}
 }
 
-/* Chat Box (Scrollable Area) */
+    /* Add hover effect */
+    .close-chatbot-btn:hover {
+        background-color: #ff3333; /* Darker red on hover (adjust as needed) */
+    }
+.typing-animation {
+    display: none;
+    background: #ffffff;
+    padding-left: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+    animation: typing 1.5s infinite;
+    min-width: 200px;
+    padding-left: 10px;
+    border-radius: 0;
+    width: 100%;
+    position: relative;
+    top: 50%;
+    transform: none;
+}
+
+    .typing-animation img {
+        width: 40px;
+        height: 20px;
+    }
+
 .chat-box {
     flex-grow: 1;
     padding: 10px;
     overflow-y: scroll;
 }
 
-/* User Input Section */
 .chat-user-input {
     display: flex;
     align-items: center;
     padding: 10px;
     background-color: #ffffff;
+    flex-grow: 1;
 }
 
-/* User Message Input */
 .chat-user-message {
     flex-grow: 1;
     padding: 8px;
@@ -2570,9 +2613,12 @@ button {
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
     margin-right: 10px;
     outline: none;
+    background-color: #ffffff; /* User Message Input Background Color */
+    color: #000; /* User Message Input Text Color */
+    width: 70%;
+    font-size: 14px;
 }
 
-/* Send Button */
 .chat-send-button {
     background-color: #007bff;
     color: #fff;
@@ -2580,56 +2626,70 @@ button {
     border-radius: 20px;
     padding: 8px 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
     outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
     .chat-send-button:hover {
         background-color: #0056b3;
     }
 
-/* Chat Bubble (Response) */
+    .chat-send-button:active {
+        background-color: #007bff;
+        transform: translateY(2px);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
 .chat-bubble {
     background-color: #007bff;
     color: #fff;
     border-radius: 10px;
     padding: 10px;
-    margin: 6px 0; /* Increase margin to create a 12px vertical gap */
+    margin: 6px 0;
     max-width: 70%;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-    overflow: hidden; /* Hide overflow to prevent stretching */
-    display: inline-block; /* Display bubbles inline */
+    overflow: hidden;
+    display: inline-block;
 }
- 
-/* User's Chat Bubble (Right-aligned) */
+
 .user-bubble {
-    background-color: #dcf8c6; /* Light green background for user messages */
-    color: #000; /* Black text for visibility */
-    border-radius: 18px 18px 0 18px; /* Rounded corners except bottom-left for user messages */
+    background-color: #dcf8c6;
+    color: #000;
+    border-radius: 18px 18px 0 18px;
     padding: 10px;
-    margin-right: 0; /* Align to right */
-    margin-left: auto; /* Ensure it stays on the right */
+    margin-right: 0;
+    margin-left: auto;
     max-width: 70%;
-    box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.1); /* Shadow to the left for user messages */
-    text-align: right; /* Right-align text within the user bubble */
+    box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.1);
+    text-align: right;
+    font-size: 14px;
 }
 
-/* Elisa AI's Chat Bubble (Left-aligned) */
 .elisa-bubble {
-    background-color: #e0e5ec; /* Different color background for Elisa AI */
-    color: #000; /* Black text for visibility */
-    border-radius: 18px 18px 18px 0; /* Rounded corners except bottom-right for Elisa AI messages */
+    background-color: #e0e5ec;
+    color: #000;
+    border-radius: 18px 18px 18px 0;
     padding: 10px;
-    margin-left: 0; /* Align to left */
-    margin-right: auto; /* Ensure it stays on the left */
+    margin-left: 0;
+    margin-right: auto;
     max-width: 70%;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); /* Shadow to the right for Elisa AI messages */
-    text-align: left; /* Left-align text within the Elisa AI bubble */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-size: 14px;
 }
 
-/* Elisa AI Title */
+    .elisa-bubble img {
+        width: 20px;
+        height: 20px;
+    }
+.user-bubble img {
+    width: 20px;
+    height: 20px;
+}
+
 .ElisaTitle {
-    text-align: center;
+    display: inline-block;  
     font-size: 22px;
     font-weight: bold;
     color: #333;
@@ -2638,14 +2698,49 @@ button {
     border-radius: 15px;
     box-shadow: 6px 6px 12px #babecc, -6px -6px 12px #ffffff;
     padding: 10px 20px;
-    display: inline-block;
+    line-height: 1.2; 
 }
+
+.subtext {
+    font-size: 12px;
+    margin-left: 10px;
+    color: #666;
+}
+
 .chat-table {
     width: 100%;
 }
 
-    /* Ensure that the table row does not affect the bubble alignment */
     .chat-table tr {
         display: flex;
-        justify-content: flex-end; /* Align user messages to the end (right) */
+        justify-content: flex-end;
     }
+.avatar-cell {
+    width: 50px; /* Adjust the width as needed for your avatars */
+    text-align: center;
+}
+
+    .avatar-cell img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 50%;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* Neumorphic effect for avatars */
+        display: block;
+        margin: 0 auto;
+    }
+
+.title-container {
+    display: flex;
+    align-items: center; /* Vertically align the image and heading */
+    z-index :10000;
+    position:relative;
+}
+
+.neumorphic-image {
+    width: 40px; /* Adjust the image width as needed */
+    height: 40px; /* Adjust the image height as needed */
+    margin-right: 10px; /* Add spacing between the image and heading */
+    border-radius: 50%; /* Make the image circular */
+    background-color: #f2f2f2; /* Background color for the neumorphic effect */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* Neumorphic shadow effect */
+}
