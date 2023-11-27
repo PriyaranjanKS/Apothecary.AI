@@ -22,7 +22,7 @@
     <div class="modal-backdrop" @onclick="HideUploadImageModal">
         <div class="modal-content" @onclick:stopPropagation="true">
             <label for="file-upload" class="modal-file-label">Image Selection</label>
-            <input type="file" id="file-upload" class="modal-file-input" @ref="inputFileElement"
+            <input type="file" id="file-upload" class="neumorphic-file-input" @ref="inputFileElement"
                    @onchange="ShowImagePreview" />
             @if (imageDataUrl != null)
             {
@@ -33,7 +33,7 @@
             {
                 <div style="display: flex; align-items: center; margin-top: 15px;">
                     <div class="medicineImageSpinner"></div>
-                    <span style="margin-left: 10px;">Medicine image being analyzed...</span>
+                    <span style="margin-left: 10px;">@imageProcessingStatus</span>
                 </div>
             }
         </div>
@@ -248,7 +248,7 @@
     </aside>
 
     <main class="main-content neumorphic">
-        <div class="user-info neumorphic">
+        <div class="user-info neumorphic" style="margin-top:0px!important">
             <label for="userName">User Name:</label>
             <input type="text" id="userName" class="input-control form-label" @bind="userName" placeholder="User name" />
         </div>
@@ -365,7 +365,7 @@
     private bool showGdprPopup = false;
     private string gdprPopupMessage = "";
     private bool isFetchingDetails = false;
-
+    private string imageProcessingStatus = "";
     private bool showVoiceOrderModal = false;
     private bool isRecording = false;
     private string audioFileUrl = "";
@@ -699,6 +699,17 @@
     {
         isPrescriptionUpload = isPrescription;
         isUploadModalVisible = true;
+        if (isPrescription)
+        {
+            imageProcessingStatus = "Prescription image being analyzed...";
+        }
+        else
+        {
+            imageProcessingStatus = "Medicine image being analyzed...";
+        }
+        StateHasChanged();
+
+        
     }
 
     protected override void OnInitialized()

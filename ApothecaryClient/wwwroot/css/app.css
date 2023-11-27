@@ -472,7 +472,7 @@ body {
 /* User Info Styles */
 .user-info {
     margin-bottom: 20px;
-    margin-top: 16px !important;
+   /* margin-top: 16px !important;*/
 }
 
 /* Cart Styles */
@@ -2777,3 +2777,17 @@ button {
     border-radius: 20px;
     width: 450px;
 }
+
+.neumorphic-file-input {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+    .neumorphic-file-input:hover {
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    }
