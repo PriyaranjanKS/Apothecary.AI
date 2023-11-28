@@ -7,18 +7,22 @@
                 @if (medicines == null)
                 {
                     <div class="modal-loading-content">
-                        <h2 class="modal-headertext">Azure Open AI Powered Order Readiness Check</h2>
+                        @* <h2 class="modal-headertext">Azure Open AI Powered Order Readiness Check</h2> *@
                         <div class="spinner"></div>
                         <p class="loading-text">Loading medicines...</p>
                     </div>
                 }
                 else
                 {
-                    <div class="modal-header">
-                        <h2 class="modal-headertext">Azure Open AI Powered Order Readiness Check</h2>
+                    <div class="modal-header" style="margin-bottom: 0px;">
+                        <h2 class="modal-headertext readinessheader" style="padding-left: 20px;margin-right: 8px!important;margin-bottom: 0px;">
+                            <img src="/images/checkstock.png" alt="Readiness Check" class="readiness-header-image" />
+                            Azure Open AI Powered Order Readiness Check
+                        </h2>
+
                         <button class="modal-close-btn" @onclick="CloseModal">X</button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-bodystyle">
                         @if (medicines == null)
                         {
                             <div class="spinner"></div> <!-- Spinner added here -->
@@ -30,14 +34,22 @@
                                 @foreach (var medicine in medicines)
                                 {
                                     <div class="medicine-card neumorphic">
-                                        <img class="medicine-image neumorphic" src="@medicine.ImageUrl" alt="@medicine.ProductName" /> <!-- Neumorphic style added to image -->
+                                        <img class="medicine-image neumorphic" style="border-radius:30px!important" src="@medicine.ImageUrl" alt="@medicine.ProductName" /> <!-- Neumorphic style added to image -->
                                         <div>
                                             <div class="medicine-details">
                                                 <div><p><strong>Product Name:</strong> @medicine.ProductName</p></div>
                                                 <div><p><strong>Stock Quantity:</strong> @medicine.QuantityInStock</p></div>
                                                 <div><p><strong>Order Quantity:</strong> @medicine.OrderQuantity</p></div>
-                                                <p class="stock-status @(medicine.QuantityInStock >= medicine.OrderQuantity ? "in-stock" : "out-of-stock")">
+                                                <p style="padding-left: 30px;" class="stock-status @(medicine.QuantityInStock >= medicine.OrderQuantity ? "in-stock" : "out-of-stock")">
                                                     @(medicine.QuantityInStock >= medicine.OrderQuantity ? "✓ In Stock" : "✗ Out of Stock")
+                                                    @if (medicine.QuantityInStock >= medicine.OrderQuantity)
+                                                    {
+                                                        <img src="/images/instock.png" alt="In Stock" class="dispatch-stock-image" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="/images/outstock.png" alt="Out of Stock" class="dispatch-stock-image" />
+                                                    }
                                                 </p>
                                             </div>
                                         </div>
@@ -45,7 +57,10 @@
                                 }
                             </div>
                             <div class="azure-openai-output neumorphic">
-                                <h3 class="generative-text">Generative Suggestions</h3>
+                                <h3 class="modal-headertext readinessheader" style="margin-left: 40px;padding-left: 150px;width:560px}">
+                                    <img src="/images/genrobot.png" alt="Image" class="readiness-header-image" />
+                                    Generative Suggestions
+                                </h3>
                                 <p class="generative-paragraph">@azureOpenAIOutput</p>
                             </div>
                         }

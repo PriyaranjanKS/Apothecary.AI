@@ -1,10 +1,12 @@
 ﻿@if (IsVisible)
 {
     <div class="neumorphic-overlay">
-        <div class="neumorphic-modal">
-            <div class="neumorphic-header">
-                <h3>Dispatch Station Auto Scheduler</h3>
+        <div class="neumorphic-modal" style="min-height:300px;min-width:600px;">
+            <div class="scheduleheader">
+                <img src="/images/DispatchSchedule.png" alt="Image" class="scheduleheader-image" />
+                <h3 class="scheduleheader-heading">Dispatch Station Auto Scheduler</h3>
             </div>
+
             <div class="neumorphic-body">
                 @if (IsLoading)
                 {
@@ -16,7 +18,7 @@
                 else
                 {
                     <p>@PowerAutomateOutput</p>
-                    <img src="success-icon.png" alt="Success" class="status-icon" />
+                    <img src="/images/success.png" alt="Success" class="status-icon" style="margin-left:0px!important" />
                 }
             </div>
             @if (!IsLoading)

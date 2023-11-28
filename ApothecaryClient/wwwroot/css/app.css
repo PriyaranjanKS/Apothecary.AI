@@ -83,12 +83,12 @@ body, .action-btn, .add-to-cart-btn, .btn, .group-heading,
 }
 
 .uploaded-image {
-    max-width: 70%;
+    max-width: 100%;
 }
 /* Image Upload Container */
 .image-upload-container {
     flex: 1;
-    max-width: 30%;
+    max-width: 25%;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -97,7 +97,7 @@ body, .action-btn, .add-to-cart-btn, .btn, .group-heading,
     background: #e0e5ec;
     border-radius: 20px;
     box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
-    margin-right: 10px;
+    margin-right: 25px;
     margin-left: 10px;
 }
 
@@ -107,10 +107,12 @@ body, .action-btn, .add-to-cart-btn, .btn, .group-heading,
     max-width: 70%;
     background: #e0e5ec;
     border-radius: 20px;
-    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff;
-    padding: 20px;
+    box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #ffffff; 
     position: relative;
     z-index: 1;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
 }
 
 /* Header */
@@ -121,13 +123,13 @@ body, .action-btn, .add-to-cart-btn, .btn, .group-heading,
     margin-bottom: 20px;
     background: linear-gradient(to right, #cfd9df, #e2ebf0);
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 15px;
     box-shadow: 5px 5px 10px #a3a3a3, -5px -5px 10px #ffffff;
 }
 
 .registration-title {
-    font-size: 24px;
-    font-weight: 500;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 /* Locale Container */
@@ -169,9 +171,10 @@ body, .action-btn, .add-to-cart-btn, .btn, .group-heading,
 
 label {
     font-weight: bold;
+    font-size:14px;
     display: block;
     text-align: left;
-    margin-bottom: 5px;
+   /* margin-bottom: 5px;*/
 }
 
 .form-control {
@@ -287,6 +290,7 @@ label {
     .registration-container {
         max-width: 100%;
         flex-basis: auto;
+        min-height :200px;
     }
 
     .form-row {
@@ -1265,7 +1269,7 @@ button {
     flex-direction: column;
     align-items: center;
     position: relative;
-    padding-bottom: 60px;
+  /*  padding-bottom: 60px;*/
 }
 
 .dispatch-order-row {
@@ -1418,7 +1422,7 @@ button {
     background: #e0e5ec;
     border-radius: 20px;
     box-shadow: 10px 10px 20px #babecc, -10px -10px 20px #ffffff;
-    max-width: 600px;
+    max-width: 800px;
     width: 90%;
     margin: 20px;
     padding: 20px;
@@ -1476,6 +1480,7 @@ button {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    font-size:14px;
 }
 
 .medicine-image {
@@ -1572,7 +1577,7 @@ button {
     justify-content: center;
     position: relative;
     z-index: 1000;
-    max-height: 700px;
+    max-height: 800px;
 }
 
 /* ... Other styles ... */
@@ -1772,7 +1777,7 @@ button {
 .modal-close-btn {
     background: #e0e5ec;
     border: none;
-    border-radius: 50%;
+    border-radius: 30%;
     padding: 5px 10px;
     cursor: pointer;
     box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff;
@@ -1781,10 +1786,10 @@ button {
 .medicines-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 15px;
     width: 100%;
     justify-content: center;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 .medicine-card {
@@ -2309,7 +2314,7 @@ button {
     display: block;
     margin-top: 10px;
     font-weight: bold;
-    color: #555;
+    color:black;
 }
 
 .demand-forecast-controls select,
@@ -2326,7 +2331,7 @@ button {
 }
 
 .demand-forecast-controls button {
-    background: #4CAF50;
+    background: teal;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -2420,6 +2425,7 @@ button {
     border: none;
     cursor: pointer;
     transition: all 0.3s;
+    font-size:16px;
 }
 
 .fraud-check-container {
@@ -2753,7 +2759,11 @@ button {
     height: 40px; /* Adjust the image height as needed */
     margin-right: 10px; /* Adjust the spacing between the image and button */
 }
-
+.dispatch-left-image {
+    width: 30px; /* Adjust the image width as needed */
+    height: 30px; /* Adjust the image height as needed */
+    margin-right: 10px; /* Adjust the spacing between the image and button */
+}
 .image-and-text-container {
     display: flex;
     align-items: center;
@@ -2791,3 +2801,336 @@ button {
     .neumorphic-file-input:hover {
         box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     }
+    /*Login*/
+
+.login-neumorphic {
+    background: #e0e0e0;
+    box-shadow: 5px 5px 10px #b3b3b3, -5px -5px 10px #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+}
+.dispatch-action-neumorphic {
+    background: #e0e0e0;
+    box-shadow: 5px 5px 10px #b3b3b3, -5px -5px 10px #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.registration-upload {
+    max-width: 240px;
+    max-height: 40px;
+    padding-top: 12px;
+    background: #e0e0e0;
+    box-shadow: 5px 5px 10px #b3b3b3, -5px -5px 10px #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+}
+.landing-page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+}
+
+.image-section {
+    flex: 0.6;
+    background-image: url('your-image.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+}
+
+.login-section {
+    flex: 0.7; /* Increased width to 70% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.login-container {
+    text-align: center;
+    min-width: 400px; /* Minimum width of 400px */
+}
+
+.login-logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    font-size: 16px;
+    color: black; 
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px; 
+   /* margin: 10px 0;*/
+    
+    border-radius: 5px;
+    background-color: #f5f5f5;
+}
+
+.login-button {
+    background-color: teal; /* Teal color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.remember-checkbox {
+    margin-right: 5px;
+    padding: 0; /* Remove padding */
+}
+
+.remember-text {
+    margin: 0; /* Remove margin */
+}
+
+.forgot-password {
+    color: teal; /* Teal color */
+    cursor: pointer;
+    margin-left: auto; /* Push to the right */
+}
+
+.signup-button {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.signup-link {
+    text-decoration: none;
+    color: teal; /* Teal color */
+    font-weight: bold;
+}
+.top-row{display:none!important}
+/*Registration Styles*/
+.style-image-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 3px; /* Adjust the gap as needed */
+}
+
+.style-image-label-container {
+    display: flex;
+    align-items: center;
+    gap: 3px; /* Adjust the gap as needed */
+}
+
+.style-registration-left-image {
+    width: 35px; /* Adjust the width of the image as needed */
+    height: 35px; /* Adjust the height of the image as needed */
+}
+
+.style-registration-upload {
+    font-size: 14px; /* Adjust the font size as needed */
+    color: #333; /* Adjust the color as needed */
+    padding-top: 10px !important;  
+}
+/*Registration Header*/
+.style-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; /* Adjust padding as needed */
+    background-color: #f0f0f0; /* Adjust background color as needed */
+    /*margin-bottom: 10px;*/
+    border-radius: 30px;
+    margin-top:10px;
+}
+
+.style-header-content {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust the gap as needed */
+    border-radius:30px;
+}
+
+.registration-style-left-image {
+    width: 40px;
+    height: 40px; 
+}
+.dispatch-style-left-image {
+    width: 30px;
+    height: 30px;
+}
+.style-registration-title {
+    font-size: 24px!important;
+    font-weight: bold;
+    color: #333; /* Adjust the color as needed */
+}
+
+.style-locale-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Adjust the gap as needed */
+}
+
+.style-locale-subtitle {
+    font-size: 14px;  
+    font-weight:bold;
+    color: #666;  
+}
+
+.style-locale-selector {
+    /* Add any additional styles for the locale selector */
+}
+
+
+/*a*/
+.registration-sub-heading-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust the gap as needed */
+}
+
+.registration-left-image {
+    width: 40px; /* Adjust the width of the image as needed */
+    height: 40px; /* Adjust the height of the image as needed */
+}
+
+.registration-sub-heading {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333; /* Adjust the color as needed */
+}
+.registration-submit-button {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust the gap as needed */
+    padding: 10px; /* Add padding as needed */
+    color: teal; /* Adjust the text color as needed */
+    border: none; /* Remove the button border if needed */
+    cursor: pointer; /* Add cursor style */
+    min-width: 150px;
+}
+.registration-success-message {
+    background-color: #4CAF50; /* Green background color */
+    color: white; /* White text color */
+    padding: 10px; /* Padding around the message */
+    margin-top: 10px; /* Margin to separate it from the button */
+    border-radius: 5px; /* Rounded corners */
+    display: inline-block; /* Display as an inline element */
+    min-width: 330px;
+    text-align: center;
+    margin-left: 30%;
+}
+.dispatch-button-with-image-container {
+    display: flex; /* Display elements in a row */
+    align-items: center; /* Center elements vertically */
+    gap: 10px; /* Gap between image and button */
+}
+.dispatchtable-order-row {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+}
+
+.dispatchtable-order-actions {
+    display: flex;
+    justify-content: space-between; /* Place buttons at opposite ends */
+}
+
+.dispatchtable-schedule-container {
+    margin-top: 10px; /* Add spacing between the button rows */
+}
+.dispatchtable-action-buttons-container {
+    display: flex;
+    gap: 20px; /* Add 15px gap between buttons */
+    margin-left: 5px;
+    margin-top: 10px;
+}
+
+.fraud-check-result {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-left: 9%;
+}
+
+/* CSS for the fraud-check-image */
+.fraud-check-image {
+    width: 80px; /* Adjust the width as needed */
+    height: 80px; /* Adjust the height as needed */
+    margin-right: 10px; /* Adjust the margin as needed */
+}
+.dispatch-stock-status {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* CSS for the stock-image */
+.dispatch-stock-image {
+    width: 30px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    margin-left: 5px; /* Adjust the margin as needed */
+}
+
+/* Neumorphic style for the header */
+.readinessheader {
+    padding: 15px; /* Adjust padding as needed */
+    background-color: #f0f0f0; /* Background color for the header */
+    border-radius: 10px; /* Border radius for the neumorphic effect */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.7); /* Box shadow for the neumorphic effect */
+    display: flex; /* Display as flex to align items vertically */
+    align-items: center; /* Center vertically within the header */
+}
+
+/* Style for the image within the header */
+.readiness-header-image {
+    width: 24px; /* Adjust image width as needed */
+    height: 24px; /* Adjust image height as needed */
+    margin-right: 10px; /* Adjust the spacing between the image and text */
+}
+.forecast-container-heading {
+    display: flex;
+    align-items: center;
+    padding-left: 15% !important; /* Add padding to adjust spacing between the image and text */
+    font-size: 18px;
+    font-weight: bold;
+    color: teal;
+    background-color: #f0f0f0; /* Background color for the neumorphic effect */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2), -4px -4px 8px rgba(255, 255, 255, 0.5); /* Neumorphic box shadow */
+    min-width: 400px;
+}
+
+.forecast-container-heading-image {
+    margin-right: 10px; /* Adjust the margin to control the spacing between the image and text */
+    height:40px;
+    width:40px;
+}
+.scheduleheader {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0; /* Background color for the neumorphic effect */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2), -4px -4px 8px rgba(255, 255, 255, 0.5); /* Neumorphic box shadow */
+    border-radius: 30px;
+    padding-left: 25%;
+    margin-bottom: 40px;
+}
+
+.scheduleheader-image {
+    width: 40px; /* Adjust the width of the image as needed */
+    height: 40px; /* Adjust the height of the image as needed */
+    margin-right: 10px; /* Adjust the margin to control the spacing between the image and text */
+}
+
+.scheduleheader-heading {
+    font-size: 18px;
+    font-weight: bold;
+    color: teal;
+}

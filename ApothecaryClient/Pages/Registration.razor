@@ -39,7 +39,10 @@
 }
 <div class="registration-page">
     <div class="image-upload-container">
-        <label for="fileUpload">@GetTranslation("UploadID")</label>
+        <div class="style-image-label-container">
+            <img src="/images/fileupload.png" alt="Image" class="style-registration-left-image" />
+            <label for="fileUpload" class="style-registration-upload registration-upload">@GetTranslation("UploadID")</label>
+        </div>        
         <InputFile id="fileUpload" OnChange="HandleFileUpload" class="form-control-file" />
         @if (!string.IsNullOrEmpty(imageUrl))
         {
@@ -48,11 +51,19 @@
     </div>
 
     <div class="registration-container">
-        <div class="header">
-            <h2 class="registration-title">@GetTranslation("UserRegistrationTitle")</h2>
-           @*  @translations["UserRegistrationTitle"] *@
-            <div class="locale-container">
-                <span class="locale-subtitle">@GetTranslation("LocaleSelector")</span>
+        <div class="style-header">
+            <div class="style-header-content" >
+                <img src="/images/userregistration.png" alt="Image" class="registration-style-left-image" />
+                <h2 class="style-registration-title" style="font-size: 24px!important;font-weight: bold;">
+                    @GetTranslation("UserRegistrationTitle")
+                </h2>
+            </div>
+            <div class="style-locale-container">
+               <div>
+                    <img src="/images/translate.png" alt="Image" class="registration-style-left-image" />
+                    <span class="locale-subtitle">@GetTranslation("LocaleSelector")</span>
+               </div>
+               
                 <select id="localeSelector" @onchange="OnLocaleChange" class="locale-selector">
                     <option value="English">English</option>
                     <option value="French">French</option>
@@ -65,10 +76,14 @@
             </div>
         </div>
 
+
         <EditForm Model="@registrationModel" OnValidSubmit="HandleValidSubmit">
             <div class="form-row">
                 <div class="form-column customer-details-container">
-                    <h3 class="sub-heading">@GetTranslation("CustomerDetailsHeading")</h3>
+                    <div class="registration-sub-heading-container" style="margin-left: 30%;">
+                        <img src="/images/UserDetails.png" alt="Image" class="registration-left-image" />
+                        <h3 class="registration-sub-heading">@GetTranslation("CustomerDetailsHeading")</h3>
+                    </div>
                     <div class="form-group">
                         <label for="name">@GetTranslation("NameLabel")</label>
                         <InputText id="name" @bind-Value="registrationModel.Name" class="form-control" />
@@ -88,7 +103,7 @@
                     </div>
                     <div class="form-group">
                         <label for="address">@GetTranslation("AddressLabel")</label>
-                        <InputText id="address" @bind-Value="registrationModel.Address" class="form-control" />
+                        <InputText id="address" @bind-Value="registrationModel.Address" class="form-control" style="min-height: 70px;}" />
                     </div>
                     <div class="form-group">
                         <label for="state">@GetTranslation("StateLabel")</label>
@@ -102,7 +117,10 @@
 
                 <div class="form-column">
                     <div class="contact-details-container">
-                        <h3 class="sub-heading">@GetTranslation("ContactDetailsHeading")</h3>
+                        <div class="registration-sub-heading-container" style="margin-left: 30%;">
+                            <img src="/images/UserEmail.png" alt="Image" class="registration-left-image" />
+                            <h3 class="registration-sub-heading">@GetTranslation("ContactDetailsHeading")</h3>
+                        </div>
                         <div class="form-group">
                             <label for="email">@GetTranslation("EmailLabel")</label>
                             <InputText id="email" @bind-Value="registrationModel.Email" class="form-control" />
@@ -114,7 +132,10 @@
                     </div>
 
                     <div class="additional-details-container">
-                        <h3 class="sub-heading">@GetTranslation("OtherDetailsHeading")</h3>
+                        <div class="registration-sub-heading-container" style="margin-left: 30%;">
+                            <img src="/images/UserHealth.png" alt="Image" class="registration-left-image" />
+                            <h3 class="registration-sub-heading">@GetTranslation("OtherDetailsHeading")</h3>
+                        </div>
                         <div class="form-group">
                             <label for="additionalInfo">@GetTranslation("AdditionalDetailsLabel")</label>
                             <InputTextArea id="additionalInfo" @bind-Value="registrationModel.AdditionalDetails" class="form-control" rows="4" />
@@ -126,8 +147,15 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group submit-group">
-                <button type="submit" class="submit-button">@GetTranslation("SubmitButton")</button>
+            <div class="form-group submit-group">                
+                <button type="submit" class="registration-submit-button submit-button">
+                    <img src="/images/UserAdd.png" alt="Image" class="registration-left-image" />
+                    @GetTranslation("SubmitButton")
+                </button>
+                @if (!string.IsNullOrWhiteSpace(message))
+                {
+                    <div class="registration-success-message">@message</div>
+                }
             </div>
         </EditForm>
     </div>
@@ -161,7 +189,7 @@
     { "LocaleSelector", "Locale:" },
     { "CustomerDetailsHeading", "Customer Details" },
     { "ContactDetailsHeading", "Contact Details" },
-    { "OtherDetailsHeading", "Other Details" },
+    { "OtherDetailsHeading", "Other Health Details" },
     { "UserRegistrationTitle", "User Registration" },
     // ... any other keys and default texts you need to translate
 };
@@ -214,6 +242,7 @@
             if (response.IsSuccessStatusCode)
             {
                 message = "Registration successful";
+                StateHasChanged();
             }
             else
             {
@@ -306,10 +335,18 @@
     {
         if (translations != null && translations.TryGetValue(key, out var value))
         {
+            if (value.Contains(":"))
+            {
+                value = value.Replace(":", "");
+            }
             return value;
         }
         if (keysToTranslate.TryGetValue(key, out var defaultValue))
         {
+            if (defaultValue.Contains(":"))
+            {
+                defaultValue = defaultValue.Replace(":", "");
+            }
             return defaultValue; // Return the hard-coded default value
         }
       

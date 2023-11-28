@@ -14,14 +14,33 @@
 }
 
 <div class="dispatch-container">
+
     <div class="dispatch-header">
         <div class="header-left">
-            <button class="dispatch-demand-forecast" @onclick="ShowDemandForecastPopup">Demand Forecast</button>
+            <div class="dispatch-button-with-image-container">
+                
+                <button class="dispatch-demand-forecast" @onclick="ShowDemandForecastPopup" style="font-weight:bold;color:teal;"><img src="/images/demandforecast.png" alt="Image" class="left-image" />Demand Forecast</button>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="login-neumorphic" style="min-width: 300px;margin:0px!important;padding-bottom: 10px;padding-top: 10px;">
+                <img src="/images/OrderDetails.png" alt="Order Details" class="left-image" />
+                <h2 class="order-details-title" style="font-weight: bold;font-size: 22px;">
+                    Order Details
+                </h2>
+            </div>
         </div>
         <div class="header-center">
-            <h2>Total number of Open Orders: @orders?.Count</h2>
+            <h2 class="dispatch-demand-forecast" style="color: teal;font-size: 16px;font-weight: bold;">
+                <img src="/images/OpenOrders.png" alt="Open Orders" class="left-image" />
+                Open Orders #: @orders?.Count
+            </h2>
         </div>
     </div>
+
+
+
     <div class="dispatch-orders-grid">
         @if (orders != null)
         {
@@ -29,24 +48,38 @@
             {
                 <div class="dispatch-order-card neumorphic">
                     <div class="dispatch-order-row">
-                        <div class="dispatch-order-column">Order #: @order.OrderNumber</div>
+                        <div class="dispatch-order-column" style="padding-top: 20px;"> <img src="/images/medicineorder.png" alt="Open Orders" class="dispatch-left-image" />Order #: @order.OrderNumber</div>
                         <div class="dispatch-order-column">Order Date: @FormatOrderDate(order.OrderDate)</div>
                     </div>
                     <div class="dispatch-order-row">
                         <div class="dispatch-order-column">Customer Name: @order.CustomerName</div>
-                        <div class="dispatch-order-column">Total Items: @order.TotalItems</div>
+                        <div class="dispatch-order-column" style="padding-top: 20px;">Total Items: @order.TotalItems</div>
                     </div>
                     <div class="dispatch-order-row">
-                        <div class="dispatch-order-column @GetDispatchStatusClass(order.DispatchStatus)">
+                        <div class="dispatch-order-column @GetDispatchStatusClass(order.DispatchStatus)" style="min-height:92px">
                             Dispatch Status: @GetDispatchStatusText(order.DispatchStatus)
                         </div>
-                        <div class="dispatch-order-column">Readiness Check: @order.Readiness</div>
+                        <div class="dispatch-order-column" style="padding-top: 20px;">Readiness Check: @order.Readiness</div>
                     </div>
-                    <div class="dispatch-order-row">
-                        <div class="dispatch-order-actions">
-                            <button class="fraud-check-button" style="min-width: 110px;" @onclick="() => CheckFraud(order.OrderNumber)">Fraud Check</button>
-                            <button class="dispatch-readiness-check" style="min-width: 140px;" @onclick="() => CheckReadiness(order.OrderNumber)">Readiness Check</button>
-                            <button class="dispatch-schedule" @onclick="() => OnScheduleClick(order)">Schedule</button>
+                    <div class="dispatchtable-order-row">
+                        <div class="dispatchtable-order-actions">
+                            <div class="dispatchtable-action-buttons-container">
+                                <button class="dispatchtable-readiness-check dispatch-demand-forecast" @onclick="() => CheckReadiness(order.OrderNumber)" style="padding: 0px;min-width:170px; padding-top: 10px;  padding-bottom: 10px;">
+                                    <img src="/images/checkmedicine.png" alt="Readiness Check" class="button-image dispatch-style-left-image" style="padding: 0px;" />
+                                    Readiness Check
+                                </button>
+                                <button class="dispatchtable-fraud-check-button dispatch-demand-forecast" @onclick="() => CheckFraud(order.OrderNumber)" style="min-width:150px;padding: 0px;; padding-top: 10px;  padding-bottom: 10px;">
+                                    <img src="/images/fraud.png" alt="Fraud Check" class="button-image dispatch-style-left-image" style="padding: 0px;" />
+                                    Fraud Check
+                                </button>
+                               
+                            </div>
+                        </div>
+                        <div class="dispatchtable-schedule-container">
+                            <button class="dispatchtable-schedule dispatch-demand-forecast" style="margin-top:5px;min-width: 150px; margin-left: 35%; padding: 10px;min-width:150px" @onclick="() => OnScheduleClick(order)">
+                                <img src="/images/scheduling.png" alt="Schedule Icon" style="vertical-align: middle; margin-right: 5px;" class="dispatch-style-left-image" />
+                                Schedule
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -68,12 +101,19 @@
 
 @if (!string.IsNullOrEmpty(fraudCheckResult))
 {
+    <div class="fraud-check-overlay">
     <div class="fraud-check-result-popup neumorphic">
         <div class="fraud-check-result-container">
-            <h3>Google PaLM Powered Fraud Check Result</h3>
+            <div class="fraud-check-result">
+
+                <h3 style="min-width: 600px;padding: 0px;" class="demand-forecast-heading neumorphic">
+                    <img src="/images/frauddetection.png" alt="Google PaLM" class="fraud-check-image" />Google PaLM Powered Fraud Check Result
+                </h3>
+            </div>
             <p>@fraudCheckResult</p>
             <button class="close-popup-button neumorphic" @onclick="CloseFraudCheckPopup">Close</button>
         </div>
+    </div>
     </div>
 }
 
@@ -83,27 +123,30 @@
         <div class="demand-forecast-popup">
             <div class="demand-forecast-container">
                 <div class="demand-forecast-left neumorphic" style="height:600px">
-                    <h3 class="demand-forecast-heading neumorphic" style="margin-bottom: 5px;">Product Forecast</h3>
+                    <h3 class="demand-forecast-heading neumorphic" style="padding-top: 10px; padding-bottom: 10px;">
+                        <img src="/images/productdemand.png" alt="Image" class="forecast-container-heading-image" />
+                        Product Forecast
+                    </h3>
                     <div class="demand-forecast-controls">
-                        <label>Medicine Name:</label>
+                        <label>Medicine Name</label>
                         <select class="medicine-dropdown neumorphic" @bind="selectedMedicine">
                             <option value="FocusFusion">FocusFusion</option>
                             <option value="DiabeControl">DiabeControl</option>
                             <option value="MorphEase">MorphEase</option>
                             <option value="MorphineInject">MorphineInject</option>
                         </select>
-                        <label>Manufacturer:</label>
+                        <label>Manufacturer</label>
                         <select class="manufacturer-dropdown neumorphic" @bind="selectedManufacturer">
                             <option value="ClarityWaves">ClarityWaves</option>
                             <option value="InsuLife">InsuLife</option>
                             <option value="EasePharma">EasePharma</option>
                             <option value="InjectCare">InjectCare</option>
                         </select>
-                        <label>Forecast Date:</label>
+                        <label>Forecast Date</label>
                         <input type="date" class="forecast-date neumorphic" @bind="selectedForecastDate">
-                        <label>Unit Price:</label>
+                        <label>Unit Price</label>
                         <input type="text" class="unit-price neumorphic" @bind="selectedUnitPrice">
-                        <label>Discount %:</label>
+                        <label>Discount %</label>
                         <input type="text" class="discount neumorphic" @bind="selectedDiscount">
                         <button class="forecast-button neumorphic" @onclick="ForecastDemand">Forecast</button>
                     </div>
@@ -111,15 +154,21 @@
                 <div class="demand-forecast-right neumorphic" style="height:600px">
                     <table class="forecast-table">
                         <tr>
-                            <td colspan="2" class="forecast-container-heading neumorphic">Azure ML Demand Forecast</td>
+                            <td colspan="2" class="forecast-container-heading neumorphic">
+                                <img src="/images/AzureML.png" alt="Image" class="forecast-container-heading-image" />
+                                Azure ML Demand Forecast
+                            </td>
                         </tr>
-                        <tr style="height:200px">
+                        <tr style="height:150px">
                             <td colspan="2" class="forecast-container-text">@azureMLDemandForecast</td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="forecast-container-heading neumorphic">Azure Open AI Suggestions</td>
+                            <td colspan="2" class="forecast-container-heading neumorphic">
+                                <img src="/images/OpenAI.png" alt="Image" class="forecast-container-heading-image" />
+                                Azure Open AI Suggestions
+                            </td>
                         </tr>
-                        <tr style="height:200px">
+                        <tr style="height:150px">
                             <td colspan="2" class="forecast-container-text">@azureOpenAISuggestions</td>
                         </tr>
                     </table>
