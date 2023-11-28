@@ -136,211 +136,217 @@
 
 <div class="overlay" style="display: @((isChatbotVisible) ? "block" : "none")"></div>
 <div class="order-placement-container">
-    
- 
-    <aside class="control-panel neumorphic">
-        <div class="order-placement-header">
-            <div>
-                <img src="/images/robot.png" alt="Click to Show Chatbot" @onclick="ShowProductChatbot" style="box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);border-radius: 15px;cursor: pointer;width:40px;height:40px;" />
-            </div>
-            <h3 style="font-size: 14px!important;" class="group-heading">Order Placement</h3>
-        </div>
-        <div class="button-group-neumorphic">
-            <div class="image-and-button-container" style="margin-bottom:0px;">              
-                <img src="/images/microphone.png" alt="Image" class="left-image" />                
-                <button class="action-btn voice-order-btn neumorphic single-btn" @onclick="OpenVoiceOrderModal">Voice Assisted Ordering</button>
-            </div>
-            @if (showVoiceOrderModal)
-            {
-                <div class="whisper-modal-overlay" @onclick="CloseVoiceOrderModal">
-                    <div class="whisper-modal-content" @onclick:stopPropagation="true">
-                        <h2 class="whisper-modal-header neumorphic">
-                            <div class="image-and-text-container">
-                                <!-- Image for Voice Assisted Ordering -->
-                                <img src="/images/texttospeech.png" alt="Voice Assisted Ordering" class="left-image" />
-                                Voice Assisted Ordering
-                            </div>
-                            <div class="voice-subheading">
-                                Powered by Whisper Open AI
-                            </div>
-                        </h2>
-                        <div style="padding-top: 20px;">
-                            <button class="whisper-button" @onclick="StartRecording">
-                                <div class="image-and-text-container">
-                                    <!-- Image for Start -->
-                                    <img src="/images/start.png" alt="Start" class="voice-left-image" />
-                                    Start
-                                </div>
-                            </button>
-                            <button class="whisper-button" @onclick="StopRecording" disabled="@(!isRecording)">
-                                <div class="image-and-text-container">
-                                    <!-- Image for Stop -->
-                                    <img src="/images/stop.png" alt="Stop" class="voice-left-image" />
-                                    Stop
-                                </div>
-                            </button>
-                            <button class="whisper-button" @onclick="PlayRecording" disabled="@string.IsNullOrEmpty(audioData)">
-                                <div class="image-and-text-container">
-                                    <!-- Image for Play -->
-                                    <img src="/images/play.png" alt="Play" class="voice-left-image" />
-                                    Play
-                                </div>
-                            </button>
+          
+       
+                <aside class="control-panel neumorphic" style="margin-top:5%">
+                    <div class="order-placement-header">
+                        <div>
+                            <img src="/images/robot.png" alt="Click to Show Chatbot" @onclick="ShowProductChatbot" style="box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);border-radius: 15px;cursor: pointer;width:40px;height:40px;" />
+                        </div>
+                        <h3 style="font-size: 14px!important;" class="group-heading">Smart Order Placement</h3>
+                    </div>
+                    <div class="button-group-neumorphic">
+                        <div class="image-and-button-container" style="margin-bottom:0px;">
+                            <img src="/images/microphone.png" alt="Image" class="left-image" />
+                            <button class="action-btn voice-order-btn neumorphic single-btn" @onclick="OpenVoiceOrderModal">Voice Assisted Ordering</button>
+                        </div>
+                        @if (showVoiceOrderModal)
+                        {
+                            <div class="whisper-modal-overlay" @onclick="CloseVoiceOrderModal">
+                                <div class="whisper-modal-content" @onclick:stopPropagation="true">
+                                    <h2 class="whisper-modal-header neumorphic">
+                                        <div class="image-and-text-container">
+                                            <!-- Image for Voice Assisted Ordering -->
+                                            <img src="/images/texttospeech.png" alt="Voice Assisted Ordering" class="left-image" />
+                                            Voice Assisted Ordering
+                                        </div>
+                                        <div class="voice-subheading">
+                                            Powered by Whisper Open AI
+                                        </div>
+                                    </h2>
+                                    <div style="padding-top: 20px;">
+                                        <button class="whisper-button" @onclick="StartRecording">
+                                            <div class="image-and-text-container">
+                                                <!-- Image for Start -->
+                                                <img src="/images/start.png" alt="Start" class="voice-left-image" />
+                                                Start
+                                            </div>
+                                        </button>
+                                        <button class="whisper-button" @onclick="StopRecording" disabled="@(!isRecording)">
+                                            <div class="image-and-text-container">
+                                                <!-- Image for Stop -->
+                                                <img src="/images/stop.png" alt="Stop" class="voice-left-image" />
+                                                Stop
+                                            </div>
+                                        </button>
+                                        <button class="whisper-button" @onclick="PlayRecording" disabled="@string.IsNullOrEmpty(audioData)">
+                                            <div class="image-and-text-container">
+                                                <!-- Image for Play -->
+                                                <img src="/images/play.png" alt="Play" class="voice-left-image" />
+                                                Play
+                                            </div>
+                                        </button>
 
-                            <div class="voice-translation" >
-                                @message
-                            </div>
+                                        <div class="voice-translation">
+                                            @message
+                                        </div>
 
-                            @if (showPlaceOrderButton)
-                            {
-                                <button class="btn place-order-btn neumorphic form-label" style="background: lightgreen; color: white;" @onclick="OnAddToCart">
-                                    <div class="image-and-text-container">
-                                        <!-- Image for Add to Cart -->
-                                        <img src="/images/addtocart.png" alt="Add to Cart" class="voice-left-image" />
-                                        Add to Cart
+                                        @if (showPlaceOrderButton)
+                                        {
+                                            <button class="btn place-order-btn neumorphic form-label" style="background: lightgreen; color: white;" @onclick="OnAddToCart">
+                                                <div class="image-and-text-container">
+                                                    <!-- Image for Add to Cart -->
+                                                    <img src="/images/addtocart.png" alt="Add to Cart" class="voice-left-image" />
+                                                    Add to Cart
+                                                </div>
+                                            </button>
+                                        }
+
                                     </div>
-                                </button>
-                            }
-                           
+                                </div>
+                            </div>
+                        }
+
+
+                        <div class="image-and-button-container" style="margin-bottom:0px;">
+                            <img src="/images/prescription.png" alt="Image" class="left-image" />
+                            <button class="action-btn upload-prescription-btn neumorphic single-btn"
+                                    @onclick="() => ShowUploadImageModal(true)">
+                                Upload Prescription
+                            </button>
+                        </div>
+                        <div class="image-and-button-container" style="margin-bottom:0px;">
+                            <img src="/images/medicine.png" alt="Image" class="left-image" />
+                            <button class="action-btn upload-btn neumorphic single-btn"
+                                    @onclick="() => ShowUploadImageModal(false)">
+                                Upload Image
+                            </button>
                         </div>
                     </div>
-                </div>
-            }
+                    <h3 class="group-heading" style="font-size:14px">Personalization</h3>
+                    <div class="button-group-neumorphic" style="margin-bottom: 0px!important">
 
-
-            <div class="image-and-button-container" style="margin-bottom:0px;">
-                <img src="/images/prescription.png" alt="Image" class="left-image" />
-                <button class="action-btn upload-prescription-btn neumorphic single-btn"
-                        @onclick="() => ShowUploadImageModal(true)">
-                    Upload Prescription
-                </button>
-            </div>
-            <div class="image-and-button-container" style="margin-bottom:0px;">
-                <img src="/images/medicine.png" alt="Image" class="left-image" />
-                <button class="action-btn upload-btn neumorphic single-btn"
-                        @onclick="() => ShowUploadImageModal(false)">
-                    Upload Image
-                </button>
-            </div>
-        </div>
-        <h3 class="group-heading" style="font-size:14px">Personalization</h3>
-        <div class="button-group-neumorphic" style="margin-bottom: 0px!important">
-
-            <div class="image-and-button-container" style="margin-bottom: 0px!important">
-                <img src="/images/drugs.png" alt="Image" class="left-image" />
-                <button class="action-btn alternate-suggestions-btn neumorphic single-btn" style="margin-top: 25px!important;margin-bottom: 10px!important;" @onclick="ShowAlternateSuggestionPopup">Alternate Suggestions</button>
-            </div>
-            <div class="image-and-button-container" style="margin-bottom: 0px!important">
-                <img src="/images/medicinewarning.png" alt="Image" class="left-image" />
-                <button class="action-btn medicine-warnings-btn neumorphic single-btn" style="margin-top: 10px!important;margin-bottom: 10px!important"
-                        @onclick="ShowMedicineWarningPopup">
-                    Medicine Warnings
-                </button>
-            </div>
-            <div class="image-and-button-container" style="margin-bottom: 0px!important">
-                <img src="/images/gdpr.png" alt="Image" class="left-image"  />
-                <button class="action-btn gdpr-checker-btn neumorphic single-btn" style="margin-top: 10px!important;margin-bottom: 10px!important"
-                        @onclick="ShowGdprPopup">
-                    GDPR Checker
-                </button>
-            </div>
-        </div>
-    </aside>
-
-    <main class="main-content neumorphic">
-        <div class="user-info neumorphic" style="margin-top:0px!important">
-            <label for="userName">User Name:</label>
-            <input type="text" id="userName" class="input-control form-label" @bind="userName" placeholder="User name" />
-        </div>
-
-        <section class="product-selection neumorphic">
-            <div>
-                <div class="place-order-container" style="display: flex; align-items: center;">
-                    <div style="width: 40%; text-align: end;">
-                        <img src="/images/pharmacy.png" alt="Details Order" class="left-image" style="margin-right: 5px; padding: 0;" />
-                    </div>
-                    <div><h2 class="group-heading" style="font-size: 14px;">
-                        Order Details
-                        </h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" for="product">Product:</label>
-                <select id="product" class="input-control form-label" @bind="selectedMedicine">
-                    <option value="">Select Product</option>
-                    @foreach (var name in medicineNames)
-                    {
-                        <option value="@name">@name</option>
-                    }
-                </select>
-                     
-             
-            </div>
-            <div class="form-group">
-                <label class="form-label"  for="unitPrice">Unit Price:</label>
-                <input type="number" id="unitPrice" class="input-control form-label" placeholder="Unit Price" />
-            </div>
-            <div class="form-group">
-                <label class="form-label"  for="quantity">Quantity:</label>
-                <input type="number" id="quantity" class="input-control form-label" placeholder="Quantity" />
-            </div>
-            <div style="padding-left: 20%;">
-                <div class="add-to-cart-container" style="display: flex; align-items: center;">
-                    <img src="/images/add-to-cart.png" alt="Add To Cart" class="left-image" style="margin-right: 5px; padding: 0;" />
-                    <button class="action-btn add-to-cart-btn neumorphic form-label" style="margin-left: 5px;width: 150px;">Add To Cart</button>
-                </div>
-           </div> 
-        </section>
-    </main>
-
-    <aside class="cart neumorphic">
-        <div>
-            <div class="place-order-container" style="display: flex; align-items: center;">
-                <img src="/images/cartorders.png" alt="Place Order" class="left-image" style="margin-right: 5px; padding: 0;" />
-                <h3 class="btn place-order-btn neumorphic form-label" style="font-size: 14px!important;">Orders in Cart</h3>
-            </div>
-        </div>
-
-        <table class="cart-table form-label">
-            <thead>
-                <tr>
-                    <th>Medicine Name</th>
-                    <th>Quantity</th>
-                    <th>Unit Price</th>
-                    <th>Total Price</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody class="form-label">
-                @foreach (var order in cartOrders)
-                {
-                    <tr>
-                        <td>@order.ProductName</td>
-                        <td>@order.Quantity</td>
-                        <td>$@order.UnitPrice</td>
-                        <td>$@order.TotalPrice</td>
-                        <td>
-                            <button class="btn remove-btn neumorphic form-label"
-                                    @onclick="() => RemoveFromCart(order)">
-                                Remove
+                        <div class="image-and-button-container" style="margin-bottom: 0px!important">
+                            <img src="/images/drugs.png" alt="Image" class="left-image" />
+                            <button class="action-btn alternate-suggestions-btn neumorphic single-btn" style="margin-top: 25px!important;margin-bottom: 10px!important;" @onclick="ShowAlternateSuggestionPopup">Alternate Suggestions</button>
+                        </div>
+                        <div class="image-and-button-container" style="margin-bottom: 0px!important">
+                            <img src="/images/medicinewarning.png" alt="Image" class="left-image" />
+                            <button class="action-btn medicine-warnings-btn neumorphic single-btn" style="margin-top: 10px!important;margin-bottom: 10px!important"
+                                    @onclick="ShowMedicineWarningPopup">
+                                Medicine Warnings
                             </button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <div class="cart-footer">
-            <span class="total-bill form-label">Total Bill Value: $@cartOrders.Sum(o => o.TotalPrice)</span>
-            <div class="place-order-container" style="display: flex; align-items: center;float:right">
-                <img src="/images/pay.png" alt="Place Order" class="left-image" style="margin-right: 5px; padding: 0;" />
-                <button class="btn place-order-btn neumorphic form-label" style="width: 100px;" @onclick="OnPlaceOrder">
-                    Place Order
-                </button>
-            </div>
-        </div>
-    </aside>
+                        </div>
+                        <div class="image-and-button-container" style="margin-bottom: 0px!important">
+                            <img src="/images/gdpr.png" alt="Image" class="left-image" />
+                            <button class="action-btn gdpr-checker-btn neumorphic single-btn" style="margin-top: 10px!important;margin-bottom: 10px!important"
+                                    @onclick="ShowGdprPopup">
+                                GDPR Checker
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+                
+                <main class="main-content neumorphic" style="margin-top:5%">
+                    <div class="user-info neumorphic" style="margin-top:0px!important">
+                        <label for="userName">User Name:</label>
+                        <input type="text" id="userName" class="input-control form-label" @bind="userName" placeholder="User name" />
+                    </div>
+
+                    <section class="product-selection neumorphic">
+                        <div>
+                            <div class="place-order-container" style="display: flex; align-items: center;">
+                                <div style="width: 40%; text-align: end;">
+                                    <img src="/images/pharmacy.png" alt="Details Order" class="left-image" style="margin-right: 5px; padding: 0;" />
+                                </div>
+                                <div>
+                                    <h2 class="group-heading" style="font-size: 14px;">
+                                        Order Details
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="product">Product:</label>
+                            <select id="product" class="input-control form-label" @bind="selectedMedicine">
+                                <option value="">Select Product</option>
+                                @foreach (var name in medicineNames)
+                                {
+                                    <option value="@name">@name</option>
+                                }
+                            </select>
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="unitPrice">Unit Price:</label>
+                            <input type="number" id="unitPrice" class="input-control form-label" placeholder="Unit Price" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" class="input-control form-label" placeholder="Quantity" />
+                        </div>
+                        <div style="padding-left: 20%;">
+                            <div class="add-to-cart-container" style="display: flex; align-items: center;">
+                                <img src="/images/add-to-cart.png" alt="Add To Cart" class="left-image" style="margin-right: 5px; padding: 0;" />
+                                <button class="action-btn add-to-cart-btn neumorphic form-label" style="margin-left: 5px;width: 150px;">Add To Cart</button>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+               
+                <aside class="cart neumorphic" style="margin-top:5%">
+                    <div>
+                        <div class="place-order-container" style="display: flex; align-items: center;">
+                            <img src="/images/cartorders.png" alt="Place Order" class="left-image" style="margin-right: 5px; padding: 0;" />
+                            <h3 class="btn place-order-btn neumorphic form-label" style="font-size: 14px!important;">Orders in Cart</h3>
+                        </div>
+                    </div>
+
+                    <table class="cart-table form-label">
+                        <thead>
+                            <tr>
+                                <th>Medicine Name</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Total Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="form-label">
+                            @foreach (var order in cartOrders)
+                            {
+                                <tr>
+                                    <td>@order.ProductName</td>
+                                    <td>@order.Quantity</td>
+                                    <td>$@order.UnitPrice</td>
+                                    <td>$@order.TotalPrice</td>
+                                    <td>
+                                        <button class="btn remove-btn neumorphic form-label"
+                                                @onclick="() => RemoveFromCart(order)">
+                                            Remove
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="cart-footer">
+                        <span class="total-bill form-label">Total Bill Value: $@cartOrders.Sum(o => o.TotalPrice)</span>
+                        <div class="place-order-container" style="display: flex; align-items: center;float:right">
+                            <img src="/images/pay.png" alt="Place Order" class="left-image" style="margin-right: 5px; padding: 0;" />
+                            <button class="btn place-order-btn neumorphic form-label" style="width: 100px;" @onclick="OnPlaceOrder">
+                                Place Order
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+            
+       
+       
+ 
+    
 </div>
 
 @code {

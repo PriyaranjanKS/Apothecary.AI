@@ -7,12 +7,18 @@
 
 <div class="iot-container">
     <div class="iot-simulator">
-        <h1 class="iot-simulator-title">IoT Hub Simulator</h1>
+        <h1 class="iot-simulator-title">
+            <img src="/images/Iot.png" alt="Image" class="iot-simulator-image" />
+            IoT Hub Simulator
+        </h1>
         <!-- Temperature and Humidity Controls -->
         <div class="iot-temp-humidity">
             <!-- Temperature Section -->
             <div class="iot-temperature">
-                <label>Temperature</label>
+                <label>
+                    <img src="/images/temperature.png" alt="Temperature" class="label-image" />
+                    Temperature
+                </label>
                 <input type="number" class="iot-input" placeholder="Current Value" @bind="currentTemperature" />
                 <input type="number" class="iot-input" placeholder="Min Value" @bind="minTemperature" />
                 <input type="number" class="iot-input" placeholder="Max Value" @bind="maxTemperature" />
@@ -24,7 +30,10 @@
 
             <!-- Humidity Section -->
             <div class="iot-humidity">
-                <label>Humidity</label>
+                <label>
+                    <img src="/images/humidity.png" alt="Humidity" class="label-image" />
+                    Humidity
+                </label>
                 <input type="number" class="iot-input" placeholder="Current Value" @bind="currentHumidity" />
                 <input type="number" class="iot-input" placeholder="Min Value" @bind="minHumidity" />
                 <input type="number" class="iot-input" placeholder="Max Value" @bind="maxHumidity" />
@@ -39,7 +48,10 @@
         <div class="iot-admin-progress">
             <!-- Simulator Administration -->
             <div class="iot-sim-admin">
-                <label>Simulator Administration</label>
+                <label>
+                    <img src="/images/admin.png" alt="Simulator Administration" class="label-image" />
+                    Simulator Administration
+                </label>
                 <input type="number" class="iot-input" placeholder="Message Intervals (Sec)" @bind="messageInterval" />
                 <select class="iot-select" @bind="selectedDevice">
                     <option value="Refrigeration01">Refrigeration01</option>
@@ -55,7 +67,10 @@
 
             <!-- Simulation Progress -->
             <div class="iot-sim-progress">
-                <label>Simulation Progress</label>
+                <label>
+                    <img src="/images/progress.png" alt="Simulation Progress" class="label-image" />
+                    Simulation Progress
+                </label>
                 <textarea class="iot-listbox" @bind="simulationMessages"></textarea>
                 <button class="iot-button" @onclick="ClearSimulationData">Clear Simulation Data</button>
                 <label class="iot-sim-progress-label">@simulationProgressLabel</label>
@@ -65,19 +80,22 @@
     <div class="iot-other-controls">
         <div class="IOTResults-container">
             <div class="IOTResults-anomalies">
-                <h2 class="IOTResults-title" style="text-align: center;">Latest Anomaly Detected</h2>
+                <h2 class="IOTResults-title" style="text-align: center;">
+                    <img src="/images/anomaly.png" alt="Anomaly Detected" class="label-image" />
+                    Latest Anomaly Detected
+                </h2>
                 <div class="IOTResults-anomalies-details">
                     <div class="IOTResults-anomalies-data" style="display: flex; justify-content: center; align-items: center;">
                         <!-- Temperature with Image -->
                         <div class="IOTResults-temperature">
-                            <img src="placeholder-image-url" alt="Temperature" class="IOTResults-icon" />
-                            <p><strong>Temperature:</strong> @latestAnomalyTemperature</p>
+                            <img src="/images/temperaturealert.png" alt="Temperature" class="IOTResults-icon" />
+                            <div><strong>Temperature:</strong> @latestAnomalyTemperature</div>
                         </div>
 
                         <!-- Humidity with Image -->
                         <div class="IOTResults-humidity">
-                            <img src="placeholder-image-url" alt="Humidity" class="IOTResults-icon" />
-                            <p><strong>Humidity:</strong> @latestAnomalyHumidity</p>
+                            <img src="/images/humidityalert.png" alt="Humidity" class="IOTResults-icon" />
+                            <div><strong>Humidity:</strong> @latestAnomalyHumidity</div>
                         </div>
                     </div>
 
@@ -90,7 +108,10 @@
 
             <!-- Realtime Telemetry Table -->
             <div class="IOTResults-table-container">
-                <h2 class="IOTResults-title" style="text-align: center;">Realtime Telemetry</h2>
+                <h2 class="IOTResults-title" style="text-align: center;">
+                    <img src="/images/telemetry.png" alt="Realtime Telemetry" class="label-image" />
+                    Realtime Telemetry
+                </h2>
                 <table class="IOTResults-table">
                     <thead>
                         <tr>
@@ -108,7 +129,16 @@
                                 <td>@telemetryEvent.DeviceName</td>
                                 <td>@telemetryEvent.Temperature</td>
                                 <td>@telemetryEvent.Humidity</td>
-                                <td>@telemetryEvent.OpenAIPrediction</td> <!-- Bind your data here -->
+                                <td>
+                                    @if (telemetryEvent.OpenAIPrediction == "Yes")
+                                    {
+                                        <img src="/images/alert.png" alt="Yes" class="label-image" />
+                                    }
+                                    else
+                                    {
+                                        @telemetryEvent.OpenAIPrediction
+                                    }
+                                </td>
                                 <td>@telemetryEvent.OccurenceTime</td>
                             </tr>
                         }

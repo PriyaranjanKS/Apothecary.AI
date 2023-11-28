@@ -1975,9 +1975,9 @@ button {
     flex-direction: column;
     margin: 20px;
     font-family: 'Lato', Tahoma, Geneva, Verdana, sans-serif;
-    width: 40%;
-    Adjust width to take up 50% of the space margin: auto;
-    Center the simulator in the available space
+    width: 50%;
+   /* Adjust width to take up 50% of the space margin: auto;
+    Center the simulator in the available space*/
 }
 
 /*.iot-simulator {
@@ -1992,12 +1992,13 @@ button {
     text-align: center;
     margin-bottom: 20px;
     font-size: 22px;
-    color: #333;
+    color: black;
     background: #e0e5ec;
     padding: 10px 0;
     border-radius: 10px;
     box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
     font-weight: bold;
+    padding-left: 25%;
 }
 
 .iot-other-controls {
@@ -2059,6 +2060,7 @@ button {
     flex-direction: column;
     justify-content: space-between; /* This will ensure the footer elements align at the bottom */
     height: 100%; /* Make sure both elements have the same height */
+    max-width:50%;
 }
 
 .iot-input, .iot-select, .iot-listbox {
@@ -2118,7 +2120,7 @@ button {
 /*IoT Results*/
 .IOTResults-container {
     background: #e0e5ec;
-    padding: 20px;
+    /*padding: 20px;*/
     border-radius: 20px;
     box-shadow: 6px 6px 12px #babecc, -6px -6px 12px #ffffff;
     margin: 20px;
@@ -2142,7 +2144,7 @@ button {
     border-radius: 15px;
     /*box-shadow: inset 4px 4px 8px #babecc, inset -4px -4px 8px #ffffff;*/
     padding: 20px;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
     text-align: center;
 }
 
@@ -2151,7 +2153,7 @@ button {
     border-radius: 15px;
     box-shadow: inset 6px 6px 12px #babecc, inset -6px -6px 12px #ffffff;
     padding: 20px;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
     text-align: center;
 }
 
@@ -2219,8 +2221,8 @@ button {
 }
 
 .IOTResults-icon {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     margin-right: 10px;
     background: #e0e5ec; /* or any other background */
     border-radius: 50%;
@@ -3134,3 +3136,95 @@ button {
     font-weight: bold;
     color: teal;
 }
+/*Iot Simulator*/
+.iot-simulator-title {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: teal;
+}
+
+.iot-simulator-image {
+    width: 40px; /* Adjust the width of the image as needed */
+    height: 40px; /* Adjust the height of the image as needed */
+    margin-right: 10px; /* Adjust the margin to control the spacing between the image and text */
+}
+.label-image {
+    width: 36px; /* Adjust the width of the image as needed */
+    height: 36px; /* Adjust the height of the image as needed */
+    margin-right: 5px; /* Adjust the margin to control the spacing between the image and text */
+}
+.red-gradient-highlight {
+    background: linear-gradient(to right, #ff6161, #ff5050)!important; /* Adjust gradient colors as needed */
+    color: white; /* Text color for better readability */
+}
+/* Common styles for the glassmorphic effect */
+.home-label-image {
+    width: 32px; /* Adjust the icon size as needed */
+    height: 32px;
+    margin-right: 10px; /* Adjust the spacing between icon and text */
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+     
+    color: #fff; /* Text color */
+    text-decoration: none;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+    margin-top: 30px;
+}
+
+    /* Styles for the navigation links on hover */
+    .nav-link:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+    /*Home*/
+
+
+.homebg {
+    /* Background settings */
+    background-image: url('/images/ApothecaryHome.png');
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homeheader {
+    /* Glassmorphic effect */
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 40%;
+}
+
+ 
+
+.enter-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: teal; /* Change as needed */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+    .enter-btn:hover {
+        background-color: #004040;
+    }
