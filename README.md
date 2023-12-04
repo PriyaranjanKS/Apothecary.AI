@@ -53,9 +53,6 @@ Apothecary.AI integrates a myriad of state-of-the-art solutions, each designed t
 - **👁️‍🗨️ Fraud Detection**: Stay vigilant with our advanced fraudulent prescription detection systems.
 
  
-> [!NOTE]  
-> Click inside the image to view the zoomed in version
-
 | 🔮 **Apothecary.AI** |
 |:---:|
 | _Our beacon in steering pharmacies towards intelligence and personalization._ |
@@ -101,6 +98,8 @@ There are mainly 2 personas:
 
 > -  ❄️ **Predictive Maintenance**: Implementation of solutions to predict the downtimes of refrigeration devices, ensuring medicines remain at the correct temperatures.
 
+> [!NOTE]  
+> Click inside the image to view the zoomed in version
  
 ![Apothecary Solution](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/0149ac8f-0b1c-4db8-b727-6051247a97f1)
 
