@@ -62,7 +62,7 @@ Apothecary.AI integrates a myriad of state-of-the-art solutions, each designed t
 
 ## <span style="color:black; font-weight:bold;"> **Technology Stack**</span>
 
-Apothecary.AI is powered by the fusion of Blazor, .NET Core Web API, Power Platform , Azure and Generative AI .
+Apothecary.AI is powered by the fusion of `Blazor`, `.NET Core Web API`, `Power Platform` , `Azure` and Generative AI powered by `Open AI` and `Google PaLM`.
 
  
 ![Tech Stack](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/78cfff39-d562-43ed-8302-6cd5a01ef05c)
@@ -217,5 +217,5 @@ To import the `ApothecaryAI.Zip` solution into Power Platform, follow these step
    - Manually populate these tables with the necessary data. If you don't populate them, the app may appear empty or might not function as expected.
 
 
-You're now ready to use the `ApothecaryAI` solution that combines the Power of Blazor, .NET Core Web API, Power Platform, Azure Open AI and Google PalM !
+You're now ready to use the `ApothecaryAI` solution that combines the Power of `Blazor`, `.NET Core Web API`, `Power Platform`, `Azure Open AI` and `Google PaLM` !
 
