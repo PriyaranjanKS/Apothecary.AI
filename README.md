@@ -105,7 +105,7 @@ There are mainly 2 personas:
 ![Apothecary Solution](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/0149ac8f-0b1c-4db8-b727-6051247a97f1)
 
 
-## <span style="color:black; font-weight:bold;"> **Innovation Implementations**</span>
+## <span style="color:black; font-weight:bold;"> **AI Innovation Implementations**</span>
 
 
 
