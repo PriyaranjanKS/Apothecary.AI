@@ -57,8 +57,7 @@ Apothecary.AI integrates a myriad of state-of-the-art solutions, each designed t
 | 🔮 **Apothecary.AI** |
 |:---:|
 | _Our beacon in steering pharmacies towards intelligence and personalization._ |
-| ![PainPoints_Solution](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/4e593af4-e6d3-4554-9ec0-e825c679e406)
- |
+| ![PainPoints_Solution](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/5da54430-061d-4fd1-956d-4346c7e5f839)|
 
  
 
