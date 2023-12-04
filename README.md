@@ -38,7 +38,7 @@ On the flip side, a new wave of pharmacies is causing a paradigm shift in the in
 
 Apothecary.AI integrates a myriad of state-of-the-art solutions, each designed to elevate and redefine the pharmacy paradigm:
 
--  **💡Better together**: Bringing the best of Azure and Power Platform together with 21 AI and Generative AI implementations.
+-  **💡Better together**: Bringing the best of Azure and Power Platform together with 16 AI and Generative AI implementations.
 -  **🌍 Diversity and Inclusion**: Our platform dynamically adapts to various locales, offering a universally appealing user experience.We have also included Whisper AI to enable voice assisted ordering to assist people who have acccessibility or visual impairment issues and have challenges speaking a specific language.
 -  **🧑‍💼 Smart Customer Onboarding**: With advanced ID recognition, seamlessly integrate new customer details.
 - **🔍 Intuitive Medicine Recognition**: Automate medicine identifications using uploaded images.
@@ -129,6 +129,7 @@ There are mainly 2 personas:
 > - 🤖 **Azure Open AI Powered Chat Bot**: Offer product intelligence using Dataverse data.
 > - 💡 **Azure Open AI for alternate drug suggestions**: Recommend alternatives for selected medicine.
 > - ⚠️ **Azure Open AI for proactive medicine side effect warnings**: Compare against existing patient conditions.
+> - 🖼️ **Azure DALL-E Image generation** : Intelligent visualization of alternate medicines and medicine side effects.
 > - 🔒 **Azure Open AI GDPR compliance check**: Assure compliance in personal information handling.
 > - 📈 **Azure ML demand forecasting**: Leverage historical data for product forecasting.
 > - 📏 **Azure Open AI for medicine quantity identification**: Fulfill Azure ML Forecast demands.
