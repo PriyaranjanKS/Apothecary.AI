@@ -100,10 +100,7 @@ There are mainly 2 personas:
 > -  ❄️ **Predictive Maintenance**: Implementation of solutions to predict the downtimes of refrigeration devices, ensuring medicines remain at the correct temperatures.
 
  
-![Uploading Apothecary Solution.png…]()
-
-
-
+![Apothecary Solution](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/0149ac8f-0b1c-4db8-b727-6051247a97f1)
 
 
 ## <span style="color:black; font-weight:bold;"> **Innovation Implementations**</span>
