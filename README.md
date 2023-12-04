@@ -53,12 +53,11 @@ Apothecary.AI integrates a myriad of state-of-the-art solutions, each designed t
 - **👁️‍🗨️ Fraud Detection**: Stay vigilant with our advanced fraudulent prescription detection systems.
 
  
-
+> [!NOTE]  
+> Click inside the image to view the zoomed in version
 | 🔮 **Apothecary.AI** |
 |:---:|
 | _Our beacon in steering pharmacies towards intelligence and personalization._ |
-> [!NOTE]  
-> Click inside the image to view the zoomed in version
 | ![PainPoints_Solution](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/380646a1-84eb-4a7f-a61d-7a2cff4b272c)|
 
  
