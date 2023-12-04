@@ -13,6 +13,7 @@ using System.Text;
         [HttpGet("getall")]
         public async Task<IActionResult> GetAllMedicines()
     {
+        //Add your Power Automate URL here,below URL is a private URL where you will not have access
         var powerAutomateUrl = "https://1prod-47.westus.logic.azure.com:443/workflows/1f133f4a7ea444a78bd791f00517c07b/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=9EfPtq43yTAZB3cOmyaV1TBGaBOV3lEkeABZAbXKr-U"; // Replace with your actual Power Automate URL
 
         try
@@ -44,6 +45,7 @@ using System.Text;
     [HttpPost("getunitprice")]
     public async Task<IActionResult> GetUnitPrice([FromBody] MedicineRequestUnitPrice request)
     {
+        //Add your Power Automate URL here,below URL is a private URL where you will not have access
         var powerAutomateUrl = "https://1prod-105.westus.logic.azure.com:443/workflows/f1d14728d08747d4951857368f188869/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=pdvaGipJu3WGrOZi1AUki2blKeC930O_togbWz87eJ8"; // Replace with your actual Power Automate URL
 
         try

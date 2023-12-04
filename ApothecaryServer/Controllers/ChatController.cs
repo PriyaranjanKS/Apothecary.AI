@@ -43,6 +43,7 @@ namespace ApothecaryServer.Controllers
         [HttpGet("getallproducts")]
         public string GetAllProducts()
         {
+            //Add your Power Automate URL here,below URL is a private URL where you will not have access
             var powerAutomateUrl = "https://1prod-30.westus.logic.azure.com:443/workflows/088c0841dbe04743994f0a16d880c2b2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4EOMBAVYzpoHQk8N8eYEuDiGiJQYPdQObheBmNeiZyY"; // Replace with your actual Power Automate URL
 
             try

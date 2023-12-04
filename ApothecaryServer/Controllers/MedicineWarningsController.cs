@@ -24,6 +24,7 @@ public class MedicineWarningsController : ControllerBase
     [HttpPost("get-warning")]
     public async Task<IActionResult> GetMedicineWarning([FromBody] MedicineWarningRequest request)
     {
+        //Add your Power Automate URL here,below URL is a private URL where you will not have access
         var powerAutomateUrl = "https://1prod-67.westus.logic.azure.com:443/workflows/af2e8be8d5b44587b21474bade610da1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=moBYZJeqZqC7duGwDzo-nsuo-PLe4iS3Mj4FTnL9K8I";
 
         try

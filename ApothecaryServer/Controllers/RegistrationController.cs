@@ -57,7 +57,7 @@ namespace ApothecaryServer.Controllers
             using var httpClient = new HttpClient();
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            // Power Automate endpoint
+            //Add your Power Automate URL here,below URL is a private URL where you will not have access
             string powerAutomateUrl = "https://1prod-141.westus.logic.azure.com:443/workflows/20a19631190e4c69a459ea468e5bac82/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=k7n54hgE__z8PKEJzsFS75lfYDKhj8thlIxEjdo3yJA";
 
             try
@@ -105,6 +105,7 @@ namespace ApothecaryServer.Controllers
             using var httpClient = new HttpClient();
             var jsonContent = JsonConvert.SerializeObject(imageData);
 
+            //Add your Power Automate URL here,below URL is a private URL where you will not have access
             var response = await httpClient.PostAsync(
                 "https://1prod-51.westus.logic.azure.com:443/workflows/778cd526998a4e33942c61c936429532/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=pzhTvzAeNajFjpTHBiMQhTZ0Nr2OZyKe12go6-q8rs8",
                 new StringContent(jsonContent, Encoding.UTF8, "application/json"));

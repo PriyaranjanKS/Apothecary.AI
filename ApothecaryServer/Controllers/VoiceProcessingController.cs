@@ -12,7 +12,7 @@ public class VoiceProcessingController : ControllerBase
     public async Task<IActionResult> Post([FromBody] AudioDataModel audioDataModel)
     {
         string base64Audio = audioDataModel.AudioData;
-        // Replace with your actual Power Automate flow URL and any necessary headers or parameters
+        //Add your Power Automate URL here,below URL is a private URL where you will not have access
         string powerAutomateUrl = "https://1prod-32.westus.logic.azure.com:443/workflows/1e9e2521746b461da0e26f73903f2b84/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=g4CdOor_S-yUciuLL1P_uaA-ENKZIN5CNkRrf5LG0hM";
         var httpClient = new HttpClient();
 

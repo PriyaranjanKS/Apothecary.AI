@@ -13,7 +13,7 @@ public class ImageProcessingController : ControllerBase
     public async Task<IActionResult> ExtractTextFromImage([FromBody] ImageDataModel model)
     {
         var base64Image = model.Base64Image;
-        // Replace with your Power Automate URL
+        //Add your Power Automate URL here,below URL is a private URL where you will not have access
         var powerAutomateUrl = "https://1prod-68.westus.logic.azure.com:443/workflows/1462ab643dd843b087c8c8bacc0a500f/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=yXSGiauL0Vxl6jkifj3lGCXI43wP_D8lMxR6iOhNFts";
 
         try
