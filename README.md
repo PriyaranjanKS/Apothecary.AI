@@ -55,6 +55,7 @@ Apothecary.AI integrates a myriad of state-of-the-art solutions, each designed t
  
 > [!NOTE]  
 > Click inside the image to view the zoomed in version
+
 | 🔮 **Apothecary.AI** |
 |:---:|
 | _Our beacon in steering pharmacies towards intelligence and personalization._ |
