@@ -20,7 +20,7 @@ public class DispatchOrdersController : ControllerBase
         var jsonPayload = JsonConvert.SerializeObject(new { OrderId = request.OrderId, CustomerName = request.CustomerName });
         var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
-        var response = await httpClient.PostAsync("https://prod-78.westus.logic.azure.com:443/workflows/a9f7d7ea29604d62a3969b8d9552c514/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YR5iYH8a0aG0mMqifX0KadCCHnIlrM41CGKdsRfmYQA", content);
+        var response = await httpClient.PostAsync("https://1prod-78.westus.logic.azure.com:443/workflows/a9f7d7ea29604d62a3969b8d9552c514/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YR5iYH8a0aG0mMqifX0KadCCHnIlrM41CGKdsRfmYQA", content);
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadFromJsonAsync<PowerAutomateResponse>();
@@ -57,7 +57,7 @@ public class DispatchOrdersController : ControllerBase
             {
                 var payload = new { OrderNumber = orderNumber };
                 var requestContent = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync("https://prod-65.westus.logic.azure.com:443/workflows/bb01ffe4ef3c4038a2be139eb8b5624b/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Ttyk4Er2n2q0jigbdO7EhsAHrGruuqDI6a1xTgsxcjo", requestContent);
+                var response = await httpClient.PostAsync("https://1prod-65.westus.logic.azure.com:443/workflows/bb01ffe4ef3c4038a2be139eb8b5624b/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Ttyk4Er2n2q0jigbdO7EhsAHrGruuqDI6a1xTgsxcjo", requestContent);
                 response.EnsureSuccessStatusCode();
                 var responseContent = await response.Content.ReadAsStringAsync();
 
@@ -92,7 +92,7 @@ public class DispatchOrdersController : ControllerBase
             var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
             // Send a POST request to Power Automate
-            var response = await httpClient.PostAsync("https://prod-173.westus.logic.azure.com:443/workflows/d74efa8a764b419699bcd6bc0645e4db/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=0Yr9geIMh0a1oWIkjMEu5yTcrlXJaMLkrlFBlqU0Ci8", content);
+            var response = await httpClient.PostAsync("https://1prod-173.westus.logic.azure.com:443/workflows/d74efa8a764b419699bcd6bc0645e4db/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=0Yr9geIMh0a1oWIkjMEu5yTcrlXJaMLkrlFBlqU0Ci8", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -141,7 +141,7 @@ public class DispatchOrdersController : ControllerBase
                 var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
                 // Send the POST request to Power Automate
-                var response = await httpClient.PostAsync("https://prod-49.westus.logic.azure.com:443/workflows/30d38e068f204a73a84533df44c7c563/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=al3FHNygQrJ6rJFXTqr9PxLDf3BmEhaBlB6MxuYHbMo", content);
+                var response = await httpClient.PostAsync("https://1prod-49.westus.logic.azure.com:443/workflows/30d38e068f204a73a84533df44c7c563/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=al3FHNygQrJ6rJFXTqr9PxLDf3BmEhaBlB6MxuYHbMo", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -176,7 +176,7 @@ public class DispatchOrdersController : ControllerBase
                 var dummyPayload = new { /* Add dummy data here */ };
                 var content = new StringContent(JsonConvert.SerializeObject(dummyPayload), Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync("https://prod-162.westus.logic.azure.com:443/workflows/5bb8d235bbb54db48ea7fb390a201407/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PF9-AbnKtbedeWRb-OyPHdww4x5hSTNt10dLNwo3xqw", content);
+                var response = await httpClient.PostAsync("https://1prod-162.westus.logic.azure.com:443/workflows/5bb8d235bbb54db48ea7fb390a201407/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PF9-AbnKtbedeWRb-OyPHdww4x5hSTNt10dLNwo3xqw", content);
                 response.EnsureSuccessStatusCode();
 
                 var responseContent = await response.Content.ReadAsStringAsync();

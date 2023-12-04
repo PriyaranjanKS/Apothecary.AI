@@ -14,7 +14,7 @@ public class ImageProcessingController : ControllerBase
     {
         var base64Image = model.Base64Image;
         // Replace with your Power Automate URL
-        var powerAutomateUrl = "https://prod-68.westus.logic.azure.com:443/workflows/1462ab643dd843b087c8c8bacc0a500f/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=yXSGiauL0Vxl6jkifj3lGCXI43wP_D8lMxR6iOhNFts";
+        var powerAutomateUrl = "https://1prod-68.westus.logic.azure.com:443/workflows/1462ab643dd843b087c8c8bacc0a500f/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=yXSGiauL0Vxl6jkifj3lGCXI43wP_D8lMxR6iOhNFts";
 
         try
         {

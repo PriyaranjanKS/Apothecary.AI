@@ -69,7 +69,7 @@ public class IoTController : ControllerBase
             var jsonData = JsonConvert.SerializeObject(escalationData);
 
             // Define the Power Automate URL
-            var powerAutomateUrl = "https://prod-23.westus.logic.azure.com:443/workflows/fe44874f2f8e4f7d9a63e3342a0e8a2c/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=poRYegX-HFRO_QjD7J-UVUnANZK75yLmx8YfttpKFao";
+            var powerAutomateUrl = "https://1prod-23.westus.logic.azure.com:443/workflows/fe44874f2f8e4f7d9a63e3342a0e8a2c/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=poRYegX-HFRO_QjD7J-UVUnANZK75yLmx8YfttpKFao";
 
             // Create an HTTP request to send the data to Power Automate
             using (var httpClient = new HttpClient())
@@ -110,7 +110,7 @@ public class IoTController : ControllerBase
             var dummyPayload = new { /* Add dummy data here */ };
             var content = new StringContent(JsonConvert.SerializeObject(dummyPayload), Encoding.UTF8, "application/json");
 
-            var response = await httpClient.PostAsync("https://prod-97.westus.logic.azure.com:443/workflows/551fd3ca60c6430483b8a3b1bc424bc1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=BsIDp8Y2RuNZXaxD_s1ir4WJhN2ax3tRgyYbibQSup0", content);
+            var response = await httpClient.PostAsync("https://1prod-97.westus.logic.azure.com:443/workflows/551fd3ca60c6430483b8a3b1bc424bc1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=BsIDp8Y2RuNZXaxD_s1ir4WJhN2ax3tRgyYbibQSup0", content);
             response.EnsureSuccessStatusCode();
                     
 

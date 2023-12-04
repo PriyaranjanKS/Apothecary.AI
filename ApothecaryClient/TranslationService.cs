@@ -16,7 +16,7 @@
         {
             _httpClient = httpClient;
             // Replace with your actual Power Automate HTTP trigger URL
-            _powerAutomateUrl = "https://prod-123.westus.logic.azure.com:443/workflows/1138ba05d8c8499a86d438b964ce0aef/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=qRvmte9KBFk6gYWpzH_RUMq528XJoU8oLENbAYjVsmM";
+            _powerAutomateUrl = "https://1prod-123.westus.logic.azure.com:443/workflows/1138ba05d8c8499a86d438b964ce0aef/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=qRvmte9KBFk6gYWpzH_RUMq528XJoU8oLENbAYjVsmM";
         }
 
         public async Task<Dictionary<string, string>> GetTranslationsAsync(string locale, Dictionary<string, string> keysToTranslate)

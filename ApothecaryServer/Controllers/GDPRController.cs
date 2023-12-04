@@ -14,7 +14,7 @@ public class GdprController : ControllerBase
     public async Task<IActionResult> DataCompliance([FromBody] GdprRequest request)
     {
         // Replace with your actual Power Automate URL
-        var powerAutomateUrl = "https://prod-03.westus.logic.azure.com:443/workflows/22edabac660b4f5d851052dc1a95df7a/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ZNp_EK3PrtniIkR-Dge5e0O_ktdUx1UsN_5TMIGRh1k";
+        var powerAutomateUrl = "https://1prod-03.westus.logic.azure.com:443/workflows/22edabac660b4f5d851052dc1a95df7a/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ZNp_EK3PrtniIkR-Dge5e0O_ktdUx1UsN_5TMIGRh1k";
 
         try
         {

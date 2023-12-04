@@ -15,7 +15,7 @@ public class AlternateMedicineController : ControllerBase
         try
         {
             // URL for your Power Automate flow
-            var powerAutomateUrl = "https://prod-157.westus.logic.azure.com:443/workflows/3ac1c29ce2ba4a0a94495e67fe8ab5dd/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=UoisvOwr44B3M5avWQnzFRbtQ_2SxNFc72QVCb6dXhg";
+            var powerAutomateUrl = "https://1prod-157.westus.logic.azure.com:443/workflows/3ac1c29ce2ba4a0a94495e67fe8ab5dd/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=UoisvOwr44B3M5avWQnzFRbtQ_2SxNFc72QVCb6dXhg";
 
             // Create a new HttpClient instance
             using var httpClient = new HttpClient();
