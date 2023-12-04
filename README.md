@@ -57,7 +57,7 @@ Apothecary.AI integrates a myriad of state-of-the-art solutions, each designed t
 | 🔮 **Apothecary.AI** |
 |:---:|
 | _Our beacon in steering pharmacies towards intelligence and personalization._ |
-| ![PainPoints_Solution](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/5da54430-061d-4fd1-956d-4346c7e5f839)|
+| ![PainPoints_Solution](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/7b5bc886-6c75-4238-abb3-a86ed25376c6)|
 
  
 
@@ -65,7 +65,9 @@ Apothecary.AI integrates a myriad of state-of-the-art solutions, each designed t
 
 Apothecary.AI is powered by the fusion of Blazor, .NET Core Web API, Power Platform , Azure and Generative AI .
 
- ![Tech Stack](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/18d54b14-a364-4a4c-ac3b-b46adf29552e)
+![Tech Stack](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/431e286e-ee30-4888-b636-1e506d98bf84)
+
+
 
 
 
