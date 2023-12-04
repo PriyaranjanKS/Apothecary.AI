@@ -113,7 +113,6 @@ public class IoTController : ControllerBase
             var response = await httpClient.PostAsync("https://1prod-97.westus.logic.azure.com:443/workflows/551fd3ca60c6430483b8a3b1bc424bc1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=BsIDp8Y2RuNZXaxD_s1ir4WJhN2ax3tRgyYbibQSup0", content);
             response.EnsureSuccessStatusCode();
                     
-
             if (response.IsSuccessStatusCode)
             {
                 // Parse the response JSON
