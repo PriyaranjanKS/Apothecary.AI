@@ -138,7 +138,7 @@ There are mainly 2 personas:
 > - 👁️‍🗨️ **Google PaLM AI fraudulent prescription checks**: Detect suspicious volume patterns over time.
 > - ❄️ **Azure Open AI and IoT hub**: Predict downtimes of refrigeration devices.
 
- > [!TIP]
+ > [!NOTE]
 > There are 16 AI and Generative AI implementations in the Apothecary.AI Solution
 
 ![Features](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/838ab5e7-1e01-4061-b1fb-9982f3d0838d)
@@ -147,9 +147,13 @@ There are mainly 2 personas:
 
 ##  Demonstration Video:
 
-#### If you encounter any issues rendering the YouTube video, a downloadable version is available [here](https://1drv.ms/v/s!AvGn4tBGzPxi5g_3noypWRmzIvjB?e=qHsrMa).
+#### If you encounter any issues rendering the YouTube video, a downloadable version is available [here](https://office365journey-my.sharepoint.com/:v:/g/personal/hack_office365journey_onmicrosoft_com/EfbZZozsBlRGsD94b_BVqhAB2ESHZ4UORx_3VYowPxZSGA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0RpcmVjdCJ9fQ&e=mHlcOb).
 
-[![Apothecary.AI Demonstration](http://img.youtube.com/vi/RiXLThVzJVE/0.jpg)](https://www.youtube.com/watch?v=RiXLThVzJVE "Click to Watch!")
+> [!NOTE]  
+> Click inside the below thumbnail to play the demo video
+
+[![ApothecaryHome](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/1c5eefe1-8e47-4d48-a8bc-cad14a59d539)
+](https://youtu.be/B8uQB_R4exs)
 
 
 
