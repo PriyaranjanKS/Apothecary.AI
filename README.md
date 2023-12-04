@@ -57,6 +57,8 @@ Apothecary.AI integrates a myriad of state-of-the-art solutions, each designed t
 | 🔮 **Apothecary.AI** |
 |:---:|
 | _Our beacon in steering pharmacies towards intelligence and personalization._ |
+> [!NOTE]  
+> Click inside the image to view the zoomed in version
 | ![PainPoints_Solution](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/380646a1-84eb-4a7f-a61d-7a2cff4b272c)|
 
  
@@ -135,7 +137,8 @@ There are mainly 2 personas:
 > - 👁️‍🗨️ **Azure Open AI fraudulent prescription checks**: Detect suspicious volume patterns over time.
 > - ❄️ **Azure Open AI and IoT hub**: Predict downtimes of refrigeration devices.
 
-
+> [!NOTE]  
+> Click inside the image to view the zoomed in version
 ![image](https://github.com/PriyaranjanKS/Power-Platform-Global-AI-Hack-2023/assets/29351010/5aaaa1da-1ace-4a47-ac7c-9055be445b19)
 
 
