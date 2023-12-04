@@ -162,11 +162,22 @@ There are mainly 2 personas:
 
 > **THIS SOLUTION IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
 
+# Minimum Path to Awesomeness 
+The below steps will enable you to get the Apothecary.AI up and running in your machine. 
 
-## Importing the ApothecaryAI Power Platform Solution
+## Apothecary.AI .NET Soultion 
+The .NET Solution consists of Server and Client Projects along with a Shared Class Library Project
+1. **Download the Solution**:
+   - Download the Github repository as a Zip file and locate the ApothecarySolution.sln
+   - Run the solution and ensure to set both ApothecaryClient and ApothecaryServer in the Multiple start up projects section
+   - Apothecary Client will run in the ports 7242 and 5194
+   - Apothecary Server will run in the ports 7092 and 5002
+   - View the demo video shared in the above section to understand how to play around with the functionalities and test them
+     
+## Apothecary.AI Power Platform Solution Component
+The Workflows that supports API management and Database are present within the Power Platform Solution component which you will have to upload to Power Platform. 
 
 To import the `ApothecaryAI.Zip` solution into Power Platform, follow these steps:
-
 1. **Download the Solution**:
    - Navigate to the GitHub repository.
    - Look for the `ApothecaryAI.Zip` file in the repository's file list.
@@ -204,5 +215,5 @@ To import the `ApothecaryAI.Zip` solution into Power Platform, follow these step
    - Manually populate these tables with the necessary data. If you don't populate them, the app may appear empty or might not function as expected.
 
 
-You're now ready to use the `ApothecaryAI` solution !
+You're now ready to use the `ApothecaryAI` solution that combines the Power of Blazor, .NET Core Web API, Power Platform, Azure Open AI and Google PalM !
 
