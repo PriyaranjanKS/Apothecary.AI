@@ -282,16 +282,18 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="unitPrice">Unit Price:</label>
-                            <input type="number" id="unitPrice" class="input-control form-label" placeholder="Unit Price" />
+                <input type="number" id="unitPrice" class="input-control form-label" @bind="unitPrice" placeholder="Unit Price" />
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="quantity">Quantity:</label>
-                            <input type="number" id="quantity" class="input-control form-label" placeholder="Quantity" />
+                <input type="number" id="quantity" class="input-control form-label" @bind="quantity" placeholder="Quantity" />
                         </div>
                         <div style="padding-left: 20%;">
                             <div class="add-to-cart-container" style="display: flex; align-items: center;">
                                 <img src="/images/add-to-cart.png" alt="Add To Cart" class="left-image" style="margin-right: 5px; padding: 0;" />
-                                <button class="action-btn add-to-cart-btn neumorphic form-label" style="margin-left: 5px;width: 150px;">Add To Cart</button>
+                                 <button class="action-btn add-to-cart-btn neumorphic form-label" style="margin-left: 5px;width: 150px;" @onclick="AddToCart">Add To Cart</button>
+
+                                
                             </div>
                         </div>
                     </section>
@@ -355,7 +357,7 @@
     private bool isUploadModalVisible = false;
     private ElementReference inputFileElement;
     private List<string> medicineNames = new List<string>();
-    private string selectedMedicine;
+   // private string selectedMedicine;
     private bool isMedicineImageProcessing = false;
     private string imageDataUrl;
     private DotNetObjectReference<OrderPlacement> componentReference;
@@ -384,6 +386,81 @@
     private string DalleImageURL = "/images/apothecary.png";
     private string MedicineWarningImageURL = "/images/apothecary.png";
     private bool isChatbotVisible = false;
+
+    private decimal unitPrice;
+    private int quantity;
+
+    private string _selectedMedicine;
+    private string selectedMedicine
+    {
+        get => _selectedMedicine;
+        set
+        {
+            if (_selectedMedicine != value)
+            {
+                _selectedMedicine = value;
+                FetchUnitPriceForMedicine(_selectedMedicine).ConfigureAwait(false);
+            }
+        }
+    }
+
+    private async Task FetchUnitPriceForMedicine(string medicineName)
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/medicines/getunitprice", new { MedicineName = medicineName });
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var responseData = JsonConvert.DeserializeObject<Dictionary<string, decimal>>(jsonResponse);
+                unitPrice = responseData["UnitPrice"];
+            }
+            else
+            {
+                // Handle the case where the API call is not successful
+                unitPrice = 0;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions
+            Console.WriteLine($"Error fetching unit price: {ex.Message}");
+            unitPrice = 0;
+        }
+        finally
+        {
+            StateHasChanged(); // Refresh UI with the updated unit price
+        }
+    }
+    private void AddToCart()
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(selectedMedicine) || quantity <= 0 || unitPrice <= 0)
+        {
+            // Handle invalid inputs, such as displaying an error message
+            return;
+        }
+
+        var totalPrice = unitPrice * quantity; // Calculate total price
+
+        var order = new MedicineOrder
+            {
+                ProductName = selectedMedicine,
+                Quantity = quantity,
+                TotalPrice = totalPrice
+            };
+
+        cartOrders.Add(order);
+        StateHasChanged(); 
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine("An error occurred: " + ex.Message);
+        }
+        
+    }
 
     private void ShowProductChatbot()
     {
@@ -816,9 +893,9 @@
                 }
                 else
                 {
-                    // Show a loading indicator here if you like
+                    // Show a loading indicator  
                     var requestData = new { base64Image = base64File };
-                    // var response = await Http.PostAsJsonAsync("api/imageprocessing/extracttext", new { ImageData = base64File });
+                    
                     var response = await Http.PostAsJsonAsync("api/imageprocessing/extracttext", requestData);
                     if (response.IsSuccessStatusCode)
                     {
@@ -891,12 +968,7 @@
         // Here we navigate to the PaymentProcess page with the order details
         var serializedCartOrders = JsonConvert.SerializeObject(cartOrders);
         NavigationManager.NavigateTo($"/payment-process/{serializedCartOrders}");
-    }
-    // private void AddToCart(MedicineOrder order)
-    // {
-    //     // Implement logic to add the medicine order to the cart
-    //     // ...
-    // }
+    } 
 
     private void HideUploadImageModal()
     {
