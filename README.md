@@ -133,11 +133,10 @@ There are mainly 2 personas:
 > - 📏 **Azure Open AI for medicine quantity identification**: Fulfill Azure ML Forecast demands.
 > - 🚚 **Azure Open AI for auto scheduling**: Allocate orders to the least loaded dispatch stations.
 > - 📦 **Azure Open AI order fulfillment check**: Provide summaries of any shortages.
-> - 👁️‍🗨️ **Azure Open AI fraudulent prescription checks**: Detect suspicious volume patterns over time.
+> - 👁️‍🗨️ **Google PaLM AI fraudulent prescription checks**: Detect suspicious volume patterns over time.
 > - ❄️ **Azure Open AI and IoT hub**: Predict downtimes of refrigeration devices.
 
-> [!NOTE]  
-> Click inside the image to view the zoomed in version
+ 
 ![image](https://github.com/PriyaranjanKS/Power-Platform-Global-AI-Hack-2023/assets/29351010/5aaaa1da-1ace-4a47-ac7c-9055be445b19)
 
 
