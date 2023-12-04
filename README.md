@@ -136,7 +136,9 @@ There are mainly 2 personas:
 > - 👁️‍🗨️ **Google PaLM AI fraudulent prescription checks**: Detect suspicious volume patterns over time.
 > - ❄️ **Azure Open AI and IoT hub**: Predict downtimes of refrigeration devices.
 
- 
+ > [!TIP]
+> There are 16 AI and Generative AI implementations in the Apothecary.AI Solution
+
 ![Features](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/838ab5e7-1e01-4061-b1fb-9982f3d0838d)
 
 
@@ -163,15 +165,15 @@ There are mainly 2 personas:
 > **THIS SOLUTION IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
 
 # Minimum Path to Awesomeness 
-The below steps will enable you to get the Apothecary.AI up and running in your machine. 
+The below steps will enable you to get the Apothecary.AI solution up and running in your machine. 
 
-## Apothecary.AI .NET Soultion 
+## Apothecary.AI .NET Solution 
 The .NET Solution consists of Server and Client Projects along with a Shared Class Library Project
 1. **Download the Solution**:
-   - Download the Github repository as a Zip file and locate the ApothecarySolution.sln
-   - Run the solution and ensure to set both ApothecaryClient and ApothecaryServer in the Multiple start up projects section
-   - Apothecary Client will run in the ports 7242 and 5194
-   - Apothecary Server will run in the ports 7092 and 5002
+   - Download the Github repository as a Zip file and locate the `ApothecarySolution.sln`
+   - Run the solution and ensure to set both `ApothecaryClient` and `ApothecaryServer` in the Multiple start up projects section
+   - Apothecary Client will run in the ports `7242` and `5194`
+   - Apothecary Server will run in the ports `7092` and `5002`
    - View the demo video shared in the above section to understand how to play around with the functionalities and test them
      
 ## Apothecary.AI Power Platform Solution Component
