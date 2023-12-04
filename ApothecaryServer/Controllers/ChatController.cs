@@ -18,7 +18,7 @@ namespace ApothecaryServer.Controllers
     public class ChatController : Controller
     {
         string endpoint = "https://openaihackthon.openai.azure.com/";
-        string openAIkey = "b98b579efd7e41518645fb27f7650671";
+        string openAIkey = "b98b579efd7e41518645fb2711f7650671";// Use your own Open AI Key here
         string openAImodel = "DeenuGPT";
 
         static string productdvcall;
