@@ -182,6 +182,14 @@ window.interop = {
         if (orderPlacementSection) {
             orderPlacementSection.scrollIntoView({ behavior: 'smooth' });
         }
+    },
+    applyCustomStyles: function () {
+        // Select elements with the 'px-4' class and remove left and right padding
+        var px4Elements = document.querySelectorAll('.px-4');
+        for (var i = 0; i < px4Elements.length; i++) {
+            px4Elements[i].style.paddingLeft = '0';
+            px4Elements[i].style.paddingRight = '0';
+        }
     }
 
 

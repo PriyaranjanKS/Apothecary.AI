@@ -3228,3 +3228,8 @@ button {
     .enter-btn:hover {
         background-color: #004040;
     }
+
+.px-4 {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}

@@ -5,6 +5,7 @@
 @using ApothecaryShared
 @using Newtonsoft.Json
 @inject HttpClient HttpClient
+@inject IJSRuntime JSRuntime
 
 @if (isPageLoading || translations == null || translations.Count == 0)
 {
@@ -81,8 +82,8 @@
             <div class="form-row">
                 <div class="form-column customer-details-container">
                     <div class="registration-sub-heading-container" style="margin-left: 30%;">
-                        <img src="/images/UserDetails.png" alt="Image" class="registration-left-image" />
-                        <h3 class="registration-sub-heading">@GetTranslation("CustomerDetailsHeading")</h3>
+                        
+                        <h3 style="padding-top: 5px;padding-bottom: 5px;margin-top: 10px;" class="login-neumorphic registration-sub-heading"><img src="/images/UserDetails.png" alt="Image" class="registration-left-image" />@GetTranslation("CustomerDetailsHeading")</h3>
                     </div>
                     <div class="form-group">
                         <label for="name">@GetTranslation("NameLabel")</label>
@@ -118,8 +119,8 @@
                 <div class="form-column">
                     <div class="contact-details-container">
                         <div class="registration-sub-heading-container" style="margin-left: 30%;">
-                            <img src="/images/UserEmail.png" alt="Image" class="registration-left-image" />
-                            <h3 class="registration-sub-heading">@GetTranslation("ContactDetailsHeading")</h3>
+                          
+                            <h3 style="padding-top: 5px;padding-bottom: 5px;margin-top: 10px;" class="login-neumorphic registration-sub-heading">  <img src="/images/UserEmail.png" alt="Image" class="registration-left-image" />@GetTranslation("ContactDetailsHeading")</h3>
                         </div>
                         <div class="form-group">
                             <label for="email">@GetTranslation("EmailLabel")</label>
@@ -133,12 +134,14 @@
 
                     <div class="additional-details-container">
                         <div class="registration-sub-heading-container" style="margin-left: 30%;">
-                            <img src="/images/UserHealth.png" alt="Image" class="registration-left-image" />
-                            <h3 class="registration-sub-heading">@GetTranslation("OtherDetailsHeading")</h3>
+                            
+                            <h3 style="padding-top: 5px;padding-bottom: 5px;margin-top: 10px;" class=" login-neumorphic registration-sub-heading">
+                                <img src="/images/UserHealth.png" alt="Image" class="registration-left-image" /> @GetTranslation("OtherDetailsHeading")
+                            </h3>
                         </div>
                         <div class="form-group">
                             <label for="additionalInfo">@GetTranslation("AdditionalDetailsLabel")</label>
-                            <InputTextArea id="additionalInfo" @bind-Value="registrationModel.AdditionalDetails" class="form-control" rows="4" />
+                            <InputTextArea style="max-height: 80px;" id="additionalInfo" @bind-Value="registrationModel.AdditionalDetails" class="form-control" rows="4" />
                         </div>
                         <div class="form-group">
                             <label for="conditions">@GetTranslation("PreExistingConditionsLabel")</label>
@@ -203,6 +206,14 @@
         StateHasChanged(); // Notify Blazor to re-render the page
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Call the JavaScript function after the component has rendered
+            await JSRuntime.InvokeVoidAsync("interop.applyCustomStyles");
+        }
+    }
     protected override async Task OnInitializedAsync()
     {
         Console.WriteLine("Initialization started.");
@@ -352,69 +363,6 @@
       
         return $"[Missing translation for '{key}']"; // Fallback text
     }
-        /*
-     private async Task HandleFileUpload(InputFileChangeEventArgs e)
-    {
-    isProcessing = true; // Show the overlay
-    var imageFile = e.File;
-    if (imageFile != null)
-        {
-        // Read the file into a buffer
-        var buffer = new byte[imageFile.Size];
-        await imageFile.OpenReadStream().ReadAsync(buffer);
-
-        // Convert the buffer to a base64 string and assign it to imageUrl
-        // for displaying the image on the page
-        imageUrl = $"data:{imageFile.ContentType};base64,{Convert.ToBase64String(buffer)}";
-
-        // Prepare the file data for sending to the server
-        var fileData = new
-            {
-            FileName = imageFile.Name,
-            ContentType = imageFile.ContentType,
-            Content = Convert.ToBase64String(buffer)
-        };
-
-        // Serialize the file data to JSON
-        var jsonContent = JsonConvert.SerializeObject(fileData);
-
-        // Send the JSON content to the API
-        var response = await HttpClient.PostAsync(
-            "api/registration/uploadImage",
-            new StringContent(jsonContent, Encoding.UTF8, "application/json"));
-
-        // Handle the response
-        if (response.IsSuccessStatusCode)
-            {
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var extractedData = JsonConvert.DeserializeObject<RegistrationModel>(responseContent);
-
-            // Update registrationModel with the extracted data
-            registrationModel.Name = extractedData.Name;
-            try
-                {
-                // Directly converting string to DateTime
-                registrationModel.DateOfBirth = Convert.ToDateTime(extractedData.DateOfBirth);
-            }
-            catch
-                {
-                // If conversion fails, set DateOfBirth to null
-                registrationModel.DateOfBirth = null;
-            }
-            registrationModel.Gender = extractedData.Gender;
-            registrationModel.Address = extractedData.Address;
-            registrationModel.State = extractedData.State;
-            registrationModel.Country = extractedData.Country;
-            isProcessing = false; // Hide the overlay
-            message = "ID Card Image uploaded and content extracted";
-        }
-        else
-            {
-            message = "ID Card Image upload and content extraction failed";
-            }
-        }
-    }
-
-    */
+      
 
 }

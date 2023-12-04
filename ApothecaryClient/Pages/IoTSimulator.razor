@@ -19,12 +19,20 @@
                     <img src="/images/temperature.png" alt="Temperature" class="label-image" />
                     Temperature
                 </label>
+                <label style="margin-top: 10px;">Current Value</label>
                 <input type="number" class="iot-input" placeholder="Current Value" @bind="currentTemperature" />
+
+                <label>Min Value</label>
                 <input type="number" class="iot-input" placeholder="Min Value" @bind="minTemperature" />
+
+                <label>Max Value</label>
                 <input type="number" class="iot-input" placeholder="Max Value" @bind="maxTemperature" />
+
                 <label class="iot-checkbox">
                     <input type="checkbox" @bind="incrementTemperature" /> Increment Value?
                 </label>
+
+               
                 <input type="number" class="iot-input" placeholder="Increment Value" @bind="incrementTemperatureValue" />
             </div>
 
@@ -34,15 +42,23 @@
                     <img src="/images/humidity.png" alt="Humidity" class="label-image" />
                     Humidity
                 </label>
+                <label style="margin-top: 10px;">Current Value</label>
                 <input type="number" class="iot-input" placeholder="Current Value" @bind="currentHumidity" />
+
+                <label>Min Value</label>
                 <input type="number" class="iot-input" placeholder="Min Value" @bind="minHumidity" />
+
+                <label>Max Value</label>
                 <input type="number" class="iot-input" placeholder="Max Value" @bind="maxHumidity" />
+
                 <label class="iot-checkbox">
                     <input type="checkbox" @bind="incrementHumidity" /> Increment Value?
                 </label>
+                 
                 <input type="number" class="iot-input" placeholder="Increment Value" @bind="incrementHumidityValue" />
             </div>
         </div>
+
 
         <!-- Simulator Administration and Progress -->
         <div class="iot-admin-progress">
@@ -52,8 +68,10 @@
                     <img src="/images/admin.png" alt="Simulator Administration" class="label-image" />
                     Simulator Administration
                 </label>
-                <input type="number" class="iot-input" placeholder="Message Intervals (Sec)" @bind="messageInterval" />
-                <select class="iot-select" @bind="selectedDevice">
+                <label>Simulation Interval(Seconds)</label>
+                <input type="number" class="iot-input" placeholder="Message Intervals (Sec)" @bind="messageInterval" style="margin: 0px;" />
+                <label>Simulation Device</label>
+                <select class="iot-select" @bind="selectedDevice" style="margin: 0px;">
                     <option value="Refrigeration01">Refrigeration01</option>
                     <option value="Refrigeration02">Refrigeration02</option>
                     <option value="Refrigeration03">Refrigeration03</option>

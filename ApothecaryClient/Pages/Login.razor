@@ -1,4 +1,6 @@
 ﻿@page "/login"
+@inject IJSRuntime JSRuntime
+ 
 
 <div class="landing-page">
     <div class="image-section">
@@ -13,8 +15,8 @@
                 The Hyper Intelligent Smart Pharmacy
             </div>
             <input type="text" class="form-control" placeholder="Username">
-            <input type="password" class="form-control" placeholder="Password">
-            <button class="login-button">Login</button>
+            <input type="password" style="margin-top: 10px;" class="form-control" placeholder="Password">
+            <button class="login-button" style="margin-top:30px">Login</button>
             <div class="remember-me">
                 <div class="remember-checkbox">
                     <input type="checkbox">
@@ -28,3 +30,14 @@
         </div>
     </div>
 </div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Call the JavaScript function after the component has rendered
+            await JSRuntime.InvokeVoidAsync("interop.applyCustomStyles");
+        }
+    }
+}

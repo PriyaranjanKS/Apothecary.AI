@@ -64,14 +64,14 @@
                     <div class="dispatchtable-order-row">
                         <div class="dispatchtable-order-actions">
                             <div class="dispatchtable-action-buttons-container">
-                                <button class="dispatchtable-readiness-check dispatch-demand-forecast" @onclick="() => CheckReadiness(order.OrderNumber)" style="padding: 0px;min-width:170px; padding-top: 10px;  padding-bottom: 10px;">
-                                    <img src="/images/checkmedicine.png" alt="Readiness Check" class="button-image dispatch-style-left-image" style="padding: 0px;" />
-                                    Readiness Check
-                                </button>
                                 <button class="dispatchtable-fraud-check-button dispatch-demand-forecast" @onclick="() => CheckFraud(order.OrderNumber)" style="min-width:150px;padding: 0px;; padding-top: 10px;  padding-bottom: 10px;">
                                     <img src="/images/fraud.png" alt="Fraud Check" class="button-image dispatch-style-left-image" style="padding: 0px;" />
                                     Fraud Check
                                 </button>
+                                <button class="dispatchtable-readiness-check dispatch-demand-forecast" @onclick="() => CheckReadiness(order.OrderNumber)" style="padding: 0px;min-width:170px; padding-top: 10px;  padding-bottom: 10px;">
+                                    <img src="/images/checkmedicine.png" alt="Readiness Check" class="button-image dispatch-style-left-image" style="padding: 0px;" />
+                                    Readiness Check
+                                </button>                          
                                
                             </div>
                         </div>

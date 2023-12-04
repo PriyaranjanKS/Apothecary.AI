@@ -51,7 +51,7 @@
             </div>
             <div class="alternate-popup-right">
                 <!-- Right section for the current UI elements -->
-                <h2 class="alternate-popup-header">Alternate Medicine Suggestion</h2>
+                <h2 class="alternate-popup-header" style="padding-left: 150px;}">Alternate Medicine Suggestion</h2>
                 @if (isFetchingAlternateSuggestion)
                 {
                     <div class="alternate-fetching-container">
@@ -127,7 +127,7 @@
 }
 @if (isChatbotVisible)
 {
-    <div class="product-chatbot">
+    <div class="product-chatbot" style="margin-top:30px">
         <ProductChatbot />
         <img src="/images/CloseBot.png" @onclick="CloseChatbot" alt="Close Bot" class="neumorphic-image close-chatbot-btn" />  
     </div>
@@ -146,6 +146,20 @@
                         <h3 style="font-size: 14px!important;" class="group-heading">Smart Order Placement</h3>
                     </div>
                     <div class="button-group-neumorphic">
+            <div class="image-and-button-container" style="margin-bottom:0px;">
+                <img src="/images/medicine.png" alt="Image" class="left-image" />
+                <button class="action-btn upload-btn neumorphic single-btn"
+                        @onclick="() => ShowUploadImageModal(false)">
+                    Upload Image
+                </button>
+            </div>
+            <div class="image-and-button-container" style="margin-bottom:0px;">
+                <img src="/images/prescription.png" alt="Image" class="left-image" />
+                <button class="action-btn upload-prescription-btn neumorphic single-btn"
+                        @onclick="() => ShowUploadImageModal(true)">
+                    Upload Prescription
+                </button>
+            </div>
                         <div class="image-and-button-container" style="margin-bottom:0px;">
                             <img src="/images/microphone.png" alt="Image" class="left-image" />
                             <button class="action-btn voice-order-btn neumorphic single-btn" @onclick="OpenVoiceOrderModal">Voice Assisted Ordering</button>
@@ -193,7 +207,7 @@
 
                                         @if (showPlaceOrderButton)
                                         {
-                                            <button class="btn place-order-btn neumorphic form-label" style="background: lightgreen; color: white;" @onclick="OnAddToCart">
+                                            <button class="btn place-order-btn neumorphic form-label" style="background: lightgreen; color: white;margin-top: 20px; max-width: 150px;  padding-left: 30px;" @onclick="OnAddToCart">
                                                 <div class="image-and-text-container">
                                                     <!-- Image for Add to Cart -->
                                                     <img src="/images/addtocart.png" alt="Add to Cart" class="voice-left-image" />
@@ -207,21 +221,8 @@
                             </div>
                         }
 
-
-                        <div class="image-and-button-container" style="margin-bottom:0px;">
-                            <img src="/images/prescription.png" alt="Image" class="left-image" />
-                            <button class="action-btn upload-prescription-btn neumorphic single-btn"
-                                    @onclick="() => ShowUploadImageModal(true)">
-                                Upload Prescription
-                            </button>
-                        </div>
-                        <div class="image-and-button-container" style="margin-bottom:0px;">
-                            <img src="/images/medicine.png" alt="Image" class="left-image" />
-                            <button class="action-btn upload-btn neumorphic single-btn"
-                                    @onclick="() => ShowUploadImageModal(false)">
-                                Upload Image
-                            </button>
-                        </div>
+                          
+                      
                     </div>
                     <h3 class="group-heading" style="font-size:14px">Personalization</h3>
                     <div class="button-group-neumorphic" style="margin-bottom: 0px!important">

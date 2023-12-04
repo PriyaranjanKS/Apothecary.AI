@@ -19,58 +19,65 @@ namespace ApothecaryServer.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] RegistrationModel registrationModel)
+        public async Task<IActionResult> Post([FromBody] RegistrationModel registrationModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            
-            // TODO: Add logic to process registration data
-            // This might involve saving data to a database, calling external APIs, etc.
 
             try
             {
-                // Perform registration logic here
-
+                // Serialize the registration model to JSON
                 string json = JsonConvert.SerializeObject(registrationModel);
-                // If successful, return a success response
-                // If an error occurs, throw an exception or return an error response
-                // For simplicity, we assume registration is successful here
-                return Ok(new { message = "Registration successful" });
+
+                // Send the JSON to Power Automate
+                var response = await SendDataToPowerAutomate(json);
+
+                // Check response and return accordingly
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return Ok(new { message = "Registration successful", details = responseContent });
+                }
+                else
+                {
+                    return StatusCode((int)response.StatusCode, new { message = "Registration failed" });
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error during registration");
-                // Handle the error and return an appropriate error response
                 return StatusCode(500, new { message = "Registration failed" });
             }
         }
 
+        private async Task<HttpResponseMessage> SendDataToPowerAutomate(string jsonData)
+        {
+            using var httpClient = new HttpClient();
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
+            // Power Automate endpoint
+            string powerAutomateUrl = "https://prod-141.westus.logic.azure.com:443/workflows/20a19631190e4c69a459ea468e5bac82/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=k7n54hgE__z8PKEJzsFS75lfYDKhj8thlIxEjdo3yJA";
 
-        /*public async Task<IActionResult> UploadImage([FromForm] IFormFile file)
-         {
-             if (file == null || file.Length == 0)
-             {
-                 return BadRequest("No file uploaded");
-             }
+            try
+            {
+                return await httpClient.PostAsync(powerAutomateUrl, content);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (consider using a logging framework)
+                _logger.LogError(ex, "Error occurred while sending data to Power Automate.");
 
-             try
-             {
-                 // Logic to send the file to Power Automate and get the extracted information
-                 // Assuming you have a method that does this and returns a RegistrationModel
-                 //RegistrationModel registrationModel = new RegistrationModel();
-                  RegistrationModel registrationModel = await ProcessImageThroughPowerAutomate(file);
-                 return Ok(registrationModel);
-             }
-             catch (Exception ex)
-             {
-                 _logger.LogError(ex, "Error during image processing");
-                 return StatusCode(500, new { message = "Error processing image" });
-             }
-         }
-        */
+                // Return an HttpResponseMessage indicating failure
+                return new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.InternalServerError,
+                    Content = new StringContent($"Error occurred while communicating with Power Automate: {ex.Message}")
+                };
+            }
+        }
+
 
         [HttpPost("uploadImage")]
         public async Task<IActionResult> UploadImage([FromBody] ImageUploadModel imageData)
@@ -112,28 +119,6 @@ namespace ApothecaryServer.Controllers
         }
 
 
-        /*
-        private async Task<RegistrationModel> ProcessImageThroughPowerAutomate(IFormFile file)
-        {
-            using var httpClient = new HttpClient();
-            using var content = new MultipartFormDataContent();
-            using var fileStream = file.OpenReadStream();
-
-            content.Add(new StreamContent(fileStream), "file", file.FileName);
-
-            // Replace the URL with your Power Automate flow endpoint
-            var response = await httpClient.PostAsync("https://prod-51.westus.logic.azure.com:443/workflows/778cd526998a4e33942c61c936429532/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=pzhTvzAeNajFjpTHBiMQhTZ0Nr2OZyKe12go6-q8rs8", content);
-                          
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Error calling Power Automate");
-            }
-
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-            var registrationModel = JsonConvert.DeserializeObject<RegistrationModel>(jsonResponse);
-
-            return registrationModel;
-        }
-        */
+       
     }
 }
