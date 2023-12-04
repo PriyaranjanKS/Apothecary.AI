@@ -149,7 +149,8 @@ There are mainly 2 personas:
 
 #### If you encounter any issues rendering the YouTube video, a downloadable version is available [here](https://1drv.ms/v/s!AvGn4tBGzPxi5g_3noypWRmzIvjB?e=qHsrMa).
 
-[![Apothecary.AI Demonstration](http://img.youtube.com/vi/RiXLThVzJVE/0.jpg)](https://www.youtube.com/watch?v=RiXLThVzJVE "Click to Watch!")
+[![ApothecaryHome](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/1c5eefe1-8e47-4d48-a8bc-cad14a59d539)
+](https://youtu.be/B8uQB_R4exs)
 
 
 
