@@ -157,10 +157,11 @@ public class IoTController : ControllerBase
     }
     private static readonly Dictionary<string, string> connectionStrings = new Dictionary<string, string>
 {
-    { "Refrigeration01", "HostName=dh-hack.azure-devices.net;DeviceId=Refrigeration01;SharedAccessKey=i3/NTwmGf9bW26lojR7VogalDgiWt+uttAIoTMb0LiI=" },
-    { "Refrigeration02", "HostName=dh-hack.azure-devices.net;DeviceId=Refrigeration02;SharedAccessKey=vOE11VyYca3+njZQfUfJQCUa7M8lg9vHsAIoTH7X0hQ=" },
-    { "Refrigeration03", "HostName=dh-hack.azure-devices.net;DeviceId=Refrigeration03;SharedAccessKey=8ynmSkDl/QZEcNB712uUygvMnC1dBHru2AIoTNjrPtw=" },
-    { "Refrigeration04", "HostName=dh-hack.azure-devices.net;DeviceId=Refrigeration04;SharedAccessKey=kG/JcqmrYTTWug52uuLKN4t7Xcf0u8GOLAIoTHGmtE8=" }
+       //Ensure to use your own connection strings here
+    { "Refrigeration01", "HostName=dh-hack.azure-devices.net;DeviceId=Refrigeration01;SharedAccessKey=1i3/NTwmGf9bW26lojR7VogalDgiWt+uttAIoTMb0LiI=" },
+    { "Refrigeration02", "HostName=dh-hack.azure-devices.net;DeviceId=Refrigeration02;SharedAccessKey=1vOE11VyYca3+njZQfUfJQCUa7M8lg9vHsAIoTH7X0hQ=" },
+    { "Refrigeration03", "HostName=dh-hack.azure-devices.net;DeviceId=Refrigeration03;SharedAccessKey=18ynmSkDl/QZEcNB712uUygvMnC1dBHru2AIoTNjrPtw=" },
+    { "Refrigeration04", "HostName=dh-hack.azure-devices.net;DeviceId=Refrigeration04;SharedAccessKey=1kG/JcqmrYTTWug52uuLKN4t7Xcf0u8GOLAIoTHGmtE8=" }
 };
 
     [HttpGet("updates")]
