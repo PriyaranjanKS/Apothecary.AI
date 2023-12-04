@@ -65,7 +65,8 @@ Apothecary.AI integrates a myriad of state-of-the-art solutions, each designed t
 
 Apothecary.AI is powered by the fusion of Blazor, .NET Core Web API, Power Platform , Azure and Generative AI .
 
-![Tech Stack](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/431e286e-ee30-4888-b636-1e506d98bf84)
+ 
+![Tech Stack](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/78cfff39-d562-43ed-8302-6cd5a01ef05c)
 
 
 
