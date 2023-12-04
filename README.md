@@ -166,7 +166,7 @@ There are mainly 2 personas:
 > **THIS SOLUTION IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
 
 # Minimum Path to Awesomeness 
-The below steps will enable you to get the Apothecary.AI solution up and running in your machine. 
+The below steps will enable you to get the `Apothecary.AI` solution that contains the .NET and Power Platform component up and running in your machine. 
 
 ## Apothecary.AI .NET Solution 
 The .NET Solution consists of Server and Client Projects along with a Shared Class Library Project
