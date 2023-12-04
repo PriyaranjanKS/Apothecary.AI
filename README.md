@@ -1,5 +1,5 @@
  
-# **Apothecary.AI - The Hyper Automated Smart Pharmacy 🧬💊**
+# **Apothecary.AI - The Hyper Intelligent Smart Pharmacy 🧬💊**
 
 ![ApothecaryHome](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/d39aac36-02e3-4b83-acdd-aa9e247e8827)
 
