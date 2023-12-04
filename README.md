@@ -137,7 +137,8 @@ There are mainly 2 personas:
 > - ❄️ **Azure Open AI and IoT hub**: Predict downtimes of refrigeration devices.
 
  
-![image](https://github.com/PriyaranjanKS/Power-Platform-Global-AI-Hack-2023/assets/29351010/5aaaa1da-1ace-4a47-ac7c-9055be445b19)
+![Features](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/838ab5e7-1e01-4061-b1fb-9982f3d0838d)
+
 
 
 ##  Demonstration Video:
