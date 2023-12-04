@@ -1,6 +1,7 @@
  
 # **Apothecary.AI - The Hyper Automated Smart Pharmacy 🧬💊**
 
+![ApothecaryHome](https://github.com/PriyaranjanKS/Apothecary.AI/assets/29351010/1c43bd4e-56c2-4995-8316-11f4b24a9090)
 
 
 
